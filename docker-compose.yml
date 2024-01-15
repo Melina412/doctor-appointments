@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  database:
+    image: mongo:latest
+    container_name: doc_appt_db
+    networks:
+      - backend
+    volumes:
+      - mongodata:/data/db
+  backend:
+    build: ./backend
+    container_name: doc_appt_server
+    ports:
+      - $BACKENDPORT:3000
+    networks:
+      - backend
+      - frontend
+    environment:
+      - MONGODB_URI=$MONGODB
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - database
+  frontend:
+    build: ./frontend
+    container_name: doc_appt_frontend
+    ports:
+      - $FRONTENDPORT:5173
+    networks:
+      - frontend
+    volumes:
+      - ./frontend:/frontend
+networks:
+  backend:
+  frontend:
+volumes:
+  mongodata:
