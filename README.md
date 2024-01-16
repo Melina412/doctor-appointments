@@ -1,4 +1,4 @@
-# Doctor Appointments App Features
+# Doctor Appointments App - Features
 
 - [] doctors can register and login
 - [] doctors can create a profile
