@@ -29,7 +29,7 @@ services:
     networks:
       - frontend
     volumes:
-      - ./frontend:/frontend
+      - ./frontend:/app
 networks:
   backend:
   frontend:
