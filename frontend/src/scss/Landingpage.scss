@@ -1,0 +1,8 @@
+@import './partials/variables';
+@import './partials/mixins';
+
+main.landingpage {
+  h1 {
+    @include text-style(Arial, 3rem, $purple);
+  }
+}

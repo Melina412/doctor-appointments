@@ -36,8 +36,27 @@ export async function register(req, res) {
 }
 
 export async function login(req, res) {
-  const token = createToken({ email, role });
+  const { email } = req.body;
+  console.log({ email });
 
-  res.json({ token });
-  res.end();
+  try {
+    const user = await Doctor.findOne({ email });
+    console.log({ user });
+    if (!user) return res.status(401).end();
+
+    if (user.password !== createHash(req.body.password, user.salt))
+      return res.status(401).end();
+
+    const token = createToken({ user: user._id });
+
+    res
+      .cookie('doctorLoginAuth', token, {
+        httpOnly: true,
+        secure: true,
+      })
+      .end();
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
 }
