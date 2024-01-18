@@ -10,7 +10,7 @@ await mongoose.connect(process.env.MONGODB);
 
 export const app = express();
 
-app.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+app.use(cors({ credentials: true, origin: process.env.ALLOWED_ORIGIN }));
 app.use(express.json());
 app.use(morgan('dev'));
 

@@ -42,19 +42,24 @@ export async function login(req, res) {
   try {
     const user = await Doctor.findOne({ email });
     console.log({ user });
-    if (!user) return res.status(401).end();
+    if (!user) return res.status(401).json({ message: 'login failed' }).end();
 
     if (user.password !== createHash(req.body.password, user.salt))
-      return res.status(401).end();
+      return res.status(401).json({ message: 'login failed' }).end();
 
     const token = createToken({ user: user._id });
 
-    res
-      .cookie('doctorLoginAuth', token, {
-        httpOnly: true,
-        secure: true,
-      })
-      .end();
+    res.cookie('doctorLoginAuth', token, {
+      httpOnly: true,
+      secure: true,
+    });
+
+    res.json({
+      message: 'login successful',
+      data: { username: user.name, email: user.email },
+    });
+
+    res.end();
   } catch (error) {
     console.log(error);
     res.status(500).end();
