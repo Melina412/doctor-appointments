@@ -1,12 +1,12 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import { LoginContext } from '../context/LoginContext';
 
-function Login({ setLoginData }) {
+function Login({ setLogin }) {
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
-
-  // const [loginData, setLoginData] = useState(null);
+  // const { loginData, setLoginData } = useContext(LoginContext);
 
   const handleLogin = () => {
     userLogin();
@@ -37,9 +37,10 @@ function Login({ setLoginData }) {
       console.log(response);
 
       if (res.ok) {
-        setLoginData(response.data);
-        console.log('user data', response.data);
-        // navigate('/dashboard');
+        // console.log('user data', response.data);
+        // setLoginData(response.data);
+        setLogin(true);
+        navigate('/dashboard');
       } else if (res.status === 401) {
         console.error(response.message);
       }

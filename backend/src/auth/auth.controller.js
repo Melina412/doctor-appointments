@@ -47,9 +47,10 @@ export async function login(req, res) {
     if (user.password !== createHash(req.body.password, user.salt))
       return res.status(401).json({ message: 'login failed' }).end();
 
-    const token = createToken({ user: user._id });
+    const payload = { user: user._id, username: user.name, email: user.email };
+    const token = createToken(payload);
 
-    res.cookie('doctorLoginAuth', token, {
+    res.cookie('doctorauth', token, {
       httpOnly: true,
       secure: true,
     });
@@ -64,4 +65,19 @@ export async function login(req, res) {
     console.log(error);
     res.status(500).end();
   }
+}
+
+// diese funktion nutzt der client für die protector route!
+export function check(_, res) {
+  res.end();
+}
+
+export function logout(_, res) {
+  res.end();
+}
+
+export function getUserinfo(req, res) {
+  const { username, email } = req.payload;
+  console.log('req.payload:', req.payload);
+  res.json({ username, email });
 }
