@@ -7,23 +7,23 @@ function Dashboard({ login }) {
   return (
     <main className='dashboard'>
       <h1>Dashboard</h1>
-      {login ? (
-        <>
-          <h2>Hello Dr. .......</h2>
+      {/* {login ? ( */}
+      <>
+        <h2>Hello Dr. .......</h2>
 
-          <IncomingReservations />
-          {editMode ? (
-            <>
-              <Profile />
-              <button onClick={() => setEditMode(false)}>cancel</button>
-            </>
-          ) : (
-            <button onClick={() => setEditMode(true)}>edit profile</button>
-          )}
-        </>
-      ) : (
-        <p>please login to view dashboard</p>
-      )}
+        <IncomingReservations />
+        {editMode ? (
+          <>
+            <Profile />
+            <button onClick={() => setEditMode(false)}>cancel</button>
+          </>
+        ) : (
+          <button onClick={() => setEditMode(true)}>edit profile</button>
+        )}
+      </>
+      {/* ) : ( */}
+      <p>please login to view dashboard</p>
+      {/* )} */}
     </main>
   );
 }

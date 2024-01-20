@@ -10,7 +10,9 @@ export async function register(req, res) {
     // erst checken ob Doctor schon existiert
     const existingDoctor = await Doctor.findOne({ email });
     if (existingDoctor) {
-      return res.status(400).json({ message: 'email already exists in db' });
+      return res
+        .status(400)
+        .json({ success: false, message: 'email already exists in db' });
     }
 
     const salt = createSalt();
@@ -28,10 +30,10 @@ export async function register(req, res) {
     });
 
     await newDoctor.save();
-    res.status(201).end();
+    res.status(201).json({ success: true, message: 'new user added to db' });
   } catch (error) {
     console.error(error);
-    res.status(500).json();
+    res.status(500).json({ success: false, message: error });
   }
 }
 
