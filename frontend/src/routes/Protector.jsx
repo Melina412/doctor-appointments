@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+// import { LoginContext } from './context/LoginContext';
 
 function Protector() {
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  // const { loginData, setLoginData } = useContext(LoginContext);
 
   useEffect(() => {
     async function checkToken() {
@@ -26,9 +29,9 @@ function Protector() {
   }
   if (loading) {
     return (
-      <main className='flex justify-center items-center h-screen'>
+      <main>
         <div>
-          <span className='w-screen loading loading-infinity text-warning'></span>
+          <span>loading...</span>
         </div>
       </main>
     );

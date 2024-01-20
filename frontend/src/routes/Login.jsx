@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { LoginContext } from '../context/LoginContext';
 
-function Login({ setLogin }) {
+function Login({ setLogin, getLoginData }) {
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
@@ -39,15 +39,24 @@ function Login({ setLogin }) {
       if (res.ok) {
         // console.log('user data', response.data);
         // setLoginData(response.data);
-        setLogin(true);
+
+        localStorage.setItem('doctor-login', true);
+        getLoginData();
         navigate('/dashboard');
       } else if (res.status === 401) {
         console.error(response.message);
       }
     } catch (error) {
-      console.error(response.message, error);
+      console.error(error);
     }
   }
+
+  //   localStorage.setItem('username', 'Benutzername');
+  // localStorage.setItem('email', 'beispiel@email.com');
+
+  // Lese die Benutzerinformationen aus dem Local Storage
+  // const username = localStorage.getItem('username');
+  // const email = localStorage.getItem('email');
 
   return (
     <section className='login'>

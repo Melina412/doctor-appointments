@@ -72,12 +72,25 @@ export function check(_, res) {
   res.end();
 }
 
-export function logout(_, res) {
-  res.end();
+export function logout(req, res) {
+  const cookie = req.cookies.doctorauth;
+  console.log('cookie:', { doctorauth: cookie });
+
+  res.clearCookie('doctorauth');
+  res.json({
+    message: 'logout successful',
+  });
 }
 
 export function getUserinfo(req, res) {
-  const { username, email } = req.payload;
+  const { username, email, exp } = req.payload;
   console.log('req.payload:', req.payload);
-  res.json({ username, email });
+  res.json({
+    username,
+    email,
+    expiresCET: new Date(exp * 1000).toLocaleString('de-DE', {
+      timeZone: 'Europe/Berlin',
+    }),
+  });
+  // expiresCET nur als info für mich damit ich sehe wann der token abläuft
 }
