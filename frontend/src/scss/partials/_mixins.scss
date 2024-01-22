@@ -1,0 +1,10 @@
+@mixin text-style($ff, $fz, $c) {
+  font-family: $ff;
+  font-size: $fz;
+  color: $c;
+}
+
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}

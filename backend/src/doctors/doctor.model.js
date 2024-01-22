@@ -2,8 +2,14 @@ import mongoose from 'mongoose';
 // import { visitingHoursSchema } from '../models/visitinghours.model.js';
 
 const doctorSchema = new mongoose.Schema({
-  email: String,
-  password: String,
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   salt: String,
   name: String,
   specialty: String,

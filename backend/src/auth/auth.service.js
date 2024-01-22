@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { createHmac, randomBytes } from 'node:crypto';
 
 export function createToken(payload) {
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5min' });
 }
 
 export function verifyToken(token) {
