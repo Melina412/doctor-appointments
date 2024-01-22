@@ -22,7 +22,7 @@ function Dashboard({ login }) {
         )}
       </>
       {/* ) : ( */}
-      <p>please login to view dashboard</p>
+      {/* <p>please login to view dashboard</p> */}
       {/* )} */}
     </main>
   );

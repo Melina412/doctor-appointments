@@ -7,11 +7,13 @@ function Protector() {
   const [loading, setLoading] = useState(true);
 
   // const { loginData, setLoginData } = useContext(LoginContext);
+  console.log({ authorized });
+  console.log({ loading });
 
   useEffect(() => {
     async function checkToken() {
       const response = await fetch(
-        import.meta.env.VITE_BACKEND_URL + '/api/auth/check',
+        import.meta.env.VITE_BACKENDURL + '/api/auth/check',
         {
           credentials: 'include',
         }
