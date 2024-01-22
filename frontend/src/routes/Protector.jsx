@@ -7,8 +7,8 @@ function Protector() {
   const [loading, setLoading] = useState(true);
 
   // const { loginData, setLoginData } = useContext(LoginContext);
-  console.log({ authorized });
-  console.log({ loading });
+  // console.log({ authorized });
+  // console.log({ loading });
 
   useEffect(() => {
     async function checkToken() {
