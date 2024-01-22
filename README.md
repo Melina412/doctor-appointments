@@ -11,3 +11,9 @@
 <br/> [ ] patients receive an email to notify them about the outcome of their requested booking after the time slot has been accepted or declined by a doctor
 <br/> [ ] if more than one patient reserved the same time slot, other patients will also be notified that the booking was unsuccessful
 <br/> [ ] patients who visited a doctor will get an email with a link to rank their experience the day after an appointment
+
+## Tools
+
+- docker
+- JWT
+- jest, supertest
