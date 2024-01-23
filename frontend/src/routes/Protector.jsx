@@ -10,6 +10,8 @@ function Protector() {
   // console.log({ authorized });
   // console.log({ loading });
 
+  //$ checkToken() ----------------------------------------------------
+
   useEffect(() => {
     async function checkToken() {
       const response = await fetch(
@@ -26,7 +28,10 @@ function Protector() {
     checkToken();
   }, []);
 
+  // -----------------------------------------------------------------------
+
   if (!authorized && !loading) {
+    localStorage.setItem('doctor-login', false);
     return <Navigate to={'/login'} />;
   }
   if (loading) {

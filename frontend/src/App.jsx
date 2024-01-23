@@ -119,7 +119,7 @@ function App() {
     <>
       {/* <LoginContext.Provider value={{ loginData, setLoginData }}> */}
       <BrowserRouter>
-        <Header loginData={loginData} logout={userLogout} login={login} />
+        <Header loginData={loginData} userLogout={userLogout} login={login} />
         <Routes>
           <Route path='/' element={<Landingpage />} />
           <Route path='/doctors' element={<Doctors />} />
@@ -130,7 +130,10 @@ function App() {
             element={<Login setLogin={setLogin} getLoginData={getLoginData} />}
           />
           <Route element={<Protector />}>
-            <Route path='/dashboard' element={<Dashboard login={login} />} />
+            <Route
+              path='/dashboard'
+              element={<Dashboard login={login} getLoginData={getLoginData} />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

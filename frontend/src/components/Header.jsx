@@ -3,9 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 // import { LoginContext } from '../context/LoginContext';
 import '../scss/Header.scss';
 
-function Header({ loginData, logout, login }) {
+function Header({ loginData, userLogout, login }) {
   const handleLogout = () => {
-    logout();
+    userLogout();
   };
 
   // const { loginData, setLoginData } = useContext(LoginContext);
