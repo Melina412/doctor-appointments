@@ -9,4 +9,4 @@ test("response to get('/api/doctors') should be an array", async () => {
   expect(response.body).toBeInstanceOf(Array);
 });
 
-// für die post routen tests muss ich mocking benutzen abe dafür muss ich das mit den modulen nochmal anschuen
+// für die post routen tests muss ich mocking benutzen aber dafür muss ich das mit den modulen nochmal anschauen

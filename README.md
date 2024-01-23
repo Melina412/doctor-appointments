@@ -3,8 +3,8 @@
 ## Features
 
 [✅] doctors can register, login & logout
-<br/> [ ] doctors can create a profile
-<br/> [ ] doctors can create visiting hours
+<br/> [✅] doctors can create AND UPDATE their profile
+<br/> [✅] doctors can create AND UPDATE visiting hours
 <br/> [ ] patients can search for doctors and their specialties
 <br/> [ ] patients can choose a free time slot and reserve it to request an appointment
 <br/> [ ] doctors have to accept reserved time slots in order to confirm the appointment

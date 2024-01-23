@@ -11,7 +11,15 @@ const doctorSchema = new mongoose.Schema({
     required: true,
   },
   salt: String,
-  name: String,
+  title: String,
+  first_name: String,
+  last_name: String,
+  name: {
+    type: String,
+    get: function () {
+      return `${this.title} ${this.first_name} ${this.last_name}`;
+    },
+  },
   specialty: String,
   about: String,
   avatar: String,
@@ -25,6 +33,24 @@ const doctorSchema = new mongoose.Schema({
       { _id: false }
     ),
   },
+});
+
+// pre function (middleware) für updateOne weil sonst das name feld nicht upgedated wird
+doctorSchema.pre('updateOne', function (next) {
+  const { title, first_name, last_name } = this.getUpdate().$set;
+
+  if (title || first_name || last_name) {
+    this.updateOne(
+      {},
+      {
+        $set: {
+          name: `${title || ''} ${first_name || ''} ${last_name || ''}`,
+        },
+      }
+    );
+  }
+
+  next();
 });
 
 export const Doctor = mongoose.model('doctor', doctorSchema);

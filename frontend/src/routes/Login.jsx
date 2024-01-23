@@ -10,13 +10,6 @@ function Login({ setLogin, getLoginData }) {
 
   const [register, setRegister] = useState(false);
 
-  const handleLogin = () => {
-    userLogin();
-  };
-  const handleRegister = () => {
-    userRegister();
-  };
-
   async function userLogin() {
     const user = {
       email: userRef.current.value,
@@ -89,6 +82,21 @@ function Login({ setLogin, getLoginData }) {
     }
   }
 
+  const handleLogin = () => {
+    userLogin();
+  };
+
+  const handleRegister = () => {
+    userRegister();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleLogin();
+    }
+  };
+
   return (
     <section className='login'>
       <h1>Login</h1>
@@ -111,6 +119,7 @@ function Login({ setLogin, getLoginData }) {
             name='password'
             placeholder='password'
             ref={passwordRef}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
