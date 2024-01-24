@@ -23,6 +23,7 @@ const doctorSchema = new mongoose.Schema({
   specialty: String,
   about: String,
   avatar: String,
+  cloudinary_id: String,
   visiting_hours: {
     type: Map,
     of: new mongoose.Schema(
