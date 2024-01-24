@@ -45,7 +45,7 @@ function Dashboard({ login, getLoginData }) {
       const res = await fetch(
         `${import.meta.env.VITE_BACKENDURL}/api/user/image`,
         {
-          method: 'POST',
+          method: 'PUT',
           body: form,
           credentials: 'include',
         }

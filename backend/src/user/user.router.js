@@ -8,4 +8,4 @@ export const router = new express.Router();
 router.post('/profile', checkToken, profileData);
 router.put('/edit', checkToken, upload.none(), editProfile);
 
-router.post('/image', checkToken, upload.single('avatar'), addImage);
+router.put('/image', checkToken, upload.single('avatar'), addImage);

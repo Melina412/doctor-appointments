@@ -100,6 +100,12 @@ export async function addImage(req, res) {
     const query = { _id: user_id };
 
     if (user) {
+      // if image already exists in db entry the old one will be deleted first
+      if (user.cloudinary_id) {
+        const deleteResult = await deleteImage(user.cloudinary_id);
+        console.log({ deleteResult });
+      }
+
       try {
         const cloudinaryResult = await uploadImage(req.file.buffer);
         const avatar = cloudinaryResult.secure_url;
