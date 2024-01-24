@@ -1,0 +1,121 @@
+[
+  {
+    "email": "doc1@example.com",
+    "password": "hashedPassword1",
+    "salt": "123",
+    "title": "Dr.",
+    "first_name": "John",
+    "last_name": "Doe",
+    "name": "Dr. John Doe",
+    "specialty": "Cardiology",
+    "about": "Experienced cardiologist with a passion for patient care.",
+    "avatar": "https://picsum.photos/id/101/200/300",
+    "visiting_hours": {
+      "Mon": { "open": "08:00", "close": "14:00" },
+      "Tue": { "open": "09:00", "close": "15:00" },
+      "Wed": { "open": "10:00", "close": "16:00" }
+    }
+  },
+  {
+    "email": "doc2@example.com",
+    "password": "hashedPassword2",
+    "salt": "123",
+    "title": "Prof.",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "name": "Prof. Jane Smith",
+    "specialty": "Pediatrics",
+    "about": "Passionate pediatrician dedicated to children's health.",
+    "avatar": "https://picsum.photos/id/102/200/300",
+    "visiting_hours": {
+      "Mon": { "open": "09:00", "close": "15:00" },
+      "Tue": { "open": "10:00", "close": "16:00" },
+      "Thu": { "open": "08:00", "close": "14:00" }
+    }
+  },
+  {
+    "email": "doc3@example.com",
+    "password": "hashedPassword3",
+    "salt": "123",
+    "title": "Dr.",
+    "first_name": "Emily",
+    "last_name": "Johnson",
+    "name": "Dr. Emily Johnson",
+    "specialty": "Dermatology",
+    "about": "Skilled dermatologist with expertise in skin conditions.",
+    "avatar": "https://picsum.photos/id/103/200/300",
+    "visiting_hours": {
+      "Tue": { "open": "08:30", "close": "14:30" },
+      "Wed": { "open": "09:30", "close": "15:30" },
+      "Fri": { "open": "10:30", "close": "16:30" }
+    }
+  },
+  {
+    "email": "doc4@example.com",
+    "password": "hashedPassword4",
+    "salt": "123",
+    "title": "Prof.",
+    "first_name": "Michael",
+    "last_name": "Brown",
+    "name": "Prof. Michael Brown",
+    "specialty": "Orthopedics",
+    "about": "Passionate orthopedic surgeon focused on bone health.",
+    "avatar": "https://picsum.photos/id/104/200/300",
+    "visiting_hours": {
+      "Mon": { "open": "10:00", "close": "16:00" },
+      "Wed": { "open": "11:00", "close": "17:00" },
+      "Thu": { "open": "08:00", "close": "14:00" }
+    }
+  },
+  {
+    "email": "doc3@example.com",
+    "password": "hashedPassword3",
+    "salt": "123",
+    "title": "Dr.",
+    "first_name": "Emily",
+    "last_name": "Johnson",
+    "name": "Dr. Emily Johnson",
+    "specialty": "Dermatology",
+    "about": "Skilled dermatologist with expertise in skin conditions.",
+    "avatar": "https://picsum.photos/id/103/200/300",
+    "visiting_hours": {
+      "Tue": { "open": "08:30", "close": "14:30" },
+      "Wed": { "open": "09:30", "close": "15:30" },
+      "Fri": { "open": "10:30", "close": "16:30" }
+    }
+  },
+  {
+    "email": "doc4@example.com",
+    "password": "hashedPassword4",
+    "salt": "123",
+    "title": "Prof.",
+    "first_name": "Michael",
+    "last_name": "Brown",
+    "name": "Dr. John Doe",
+    "specialty": "Orthopedics",
+    "about": "Passionate orthopedic surgeon focused on bone health.",
+    "avatar": "https://picsum.photos/id/104/200/300",
+    "visiting_hours": {
+      "Mon": { "open": "10:00", "close": "16:00" },
+      "Wed": { "open": "11:00", "close": "17:00" },
+      "Thu": { "open": "08:00", "close": "14:00" }
+    }
+  },
+  {
+    "email": "doc5@example.com",
+    "password": "hashedPassword5",
+    "salt": "123",
+    "title": "Dr.",
+    "first_name": "Olivia",
+    "last_name": "Smith",
+    "name": "Dr. Olivia Smith",
+    "specialty": "Ophthalmology",
+    "about": "Experienced eye doctor dedicated to vision care.",
+    "avatar": "https://picsum.photos/id/105/200/300",
+    "visiting_hours": {
+      "Mon": { "open": "08:30", "close": "14:30" },
+      "Tue": { "open": "09:30", "close": "15:30" },
+      "Wed": { "open": "10:30", "close": "16:30" }
+    }
+  }
+]

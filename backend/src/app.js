@@ -1,15 +1,16 @@
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import morgan from 'morgan';
-import 'dotenv/config';
 import cookieParser from 'cookie-parser';
-import multer from 'multer';
+import 'dotenv/config';
+import './config/storage.config.js';
+
 import { router as authRouter } from './auth/auth.router.js';
 import { router as doctorRouter } from './doctors/doctor.router.js';
 import { router as userRouter } from './user/user.router.js';
 
-await mongoose.connect(process.env.MONGODB);
+// await mongoose.connect(process.env.MONGODB);
 
 export const app = express();
 

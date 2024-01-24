@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 // beim ersten einloggen nach der registrierung soll geprüft werden ob ein profil existiert
 // und falls nicht soll das eingabefolrmular angezeigt werden, ansonsten das komplette dashboard
+// eigentlich wäre es noch besser erst eine mail mit cide zur auth des users zu schicken und dann kann das profil erstellt werden
 
 function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
   const [selectedDays, setSelectedDays] = useState({
@@ -158,10 +159,10 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label htmlFor='avatar'>profile pic</label>
           <input type='file' name='avatar' id='avatar' />
-        </div>
+        </div> */}
 
         <div>
           <label htmlFor='about'>about</label>
