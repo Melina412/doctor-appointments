@@ -1,7 +1,7 @@
 function DoctorItem({ doctor }) {
   return (
     <div className='doctor-item'>
-      <div>
+      <div className='avatar-container'>
         <img src={doctor.avatar} alt='avatar image' />
       </div>
       <h1>{doctor.name}</h1>

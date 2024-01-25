@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import DoctorsList from '../components/DoctorsList';
+import DoctorsSearch from '../components/DoctorsSearch';
+import '../scss/Doctors.scss';
 
-function Doctors({ doctors, setDoctors }) {
+function Doctors({ doctors, setDoctors, specialties }) {
   const [filteredOutput, setFilteredOutput] = useState(doctors);
   const [value, updateValue] = useState(true);
   const homeSpecialty = sessionStorage.getItem('doctorSpecialty');
@@ -39,6 +41,11 @@ function Doctors({ doctors, setDoctors }) {
           </div>
         </>
       )}
+      <DoctorsSearch
+        doctors={doctors}
+        specialties={specialties}
+        setFilteredOutput={setFilteredOutput}
+      />
       <DoctorsList doctors={filteredOutput} />
     </main>
   );

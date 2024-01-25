@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import SpecialtyList from '../components/SpecialtyList';
 import '../scss/Landingpage.scss';
 
-function Landingpage({ doctors }) {
-  const [specialties, setSpecialties] = useState([]);
-
+function Landingpage({ doctors, specialties, setSpecialties }) {
   useEffect(() => {
     setSpecialties(
       doctors?.map((doctor, key) => ({

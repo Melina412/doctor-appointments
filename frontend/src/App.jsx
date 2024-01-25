@@ -15,6 +15,7 @@ function App() {
   const [loginData, setLoginData] = useState(null);
   const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch???
   const [doctors, setDoctors] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
 
   let localLogin = localStorage.getItem('doctor-login');
 
@@ -137,10 +138,25 @@ function App() {
       <BrowserRouter>
         <Header loginData={loginData} userLogout={userLogout} login={login} />
         <Routes>
-          <Route path='/' element={<Landingpage doctors={doctors} />} />
+          <Route
+            path='/'
+            element={
+              <Landingpage
+                doctors={doctors}
+                specialties={specialties}
+                setSpecialties={setSpecialties}
+              />
+            }
+          />
           <Route
             path='/doctors'
-            element={<Doctors doctors={doctors} setDoctors={setDoctors} />}
+            element={
+              <Doctors
+                doctors={doctors}
+                setDoctors={setDoctors}
+                specialties={specialties}
+              />
+            }
           />
           <Route path='/doctor/details' element={<DoctorDetails />} />
           <Route path='/appointment' element={<Appointment />} />
