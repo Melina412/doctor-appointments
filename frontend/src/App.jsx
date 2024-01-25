@@ -14,6 +14,7 @@ function App() {
   const [login, setLogin] = useState(false);
   const [loginData, setLoginData] = useState(null);
   const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch???
+  const [doctors, setDoctors] = useState([]);
 
   let localLogin = localStorage.getItem('doctor-login');
 
@@ -26,6 +27,20 @@ function App() {
       getLoginData();
     }
   }, []);
+
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
+
+  //$ fetchDoctors -------------------------------------------------------
+
+  async function fetchDoctors() {
+    const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
+    if (res.ok) {
+      const data = await res.json();
+      setDoctors(data);
+    }
+  }
 
   //$ getLoginData -------------------------------------------------------
   async function getLoginData() {
@@ -111,6 +126,7 @@ function App() {
   console.log({ loginData });
   console.log({ localLogin });
   console.log({ localStorageLogin });
+  console.log({ doctors });
 
   // console.log(darkModeSettings);
   // console.log('dark mode activated:', darkModeSettings.matches);
@@ -121,8 +137,11 @@ function App() {
       <BrowserRouter>
         <Header loginData={loginData} userLogout={userLogout} login={login} />
         <Routes>
-          <Route path='/' element={<Landingpage />} />
-          <Route path='/doctors' element={<Doctors />} />
+          <Route path='/' element={<Landingpage doctors={doctors} />} />
+          <Route
+            path='/doctors'
+            element={<Doctors doctors={doctors} setDoctors={setDoctors} />}
+          />
           <Route path='/doctor/details' element={<DoctorDetails />} />
           <Route path='/appointment' element={<Appointment />} />
           <Route

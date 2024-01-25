@@ -80,6 +80,8 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
     updateDefaultHours();
   }, []);
 
+  //$ editProfile() --------------------------------------------------------
+
   async function editProfile(e) {
     e.preventDefault();
     const form = new FormData(e.target);
