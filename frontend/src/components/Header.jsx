@@ -8,6 +8,8 @@ function Header({ loginData, userLogout, login }) {
     userLogout();
   };
 
+  console.log(loginData?.username);
+
   // const { loginData, setLoginData } = useContext(LoginContext);
   return (
     <header>

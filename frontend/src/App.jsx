@@ -28,6 +28,7 @@ function App() {
       getLoginData();
     }
   }, []);
+  // um die login data bei ändern des profils zu aktualisieren muss ich den token refreshen wegen dem payload!
 
   useEffect(() => {
     fetchDoctors();
@@ -158,8 +159,14 @@ function App() {
               />
             }
           />
-          <Route path='/doctor/details' element={<DoctorDetails />} />
-          <Route path='/appointment' element={<Appointment />} />
+          <Route
+            path='/doctor/details/:id'
+            element={<DoctorDetails doctors={doctors} />}
+          />
+          <Route
+            path='/appointment/:id'
+            element={<Appointment doctors={doctors} />}
+          />
           <Route
             path='/login'
             element={<Login setLogin={setLogin} getLoginData={getLoginData} />}

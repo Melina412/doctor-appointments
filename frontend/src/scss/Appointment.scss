@@ -1,0 +1,19 @@
+main.appointment {
+  div.upper-wrapper {
+    div.flex {
+      display: flex;
+      justify-content: space-between;
+
+      div.icon-container {
+        background-color: blanchedalmond;
+        border-radius: 5px;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
