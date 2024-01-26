@@ -5,6 +5,7 @@ import {
   check,
   logout,
   getUserinfo,
+  refreshToken,
 } from './auth.controller.js';
 import { checkToken } from '../middleware/auth.middleware.js';
 
@@ -15,3 +16,4 @@ router.post('/register', register);
 router.get('/check', checkToken, check);
 router.get('/logout', logout);
 router.get('/userinfo', checkToken, getUserinfo);
+router.get('/refresh-token', checkToken, refreshToken);

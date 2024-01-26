@@ -17,7 +17,11 @@ const doctorSchema = new mongoose.Schema({
   name: {
     type: String,
     get: function () {
-      return `${this.title} ${this.first_name} ${this.last_name}`;
+      if (this.title && this.first_name && this.last_name) {
+        return `${this.title} ${this.first_name} ${this.last_name}`;
+      } else {
+        return 'new user';
+      }
     },
   },
   specialty: String,

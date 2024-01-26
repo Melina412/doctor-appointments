@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function DoctorsSearch({
@@ -12,7 +12,7 @@ function DoctorsSearch({
   const [doctorAutocomplete, setDoctorAutocomplete] = useState('');
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [filteredEntries, setFilteredEntries] = useState([]);
+  //const [filteredEntries, setFilteredEntries] = useState([]);
 
   //$ Autocomplete ----------------------------------------------------------------------
 
@@ -20,12 +20,12 @@ function DoctorsSearch({
     setDoctorAutocomplete(
       doctors?.map((doctor) => `${doctor.first_name} ${doctor.last_name}`)
     );
-  }, []);
+  }, [doctors]);
 
   //$ handleOnChange() / filter suggestions
   const handleOnChange = (e) => {
     const inputValue = e.target.value;
-    console.log({ inputValue });
+    // console.log({ inputValue });
     setInput(inputValue);
 
     const filteredSuggestions = doctorAutocomplete
@@ -45,7 +45,6 @@ function DoctorsSearch({
   //$ handleOnClick() / match input
   const handleOnClick = (e) => {
     const suggestion = e.target.value;
-    console.log({ suggestion });
     setInput(suggestion);
     const matchedInput =
       doctors?.filter(
@@ -53,57 +52,35 @@ function DoctorsSearch({
           element.name &&
           element.name.toLowerCase().includes(suggestion.toLowerCase())
       ) || [];
-    console.log({ matchedInput });
     setFilteredOutput(matchedInput);
     setInput('');
   };
 
   //$ handleCheckboxes() / match specialties --------------------------------------------
 
-  // das hier funktioniert
   const handleCheckboxes = (specialty) => {
-    const checked = checkedSpecialties.includes(specialty);
-
-    if (checked) {
-      setCheckedSpecialties((prev) =>
-        prev.filter((item) => item !== specialty)
-      );
-    } else {
-      setCheckedSpecialties((prev) => [...prev, specialty]);
-    }
-    console.log('filteredOutput:', filteredOutput);
-    console.log('checkedSpecialties:', checkedSpecialties);
+    setCheckedSpecialties((prev) => {
+      const checked = prev.includes(specialty);
+      if (checked) {
+        return prev.filter((item) => item !== specialty);
+      } else {
+        return [...prev, specialty];
+      }
+    });
   };
 
-  // ab hier gibt es ein problem:
-  // ich hatte filteredEntries zuerst nur als const innerhalb des useEffect und hab dann dafür einen state benutzt, hat aber nichts gebracht
-
+  //* Hier den filtered Output Updaten
   useEffect(() => {
-    setFilteredEntries(
-      doctors?.filter((entry) => checkedSpecialties.includes(entry.specialty))
-    );
-
-    // setFilteredOutput((prev) => {
-    //   if (filteredEntries.length > 0) {
-    //     return filteredEntries;
-    //   } else {
-    //     return prev;
-    //   }
-    // });
-    // so funktioniert es auch nicht
-
-    if (filteredEntries.length > 0) {
-      setFilteredOutput(filteredEntries);
-    } else {
-      setFilteredOutput(doctors);
-    }
-
-    console.log('checkedSpecialties aus useEffect ------ ', checkedSpecialties);
-    console.log('filteredEntries aus useEffect ------ ', filteredEntries);
-    console.log('### filteredOutput aus useEffect ------ ', filteredOutput);
-
-    //# der state filteredOutput wird nicht richtig aktualisiert. dieser useEffect müsste eigentlich auch von filteredEntries abhängig sein, aber das führ zu einem infinity loop 😵‍💫
-  }, [checkedSpecialties]);
+    setFilteredOutput(() => {
+      if (checkedSpecialties.length > 0) {
+        return doctors?.filter((entry) =>
+          checkedSpecialties.includes(entry.specialty)
+        );
+      } else {
+        return doctors;
+      }
+    });
+  }, [checkedSpecialties, doctors]);
 
   //! console logs
 
