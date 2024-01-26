@@ -2,7 +2,7 @@ import SpecialtyItem from './SpecialtyItem';
 
 function SpecialtyList({ specialties }) {
   return (
-    <section>
+    <section className='spacialty-list'>
       <p>specialty list</p>
 
       {specialties?.map((specialty, index) => (

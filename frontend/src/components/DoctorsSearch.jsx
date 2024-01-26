@@ -1,24 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function DoctorsSearch({ doctors, specialties, setFilteredOutput }) {
-  const doctorRef = useRef();
-
+function DoctorsSearch({
+  doctors,
+  specialties,
+  filteredOutput,
+  setFilteredOutput,
+}) {
   const [filter, setFilter] = useState(false);
-  const [filterOptions, setFilterOptions] = useState([]);
+  const [checkedSpecialties, setCheckedSpecialties] = useState([]);
   const [doctorAutocomplete, setDoctorAutocomplete] = useState('');
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [filteredEntries, setFilteredEntries] = useState([]);
+
+  //$ Autocomplete ----------------------------------------------------------------------
 
   useEffect(() => {
     setDoctorAutocomplete(
       doctors?.map((doctor) => `${doctor.first_name} ${doctor.last_name}`)
     );
-    setFilterOptions(specialties);
   }, []);
 
-  console.log({ doctorAutocomplete });
-
+  //$ handleOnChange() / filter suggestions
   const handleOnChange = (e) => {
     const inputValue = e.target.value;
     console.log({ inputValue });
@@ -38,6 +42,7 @@ function DoctorsSearch({ doctors, specialties, setFilteredOutput }) {
     setSuggestions(filteredSuggestions);
   };
 
+  //$ handleOnClick() / match input
   const handleOnClick = (e) => {
     const suggestion = e.target.value;
     console.log({ suggestion });
@@ -53,6 +58,62 @@ function DoctorsSearch({ doctors, specialties, setFilteredOutput }) {
     setInput('');
   };
 
+  //$ handleCheckboxes() / match specialties --------------------------------------------
+
+  // das hier funktioniert
+  const handleCheckboxes = (specialty) => {
+    const checked = checkedSpecialties.includes(specialty);
+
+    if (checked) {
+      setCheckedSpecialties((prev) =>
+        prev.filter((item) => item !== specialty)
+      );
+    } else {
+      setCheckedSpecialties((prev) => [...prev, specialty]);
+    }
+    console.log('filteredOutput:', filteredOutput);
+    console.log('checkedSpecialties:', checkedSpecialties);
+  };
+
+  // ab hier gibt es ein problem:
+  // ich hatte filteredEntries zuerst nur als const innerhalb des useEffect und hab dann dafür einen state benutzt, hat aber nichts gebracht
+
+  useEffect(() => {
+    setFilteredEntries(
+      doctors?.filter((entry) => checkedSpecialties.includes(entry.specialty))
+    );
+
+    // setFilteredOutput((prev) => {
+    //   if (filteredEntries.length > 0) {
+    //     return filteredEntries;
+    //   } else {
+    //     return prev;
+    //   }
+    // });
+    // so funktioniert es auch nicht
+
+    if (filteredEntries.length > 0) {
+      setFilteredOutput(filteredEntries);
+    } else {
+      setFilteredOutput(doctors);
+    }
+
+    console.log('checkedSpecialties aus useEffect ------ ', checkedSpecialties);
+    console.log('filteredEntries aus useEffect ------ ', filteredEntries);
+    console.log('### filteredOutput aus useEffect ------ ', filteredOutput);
+
+    //# der state filteredOutput wird nicht richtig aktualisiert. dieser useEffect müsste eigentlich auch von filteredEntries abhängig sein, aber das führ zu einem infinity loop 😵‍💫
+  }, [checkedSpecialties]);
+
+  //! console logs
+
+  //   console.log({ doctorAutocomplete });
+  //   console.log({ filter }, 'klick auf filter icon');
+  console.log({ checkedSpecialties });
+  //   console.log({ input });
+  //   console.log('specialties von search:', specialties);
+  console.log('********** filteredOutput von DoctorsSearch:', filteredOutput);
+
   return (
     <section className='doctors-search'>
       <h1>Search</h1>
@@ -65,13 +126,25 @@ function DoctorsSearch({ doctors, specialties, setFilteredOutput }) {
             </div>
           </Link>
 
-          <div className='icon-container' onClick={() => setFilter(true)}>
+          <div
+            className='icon-container'
+            onClick={() => setFilter((prev) => !prev)}>
             <img src='/img/settings-icon.svg' alt='settings icon' />
           </div>
         </div>
-        {filterOptions && (
+        {filter === true && (
           <>
-            <input type='checkbox' />
+            {specialties.map((specialty, index) => (
+              <div key={index}>
+                <input
+                  type='checkbox'
+                  name={specialty}
+                  checked={checkedSpecialties.includes(specialty)}
+                  onChange={() => handleCheckboxes(specialty)}
+                />
+                <label htmlFor={specialty}>{specialty}</label>
+              </div>
+            ))}
           </>
         )}
       </div>

@@ -4,13 +4,9 @@ import '../scss/Landingpage.scss';
 
 function Landingpage({ doctors, specialties, setSpecialties }) {
   useEffect(() => {
-    setSpecialties(
-      doctors?.map((doctor, key) => ({
-        specialty: doctor.specialty,
-        key: doctor._id,
-      }))
-    );
-  }, []);
+    setSpecialties(doctors?.map((doctor) => doctor.specialty));
+  }, [doctors]);
+  // die specialties müssen dann noch gefiltert werden sobald es eine gibt die mehrmals vorkommt!
 
   console.log('doctors landingpage:', doctors);
   console.log({ specialties });
