@@ -80,6 +80,8 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
     updateDefaultHours();
   }, []);
 
+  //$ editProfile() --------------------------------------------------------
+
   async function editProfile(e) {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -158,11 +160,6 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
             defaultValue={profileData?.specialty}
           />
         </div>
-
-        {/* <div>
-          <label htmlFor='avatar'>profile pic</label>
-          <input type='file' name='avatar' id='avatar' />
-        </div> */}
 
         <div>
           <label htmlFor='about'>about</label>

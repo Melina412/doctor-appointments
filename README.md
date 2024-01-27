@@ -17,3 +17,4 @@
 - docker
 - JWT
 - jest, supertest
+- cloudinary

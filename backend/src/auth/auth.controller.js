@@ -96,3 +96,36 @@ export function getUserinfo(req, res) {
   });
   // expiresCET nur als info für mich damit ich sehe wann der token abläuft
 }
+
+export async function refreshToken(req, res) {
+  const { email } = req.payload.email;
+  console.log({ email }, 'refresh token');
+
+  try {
+    const user = await Doctor.findOne({ email });
+    console.log({ user });
+    if (!user) return res.status(401).json({ message: 'user not found' }).end();
+
+    if (user.password !== createHash(req.body.password, user.salt))
+      return res.status(401).json({ message: 'auth failed' }).end();
+
+    const payload = { user: user._id, username: user.name, email: user.email };
+    const token = createToken(payload);
+
+    res.cookie('doctorauth', token, {
+      httpOnly: true,
+      secure: true,
+    });
+
+    res.json({
+      sucess: true,
+      message: 'token refreshed',
+      data: { username: user.name, email: user.email },
+    });
+
+    res.end();
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+  }
+}

@@ -1,44 +1,53 @@
 import { useState, useEffect } from 'react';
-import DoctorsList from '../components/DoctorsList';
+import DoctorsList from '../components/Doctors/DoctorsList';
+import DoctorsSearch from '../components/Doctors/DoctorsSearch';
+import '../scss/Doctors.scss';
 
-function Doctors() {
-  const [doctors, setDoctors] = useState([]);
-  console.log({ doctors });
+function Doctors({ doctors, setDoctors, specialties }) {
+  const [filteredOutput, setFilteredOutput] = useState(doctors);
+  const [value, updateValue] = useState(true);
+  const homeSpecialty = sessionStorage.getItem('doctorSpecialty');
+
+  const filteredDoctors = doctors.filter(
+    (doctor) => doctor.specialty === homeSpecialty
+  );
+
   useEffect(() => {
-    fetchDoctors();
-  }, []);
-
-  async function fetchDoctors() {
-    const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
-    if (res.ok) {
-      const data = await res.json();
-      setDoctors(data);
+    if (homeSpecialty !== 'all') {
+      setFilteredOutput(filteredDoctors);
+    } else {
+      setFilteredOutput(doctors);
     }
-  }
+  }, [value, homeSpecialty]);
 
-  // sample data
-  // let doctors1 = [
-  //   {
-  //     name: 'Dr. Cordula Kirschmeier',
-  //     specialty: 'Orthopädie',
-  //     avatar: 'img/avatar.png',
-  //   },
-  //   {
-  //     name: 'Dr. Hans Müller',
-  //     specialty: 'Pneumologie',
-  //     avatar: 'img/avatar.png',
-  //   },
-  //   {
-  //     name: 'Dr. Pikachu',
-  //     specialty: 'Pokemon',
-  //     avatar: 'img/avatar.png',
-  //   },
-  // ];
+  const handleClick = () => {
+    sessionStorage.setItem('doctorSpecialty', 'all');
+    updateValue(value === true ? false : true);
+  };
+
+  // console.log({ homeSpecialty });
+  // console.log({ filteredDoctors });
+  console.log({ filteredOutput });
+  // console.log({ value });
 
   return (
     <main className='doctors'>
       <h1>Doctors</h1>
-      <DoctorsList doctors={doctors} />
+      {homeSpecialty !== 'all' && (
+        <>
+          <div>
+            <p>filter: {homeSpecialty}</p>
+            <button onClick={handleClick}>x</button>
+          </div>
+        </>
+      )}
+      <DoctorsSearch
+        doctors={doctors}
+        specialties={specialties}
+        setFilteredOutput={setFilteredOutput}
+        filteredOutput={filteredOutput}
+      />
+      <DoctorsList doctors={filteredOutput} />
     </main>
   );
 }

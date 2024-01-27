@@ -1,0 +1,44 @@
+main.appointment {
+  div.upper-wrapper {
+    div.flex {
+      display: flex;
+      justify-content: space-between;
+
+      div.icon-container {
+        background-color: blanchedalmond;
+        border-radius: 5px;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  section.calendar-days {
+    div.days-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+
+      div.calendar-items {
+        &.selected {
+          background-color: #3e64ff;
+        }
+      }
+    }
+  }
+
+  section.time-slots {
+    div.time-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      div.time-slot-items {
+        &.selected {
+          background-color: #3e64ff;
+        }
+      }
+    }
+  }
+}

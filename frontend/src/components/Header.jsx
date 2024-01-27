@@ -8,12 +8,18 @@ function Header({ loginData, userLogout, login }) {
     userLogout();
   };
 
+  console.log(loginData?.username);
+
   // const { loginData, setLoginData } = useContext(LoginContext);
   return (
     <header>
       <nav>
         <NavLink to='/'>HOME</NavLink>
-        <NavLink to='/doctors'>DOCTORS</NavLink>
+        <NavLink
+          to='/doctors'
+          onClick={() => sessionStorage.setItem('doctorSpecialty', 'all')}>
+          DOCTORS
+        </NavLink>
         <NavLink to='/login'>LOGIN</NavLink>
         <NavLink to='/dashboard'>DASHBOARD</NavLink>
       </nav>

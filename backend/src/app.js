@@ -9,7 +9,7 @@ import './config/storage.config.js';
 import { router as authRouter } from './auth/auth.router.js';
 import { router as doctorRouter } from './doctors/doctor.router.js';
 import { router as userRouter } from './user/user.router.js';
-
+import { router as appointmentRouter } from './appointments/appointments.router.js';
 // await mongoose.connect(process.env.MONGODB);
 
 export const app = express();
@@ -23,3 +23,4 @@ app.use('images', express.static('./images'));
 app.use('/api/auth', authRouter);
 app.use('/api/doctors', doctorRouter);
 app.use('/api/user', userRouter);
+app.use('/api/appointments', appointmentRouter);

@@ -1,4 +1,8 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+// import { LoginContext } from './context/LoginContext';
+
 import Landingpage from './pages/Landingpage';
 import Doctors from './pages/Doctors';
 import DoctorDetails from './pages/DoctorDetails';
@@ -6,14 +10,15 @@ import Appointment from './pages/Appointment';
 import Login from './routes/Login';
 import Protector from './routes/Protector';
 import Dashboard from './pages/Dashboard';
-import { useState, useEffect } from 'react';
-// import { LoginContext } from './context/LoginContext';
 import Header from './components/Header';
+import Fallback from './components/error/Fallback';
 
 function App() {
   const [login, setLogin] = useState(false);
   const [loginData, setLoginData] = useState(null);
   const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch???
+  const [doctors, setDoctors] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
 
   let localLogin = localStorage.getItem('doctor-login');
 
@@ -26,6 +31,21 @@ function App() {
       getLoginData();
     }
   }, []);
+  // um die login data bei ändern des profils zu aktualisieren muss ich den token refreshen wegen dem payload!
+
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
+
+  //$ fetchDoctors -------------------------------------------------------
+
+  async function fetchDoctors() {
+    const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
+    if (res.ok) {
+      const data = await res.json();
+      setDoctors(data);
+    }
+  }
 
   //$ getLoginData -------------------------------------------------------
   async function getLoginData() {
@@ -111,6 +131,7 @@ function App() {
   console.log({ loginData });
   console.log({ localLogin });
   console.log({ localStorageLogin });
+  console.log({ doctors });
 
   // console.log(darkModeSettings);
   // console.log('dark mode activated:', darkModeSettings.matches);
@@ -118,26 +139,56 @@ function App() {
   return (
     <>
       {/* <LoginContext.Provider value={{ loginData, setLoginData }}> */}
-      <BrowserRouter>
-        <Header loginData={loginData} userLogout={userLogout} login={login} />
-        <Routes>
-          <Route path='/' element={<Landingpage />} />
-          <Route path='/doctors' element={<Doctors />} />
-          <Route path='/doctor/details' element={<DoctorDetails />} />
-          <Route path='/appointment' element={<Appointment />} />
-          <Route
-            path='/login'
-            element={<Login setLogin={setLogin} getLoginData={getLoginData} />}
-          />
-          <Route element={<Protector />}>
+      <ErrorBoundary FallbackComponent={Fallback}>
+        <BrowserRouter>
+          <Header loginData={loginData} userLogout={userLogout} login={login} />
+          <Routes>
             <Route
-              path='/dashboard'
-              element={<Dashboard login={login} getLoginData={getLoginData} />}
+              path='/'
+              element={
+                <Landingpage
+                  doctors={doctors}
+                  specialties={specialties}
+                  setSpecialties={setSpecialties}
+                />
+              }
             />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      {/* </LoginContext.Provider> */}
+            <Route
+              path='/doctors'
+              element={
+                <Doctors
+                  doctors={doctors}
+                  setDoctors={setDoctors}
+                  specialties={specialties}
+                />
+              }
+            />
+            <Route
+              path='/doctor/details/:id'
+              element={<DoctorDetails doctors={doctors} />}
+            />
+            <Route
+              path='/appointment/:id'
+              element={<Appointment doctors={doctors} />}
+            />
+            <Route
+              path='/login'
+              element={
+                <Login setLogin={setLogin} getLoginData={getLoginData} />
+              }
+            />
+            <Route element={<Protector />}>
+              <Route
+                path='/dashboard'
+                element={
+                  <Dashboard login={login} getLoginData={getLoginData} />
+                }
+              />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        {/* </LoginContext.Provider> */}
+      </ErrorBoundary>
     </>
   );
 }
