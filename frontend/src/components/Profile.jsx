@@ -161,11 +161,6 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
           />
         </div>
 
-        {/* <div>
-          <label htmlFor='avatar'>profile pic</label>
-          <input type='file' name='avatar' id='avatar' />
-        </div> */}
-
         <div>
           <label htmlFor='about'>about</label>
           <textarea

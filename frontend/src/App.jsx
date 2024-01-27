@@ -1,4 +1,8 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+// import { LoginContext } from './context/LoginContext';
+
 import Landingpage from './pages/Landingpage';
 import Doctors from './pages/Doctors';
 import DoctorDetails from './pages/DoctorDetails';
@@ -6,9 +10,8 @@ import Appointment from './pages/Appointment';
 import Login from './routes/Login';
 import Protector from './routes/Protector';
 import Dashboard from './pages/Dashboard';
-import { useState, useEffect } from 'react';
-// import { LoginContext } from './context/LoginContext';
 import Header from './components/Header';
+import Fallback from './components/error/Fallback';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -136,50 +139,56 @@ function App() {
   return (
     <>
       {/* <LoginContext.Provider value={{ loginData, setLoginData }}> */}
-      <BrowserRouter>
-        <Header loginData={loginData} userLogout={userLogout} login={login} />
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <Landingpage
-                doctors={doctors}
-                specialties={specialties}
-                setSpecialties={setSpecialties}
-              />
-            }
-          />
-          <Route
-            path='/doctors'
-            element={
-              <Doctors
-                doctors={doctors}
-                setDoctors={setDoctors}
-                specialties={specialties}
-              />
-            }
-          />
-          <Route
-            path='/doctor/details/:id'
-            element={<DoctorDetails doctors={doctors} />}
-          />
-          <Route
-            path='/appointment/:id'
-            element={<Appointment doctors={doctors} />}
-          />
-          <Route
-            path='/login'
-            element={<Login setLogin={setLogin} getLoginData={getLoginData} />}
-          />
-          <Route element={<Protector />}>
+      <ErrorBoundary FallbackComponent={Fallback}>
+        <BrowserRouter>
+          <Header loginData={loginData} userLogout={userLogout} login={login} />
+          <Routes>
             <Route
-              path='/dashboard'
-              element={<Dashboard login={login} getLoginData={getLoginData} />}
+              path='/'
+              element={
+                <Landingpage
+                  doctors={doctors}
+                  specialties={specialties}
+                  setSpecialties={setSpecialties}
+                />
+              }
             />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      {/* </LoginContext.Provider> */}
+            <Route
+              path='/doctors'
+              element={
+                <Doctors
+                  doctors={doctors}
+                  setDoctors={setDoctors}
+                  specialties={specialties}
+                />
+              }
+            />
+            <Route
+              path='/doctor/details/:id'
+              element={<DoctorDetails doctors={doctors} />}
+            />
+            <Route
+              path='/appointment/:id'
+              element={<Appointment doctors={doctors} />}
+            />
+            <Route
+              path='/login'
+              element={
+                <Login setLogin={setLogin} getLoginData={getLoginData} />
+              }
+            />
+            <Route element={<Protector />}>
+              <Route
+                path='/dashboard'
+                element={
+                  <Dashboard login={login} getLoginData={getLoginData} />
+                }
+              />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        {/* </LoginContext.Provider> */}
+      </ErrorBoundary>
     </>
   );
 }

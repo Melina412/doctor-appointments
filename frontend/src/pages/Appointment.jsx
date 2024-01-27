@@ -2,10 +2,14 @@ import { Link, useParams } from 'react-router-dom';
 import '../scss/Appointment.scss';
 import TimeSlots from '../components/TimeSlots';
 import PatientForm from '../components/PatientForm';
+import { useState } from 'react';
 
 function Appointment({ doctors }) {
   const params = useParams();
   // console.log('appointment params ', params);
+
+  const [calendarDays, setCalendarDays] = useState(null);
+  const [timeSlots, setTimeSlots] = useState(null);
 
   const doctor = doctors?.find((item) => item._id === params.id);
   const visitingHours = doctor?.visiting_hours;
@@ -27,7 +31,14 @@ function Appointment({ doctors }) {
       </div>
       <h1>Appointment</h1>
       <p>book appointment for {doctor?.name}</p>
-      <TimeSlots visitingHours={visitingHours} doctor={doctor} />
+      <TimeSlots
+        visitingHours={visitingHours}
+        doctor={doctor}
+        calendarDays={calendarDays}
+        setCalendarDays={setCalendarDays}
+        timeSlots={timeSlots}
+        setTimeSlots={setTimeSlots}
+      />
       <PatientForm />
     </main>
   );
