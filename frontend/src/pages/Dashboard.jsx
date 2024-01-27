@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Profile from '../components/Profile';
-import IncomingReservations from '../components/IncomingReservations';
+import Profile from '../components/Dashboard/Profile';
+import IncomingReservations from '../components/Dashboard/IncomingReservations';
 import '../scss/Dashboard.scss';
 
 function Dashboard({ login, getLoginData }) {

@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import '../scss/Appointment.scss';
-import TimeSlots from '../components/TimeSlots';
-import PatientForm from '../components/PatientForm';
+import TimeSlots from '../components/Appointment/TimeSlots';
+import PatientForm from '../components/Appointment/PatientForm';
 import { useState } from 'react';
 
 function Appointment({ doctors }) {

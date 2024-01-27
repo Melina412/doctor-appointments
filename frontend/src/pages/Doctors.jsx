@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import DoctorsList from '../components/DoctorsList';
-import DoctorsSearch from '../components/DoctorsSearch';
+import DoctorsList from '../components/Doctors/DoctorsList';
+import DoctorsSearch from '../components/Doctors/DoctorsSearch';
 import '../scss/Doctors.scss';
 
 function Doctors({ doctors, setDoctors, specialties }) {

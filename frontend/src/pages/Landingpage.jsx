@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import SpecialtyList from '../components/SpecialtyList';
+import SpecialtyList from '../components/Landingpage/SpecialtyList';
 import '../scss/Landingpage.scss';
 
 function Landingpage({ doctors, specialties, setSpecialties }) {
