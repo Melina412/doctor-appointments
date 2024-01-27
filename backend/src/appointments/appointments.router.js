@@ -1,7 +1,7 @@
 import express from 'express';
-import { getDaysPerMonth } from './appointments.controller.js';
+import { getDaysPerMonth, getTimeSlots } from './appointments.controller.js';
 
 export const router = new express.Router();
 
-// router.post('/', getDaysPerMonth);
-router.get('/', getDaysPerMonth);
+router.get('/days', getDaysPerMonth);
+router.get('/timeslots', getTimeSlots);

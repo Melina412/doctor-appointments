@@ -1,4 +1,4 @@
-export function generateMonthOverviewFromDate(startDate) {
+export function generateCalendarDays(startDate) {
   const startYear = startDate.getFullYear();
   const startMonth = startDate.getMonth();
   const startDay = startDate.getDate();
@@ -50,4 +50,29 @@ export function generateMonthOverviewFromDate(startDate) {
   });
 
   return { [startYear]: monthOverview };
+}
+
+export function generateTimeSlots(selectedDay, visitingHours) {
+  if (visitingHours[selectedDay]) {
+    const timeSlots = [];
+    const { open, close } = visitingHours[selectedDay];
+
+    if (open && close) {
+      const startTime = new Date(`2000-01-01T${open}`);
+      const endTime = new Date(`2000-01-01T${close}`);
+
+      let currentTime = startTime;
+      while (currentTime < endTime) {
+        const slot = currentTime.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+        timeSlots.push(slot);
+        currentTime.setMinutes(currentTime.getMinutes() + 30);
+      }
+    }
+    return timeSlots;
+  } else {
+    return [];
+  }
 }

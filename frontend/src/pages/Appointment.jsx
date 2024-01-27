@@ -27,7 +27,7 @@ function Appointment({ doctors }) {
       </div>
       <h1>Appointment</h1>
       <p>book appointment for {doctor?.name}</p>
-      <TimeSlots visitingHours={visitingHours} />
+      <TimeSlots visitingHours={visitingHours} doctor={doctor} />
       <PatientForm />
     </main>
   );
