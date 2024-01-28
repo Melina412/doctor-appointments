@@ -69,7 +69,7 @@ function Dashboard({ login, getLoginData }) {
         <>
           <h2>Hello {profileData?.name}</h2>
 
-          <div className='picture'>
+          <section className='picture'>
             <div className='avatar-container'>
               <img src={profileData?.avatar} alt='user avatar' />
             </div>
@@ -89,7 +89,7 @@ function Dashboard({ login, getLoginData }) {
                 <button onClick={() => setEditAvatar(false)}>cancel</button>
               </>
             )}
-          </div>
+          </section>
 
           <IncomingReservations />
           {editMode ? (
