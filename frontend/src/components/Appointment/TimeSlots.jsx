@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 function TimeSlots({
   visitingHours,
   doctor,
-  calendarDays,
-  setCalendarDays,
-  timeSlots,
-  setTimeSlots,
+  selectedDate,
+  setSelectedDate,
+  selectedTime,
+  setSelectedTime,
 }) {
   const months = [
     'January',
@@ -24,14 +24,19 @@ function TimeSlots({
   ];
   const defaultMonth = new Date().getMonth();
 
-  const [selectedDate, setSelectedDate] = useState({ day: null, date: null });
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [month, setMonth] = useState(months[defaultMonth]);
+  // const [selectedDate, setSelectedDate] = useState({ day: null, date: null });
+  // const [selectedTime, setSelectedTime] = useState(null);
+  const [calendarDays, setCalendarDays] = useState(null);
+  const [timeSlots, setTimeSlots] = useState(null);
+
+  const [month, setMonth] = useState({
+    name: months[defaultMonth],
+    index: months.indexOf(months[defaultMonth]),
+  });
   const [dailySlots, setDailySlots] = useState([]);
   const [prevMonth, setPrevMonth] = useState(months[defaultMonth]);
 
-  const user = doctor?._id;
-
+  let doctor_id = doctor?._id;
   let year = '2024';
 
   //$ getCalendarDays() -----------------------------------------------------------
@@ -40,7 +45,7 @@ function TimeSlots({
     const res = await fetch(
       `${
         import.meta.env.VITE_BACKENDURL
-      }/api/appointments/days?year=${year}&month=${month}`,
+      }/api/appointments/days?year=${year}&month=${month.name}`,
       {
         method: 'GET',
         headers: {
@@ -49,13 +54,19 @@ function TimeSlots({
       }
     );
     const data = await res.json();
-    console.log('calendarDays', { data });
+    // console.log('calendarDays', { data });
+    // console.log('calendarDays month', data.month);
+    // console.log('calendarDays index', months.indexOf(data.month));
 
     if (res.ok) {
       const filteredDays = data.days.filter((day) =>
         Object.keys(visitingHours).includes(day.day)
       );
-      setCalendarDays({ ...data, days: filteredDays });
+      setCalendarDays({
+        ...data,
+        index: months.indexOf(data.month),
+        days: filteredDays,
+      });
     }
   }
 
@@ -66,7 +77,7 @@ function TimeSlots({
     if (calendarDays === null) {
       getCalendarDays();
     }
-    // das klappt leider nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
+    // das gwht nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
   });
 
   //$ getTimeSlots -----------------------------------------------------------
@@ -76,7 +87,7 @@ function TimeSlots({
       const res = await fetch(
         `${
           import.meta.env.VITE_BACKENDURL
-        }/api/appointments/timeslots?user=${user}`,
+        }/api/appointments/timeslots?doctor=${doctor_id}`,
         {
           method: 'GET',
           headers: {
@@ -85,7 +96,7 @@ function TimeSlots({
         }
       );
       const data = await res.json();
-      console.log('timeSlots', { data });
+      // console.log('timeSlots', { data });
 
       if (res.ok) {
         setTimeSlots(data.timeSlots);
@@ -96,8 +107,8 @@ function TimeSlots({
 
   //$ handleMonthClick -----------------------------------------------------------
 
-  const handleDateClick = (day, date) => {
-    setSelectedDate({ day: day, date: date });
+  const handleDateClick = (day, date, month, index) => {
+    setSelectedDate({ day: day, date: date, month: month, index: index });
   };
 
   const handleTimeClick = (item) => {
@@ -107,13 +118,14 @@ function TimeSlots({
   //$ handleMonthChange(e) -----------------------------------------------------------
 
   const handleMonthChange = (e) => {
-    let prev = [...month].join('');
+    let prev = [...month.name].join('');
     setPrevMonth(prev);
-    console.log({ prev });
-    setMonth(e.target.value);
+    // console.log({ prev });
+    // setMonth(e.target.value);
+    setMonth({ name: e.target.value, index: months.indexOf(e.target.value) });
 
-    if (prevMonth !== month) {
-      setSelectedDate({ day: null, date: null });
+    if (prevMonth !== month.name) {
+      setSelectedDate({ day: null, date: null, month: null });
       setDailySlots([]);
     }
   };
@@ -127,7 +139,7 @@ function TimeSlots({
             ([day, hours]) => day === selectedDate.day
           )
         : null;
-      console.log({ slots });
+      // console.log({ slots });
 
       if (slots) {
         setDailySlots(slots ? Object.values(slots[1]) : []);
@@ -138,15 +150,15 @@ function TimeSlots({
 
   //! console logs -----------------------------------------------
 
-  console.log({ month });
-  //   console.log({ user });
+  // console.log(month);
+  // console.log(doctor);
   //   console.log({ visitingHours });
-  //   console.log({ calendarDays });
-  console.log('selectedDate', selectedDate);
-  console.log('selectedTime', selectedTime);
-  console.log('timeSlots:', timeSlots);
-  console.log('dailySlots:', dailySlots);
-  console.log({ prevMonth });
+  // console.log({ calendarDays });
+  // console.log('selectedDate', selectedDate);
+  // console.log('selectedTime', selectedTime);
+  // console.log('timeSlots:', timeSlots);
+  // console.log('dailySlots:', dailySlots);
+  // console.log({ prevMonth });
 
   return (
     <>
@@ -169,7 +181,14 @@ function TimeSlots({
                 selectedDate.date === item.date ? 'selected' : ''
               }`}
               key={index}
-              onClick={() => handleDateClick(item.day, item.date)}>
+              onClick={() =>
+                handleDateClick(
+                  item.day,
+                  item.date,
+                  calendarDays.month,
+                  calendarDays.index
+                )
+              }>
               <p>{item.date}</p>
               <p>{item.day}</p>
             </div>

@@ -8,7 +8,7 @@ function Dashboard({ login, getLoginData }) {
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
 
-  console.log({ profileData });
+  // console.log({ profileData });
 
   //$ getProfileData() ----------------------------------------------------
 
@@ -24,7 +24,7 @@ function Dashboard({ login, getLoginData }) {
       }
     );
     const data = await res.json();
-    console.log('response getProfileData:', data);
+    // console.log('response getProfileData:', data);
 
     if (res.ok) {
       setProfileData(data);
@@ -40,7 +40,6 @@ function Dashboard({ login, getLoginData }) {
   async function uploadAvatar(e) {
     e.preventDefault();
     const form = new FormData(e.target);
-    console.log({ form });
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BACKENDURL}/api/user/image`,
@@ -69,7 +68,7 @@ function Dashboard({ login, getLoginData }) {
         <>
           <h2>Hello {profileData?.name}</h2>
 
-          <div className='picture'>
+          <section className='picture'>
             <div className='avatar-container'>
               <img src={profileData?.avatar} alt='user avatar' />
             </div>
@@ -89,9 +88,10 @@ function Dashboard({ login, getLoginData }) {
                 <button onClick={() => setEditAvatar(false)}>cancel</button>
               </>
             )}
-          </div>
+          </section>
 
           <IncomingReservations />
+          <h2>Profile</h2>
           {editMode ? (
             <>
               <Profile

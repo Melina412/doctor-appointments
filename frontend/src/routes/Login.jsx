@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { LoginContext } from '../context/LoginContext';
+
+// nach der registrierung soll eine mail mit 6 digit code zur auth des users gesendet werden, erst dann kann man das profil erstellen (nicht fertig)
 
 function Login({ setLogin, getLoginData }) {
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
-  // const { loginData, setLoginData } = useContext(LoginContext);
 
   const [register, setRegister] = useState(false);
+  const [registerMode, setRegisterMode] = useState(false);
 
   async function userLogin() {
     const user = {
@@ -16,7 +17,7 @@ function Login({ setLogin, getLoginData }) {
       password: passwordRef.current.value,
     };
 
-    console.log({ user });
+    // console.log({ user });
 
     try {
       const res = await fetch(
@@ -32,7 +33,7 @@ function Login({ setLogin, getLoginData }) {
       );
 
       const response = await res.json();
-      console.log(response);
+      // console.log(response);
 
       if (res.ok) {
         localStorage.setItem('doctor-login', true);
@@ -52,7 +53,7 @@ function Login({ setLogin, getLoginData }) {
       password: passwordRef.current.value,
     };
 
-    console.log({ newUser });
+    // console.log({ newUser });
 
     try {
       const res = await fetch(
@@ -67,13 +68,13 @@ function Login({ setLogin, getLoginData }) {
       );
 
       const response = await res.json();
-      console.log(response);
+      // console.log(response);
 
       if (res.ok) {
         userRef.current.value = '';
         passwordRef.current.value = '';
         setRegister(true);
-        console.log(response.message);
+        // console.log(response.message);
       } else if (res.status === 400) {
         console.error(response.message);
       }
@@ -124,9 +125,11 @@ function Login({ setLogin, getLoginData }) {
         </div>
 
         <button onClick={handleLogin}>Login</button>
+        <p>(Login only for already registered users for now)</p>
       </div>
+
       {register ? (
-        <p>register successful. please log in!</p>
+        <p style={{ fontSize: '2rem' }}>register successful. please log in!</p>
       ) : (
         <div>
           <p>

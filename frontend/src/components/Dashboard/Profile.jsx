@@ -1,56 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
+import { getSelectedDays } from '../../utils/getSelectedDays';
 
-// beim ersten einloggen nach der registrierung soll geprüft werden ob ein profil existiert
-// und falls nicht soll das eingabefolrmular angezeigt werden, ansonsten das komplette dashboard
-// eigentlich wäre es noch besser erst eine mail mit cide zur auth des users zu schicken und dann kann das profil erstellt werden
+// beim ersten einloggen nach der registrierung soll man direkt zum profile formular navigiert werden (nicht fertig)
 
 function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
-  const [selectedDays, setSelectedDays] = useState({
-    Monday: {
-      checked: profileData?.visiting_hours?.Mon ? true : false,
-      id: 'Mon',
-      open: profileData?.visiting_hours?.Mon?.open || '',
-      close: profileData?.visiting_hours?.Mon?.close || '',
-    },
-    Tuesday: {
-      checked: profileData?.visiting_hours?.Tue ? true : false,
-      id: 'Tue',
-      open: profileData?.visiting_hours?.Tue?.open || '',
-      close: profileData?.visiting_hours?.Tue?.close || '',
-    },
-    Wednesday: {
-      checked: profileData?.visiting_hours?.Wed ? true : false,
-      id: 'Wed',
-      open: profileData?.visiting_hours?.Wed?.open || '',
-      close: profileData?.visiting_hours?.Wed?.close || '',
-    },
-    Thursday: {
-      checked: profileData?.visiting_hours?.Thu ? true : false,
-      id: 'Thu',
-      open: profileData?.visiting_hours?.Thu?.open || '',
-      close: profileData?.visiting_hours?.Thu?.close || '',
-    },
-    Friday: {
-      checked: profileData?.visiting_hours?.Fri ? true : false,
-      id: 'Fri',
-      open: profileData?.visiting_hours?.Fri?.open || '',
-      close: profileData?.visiting_hours?.Fri?.close || '',
-    },
-    Saturday: {
-      checked: profileData?.visiting_hours?.Sat ? true : false,
-      id: 'Sat',
-      open: profileData?.visiting_hours?.Sat?.open || '',
-      close: profileData?.visiting_hours?.Sat?.close || '',
-    },
-    Sunday: {
-      checked: profileData?.visiting_hours?.Sun ? true : false,
-      id: 'Sun',
-      open: profileData?.visiting_hours?.Sun?.open || '',
-      close: profileData?.visiting_hours?.Sun?.close || '',
-    },
-  });
-
-  //   console.log({ selectedDays });
+  const [selectedDays, setSelectedDays] = useState(
+    profileData ? getSelectedDays(profileData) : null
+  );
+  // console.log({ selectedDays });
 
   // visiting hours default values
   const [defaultHours, setDefaultHours] = useState({
@@ -75,7 +32,7 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
         }
       );
       setSelectedDays(updatedDays);
-      console.log({ updatedDays });
+      // console.log({ updatedDays });
     };
     updateDefaultHours();
   }, []);
@@ -85,7 +42,6 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
   async function editProfile(e) {
     e.preventDefault();
     const form = new FormData(e.target);
-    console.log({ form });
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BACKENDURL}/api/user/edit`,
@@ -97,7 +53,7 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
       );
 
       if (res.ok) {
-        console.log('edit Profile hat was gemacht');
+        // console.log('edit Profile hat was gemacht');
         setEditMode(false);
         await getProfileData();
         getLoginData();

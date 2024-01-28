@@ -6,14 +6,18 @@ import { useState } from 'react';
 
 function Appointment({ doctors }) {
   const params = useParams();
-  // console.log('appointment params ', params);
-
-  const [calendarDays, setCalendarDays] = useState(null);
-  const [timeSlots, setTimeSlots] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedDate, setSelectedDate] = useState({
+    day: null,
+    date: null,
+    month: null,
+    index: null,
+  });
 
   const doctor = doctors?.find((item) => item._id === params.id);
   const visitingHours = doctor?.visiting_hours;
 
+  // console.log('appointment params ', params);
   return (
     <main className='appointment'>
       <div className='upper-wrapper'>
@@ -34,12 +38,16 @@ function Appointment({ doctors }) {
       <TimeSlots
         visitingHours={visitingHours}
         doctor={doctor}
-        calendarDays={calendarDays}
-        setCalendarDays={setCalendarDays}
-        timeSlots={timeSlots}
-        setTimeSlots={setTimeSlots}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
       />
-      <PatientForm />
+      <PatientForm
+        selectedDate={selectedDate}
+        selectedTime={selectedTime}
+        doctor={doctor}
+      />
     </main>
   );
 }

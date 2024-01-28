@@ -84,12 +84,12 @@ function DoctorsSearch({
 
   //! console logs
 
-  //   console.log({ doctorAutocomplete });
-  //   console.log({ filter }, 'klick auf filter icon');
-  console.log({ checkedSpecialties });
-  //   console.log({ input });
-  //   console.log('specialties von search:', specialties);
-  console.log('********** filteredOutput von DoctorsSearch:', filteredOutput);
+  // console.log({ doctorAutocomplete });
+  // console.log({ filter }, 'klick auf filter icon');
+  // console.log({ checkedSpecialties });
+  // console.log({ input });
+  // console.log('specialties von search:', specialties);
+  // console.log('********** filteredOutput von DoctorsSearch:', filteredOutput);
 
   return (
     <section className='doctors-search'>

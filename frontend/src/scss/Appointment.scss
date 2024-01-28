@@ -1,3 +1,5 @@
+@import './partials/variables';
+
 main.appointment {
   div.upper-wrapper {
     div.flex {
@@ -24,7 +26,7 @@ main.appointment {
 
       div.calendar-items {
         &.selected {
-          background-color: #3e64ff;
+          background-color: $blue;
         }
       }
     }
@@ -36,7 +38,7 @@ main.appointment {
       grid-template-columns: repeat(4, 1fr);
       div.time-slot-items {
         &.selected {
-          background-color: #3e64ff;
+          background-color: $blue;
         }
       }
     }

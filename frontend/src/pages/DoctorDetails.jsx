@@ -8,7 +8,7 @@ function DoctorDetails({ doctors }) {
   const doctor = doctors?.find((item) => item._id === params.id);
 
   // console.log('DoctorDetails', { doctors });
-  console.log('DoctorDetails ', { doctor });
+  // console.log('DoctorDetails ', { doctor });
 
   return (
     <main className='doctor-details'>

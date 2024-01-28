@@ -1,5 +1,7 @@
+@import './partials/variables';
+
 main.dashboard {
-  div.picture {
+  section.picture {
     div.avatar-container {
       width: 100px;
       height: 100px;
@@ -9,6 +11,13 @@ main.dashboard {
         height: 100%;
         border-radius: 50%;
       }
+    }
+  }
+
+  section.incoming-reservations {
+    div.appt-item {
+      margin-top: 1rem;
+      border: 0.1px solid $border;
     }
   }
 }
