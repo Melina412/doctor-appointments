@@ -3,7 +3,7 @@ import { Doctor } from '../doctors/doctor.model.js';
 import { uploadImage, deleteImage } from './user.service.js';
 
 export async function profileData(req, res) {
-  console.log('req.payload von getProfileData:', req.payload);
+  //   console.log('req.payload von getProfileData:', req.payload);
 
   const user_id = req.payload.user;
 
@@ -15,7 +15,7 @@ export async function profileData(req, res) {
         __v: 0,
       })
       .exec();
-    console.log({ user });
+    // console.log({ user });
     res.json(user);
   } catch (error) {
     console.log(error);
@@ -24,8 +24,8 @@ export async function profileData(req, res) {
 }
 
 export async function editProfile(req, res) {
-  console.log('req.payload von editProfile:', req.payload);
-  console.log('req body:', req.body);
+  //   console.log('req.payload von editProfile:', req.payload);
+  //   console.log('req body:', req.body);
 
   const user_id = req.payload.user;
   const {
@@ -62,7 +62,7 @@ export async function editProfile(req, res) {
 
   try {
     const user = await Doctor.findById(user_id).exec();
-    console.log({ user });
+    // console.log({ user });
     const query = { _id: user_id };
 
     if (user) {
@@ -78,7 +78,7 @@ export async function editProfile(req, res) {
       });
       if (updateResult.modifiedCount > 0) {
         const updatedUser = await Doctor.findById(user_id).exec();
-        console.log({ updatedUser });
+        // console.log({ updatedUser });
         res
           .status(201)
           .json({ success: true, message: 'user data updated in db' });
@@ -88,7 +88,7 @@ export async function editProfile(req, res) {
     }
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
-    console.log({ error });
+    // console.log({ error });
   }
 }
 
@@ -97,14 +97,14 @@ export async function addImage(req, res) {
 
   try {
     const user = await Doctor.findById(user_id).exec();
-    console.log({ user });
+    // console.log({ user });
     const query = { _id: user_id };
 
     if (user) {
       // if image already exists in db entry the old one will be deleted first
       if (user.cloudinary_id) {
         const deleteResult = await deleteImage(user.cloudinary_id);
-        console.log({ deleteResult });
+        // console.log({ deleteResult });
       }
 
       try {
@@ -122,7 +122,7 @@ export async function addImage(req, res) {
 
         if (updateResult.modifiedCount > 0) {
           const updatedUser = await Doctor.findById(user_id).exec();
-          console.log({ updatedUser });
+          //   console.log({ updatedUser });
           res.status(201).json({
             success: true,
             message: 'user avatar saved to db',
@@ -151,7 +151,7 @@ export async function getMyAppointments(req, res) {
 
   try {
     const appointments = await Appointment.find({ doctor: user_id });
-    console.log({ appointments });
+    // console.log({ appointments });
     res.json(appointments);
   } catch (error) {
     res.status(500).end();

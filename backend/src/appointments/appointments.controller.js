@@ -9,12 +9,12 @@ export async function getDaysPerMonth(req, res) {
   const month = req.query.month;
   const year = req.query.year;
   const today = new Date();
-  console.log({ month }, { year });
+  //   console.log({ month }, { year });
 
   // die funktion funktioniert aktuell nur für das jahr 2024
   const monthOverview = generateCalendarDays(today);
   const query = monthOverview[year] ? monthOverview[year][month] || [] : [];
-  console.log(query);
+  //   console.log(query);
 
   res.json({ year: year, month: month, days: query });
 }
@@ -28,19 +28,19 @@ export async function getTimeSlots(req, res) {
 
     if (doctor) {
       const visitingHours = doctor.visiting_hours;
-      console.log(doctor.name, { visitingHours });
+      //   console.log(doctor.name, { visitingHours });
 
       const getDays = () => (visitingHours ? Object.keys(visitingHours) : []);
       let days = getDays();
 
-      console.log({ days });
+      //   console.log({ days });
 
       let timeSlots = {};
       for (const day of days) {
         timeSlots[day] = generateTimeSlots(day, visitingHours);
       }
 
-      console.log({ timeSlots });
+      //   console.log({ timeSlots });
       res.json({ timeSlots: timeSlots });
     }
   } catch (error) {
@@ -65,7 +65,7 @@ export async function requestAppointment(req, res) {
 
   try {
     const doctor = await Doctor.findById(doctor_id).exec();
-    console.log('doctor:', doctor.name);
+    // console.log('doctor:', doctor.name);
     if (doctor) {
       const appointment = new Appointment({
         date,

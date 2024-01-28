@@ -30,7 +30,7 @@ function App() {
       getLoginData();
     }
   }, []);
-  // um die login data bei ändern des profils zu aktualisieren muss ich den token refreshen wegen dem payload!
+  // um die login data beim ändern des profils zu atualisieren muss ich die refresh token route noch ins frontend einbauen (nicht fertig)
 
   useEffect(() => {
     fetchDoctors();
@@ -61,7 +61,7 @@ function App() {
       );
 
       const response = await res.json();
-      console.log('response getLoginData:', response);
+      // console.log('response getLoginData:', response);
 
       if (res.ok) {
         setLogin(true);
@@ -73,7 +73,7 @@ function App() {
       }
     } catch (error) {
       setLoginData(null);
-      console.error('token expired', error);
+      // console.error('token expired', error);
     }
   }
 
@@ -93,7 +93,7 @@ function App() {
       );
 
       const response = await res.json();
-      console.log(response);
+      // console.log(response);
 
       if (res.ok) {
         localStorage.setItem('doctor-login', false);
@@ -101,7 +101,7 @@ function App() {
         setLocalStorageLogin(localLogin);
         setLogin(false);
         getLoginData();
-        console.log(response.message);
+        // console.log(response.message);
       } else if (res.status === 401) {
         console.error(response.message);
       }
@@ -113,6 +113,7 @@ function App() {
   //$ dark mode settings -------------------------------------------------
 
   // handling dark mode via user os settings with window object
+  // das wurde noch nich implementiert weil der style noch komplett fehlt
   if (
     window.matchMedia &&
     window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -125,11 +126,11 @@ function App() {
 
   //$ console logs -------------------------------------------------------
 
-  console.log({ login });
-  console.log({ loginData });
-  console.log({ localLogin });
-  console.log({ localStorageLogin });
-  console.log({ doctors });
+  // console.log({ login });
+  // console.log({ loginData });
+  // console.log({ localLogin });
+  // console.log({ localStorageLogin });
+  // console.log({ doctors });
 
   // console.log(darkModeSettings);
   // console.log('dark mode activated:', darkModeSettings.matches);

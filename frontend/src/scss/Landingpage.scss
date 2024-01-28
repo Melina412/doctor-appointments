@@ -3,6 +3,6 @@
 
 main.landingpage {
   h1 {
-    @include text-style(Arial, 3rem, $purple);
+    @include text-style(Arial, 3rem, $blue);
   }
 }

@@ -22,5 +22,5 @@ export function createSalt() {
 // diese funktion brauche ich nur einmal um ein jwt secret zu generieren
 export function createSecret() {
   const jwtSecret = randomBytes(12).toString('hex');
-  console.log('new secret created:', `JWT_SECRET=${jwtSecret}`);
+  // console.log('new secret created:', `JWT_SECRET=${jwtSecret}`);
 }

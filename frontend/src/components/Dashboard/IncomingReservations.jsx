@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import AppointmentItem from './AppointmentItem';
 
+// dieses feature ist noch nicht fertig
+
 function IncomingReservations() {
   const [myAppointments, setMyAppointments] = useState([]);
 
@@ -26,10 +28,10 @@ function IncomingReservations() {
     getMyAppointments();
   }, []);
 
-  console.log('myAppointments', myAppointments);
+  // console.log('myAppointments', myAppointments);
 
   return (
-    <section className='incomig-reservations'>
+    <section className='incoming-reservations'>
       <h1>incoming reservations</h1>
       {myAppointments?.map((appt, index) => (
         <AppointmentItem key={index} appt={appt} />

@@ -3,10 +3,6 @@ import { useEffect, useState } from 'react';
 function TimeSlots({
   visitingHours,
   doctor,
-  // calendarDays,
-  // setCalendarDays,
-  // timeSlots,
-  // setTimeSlots,
   selectedDate,
   setSelectedDate,
   selectedTime,
@@ -58,9 +54,9 @@ function TimeSlots({
       }
     );
     const data = await res.json();
-    console.log('calendarDays', { data });
-    console.log('calendarDays month', data.month);
-    console.log('calendarDays index', months.indexOf(data.month));
+    // console.log('calendarDays', { data });
+    // console.log('calendarDays month', data.month);
+    // console.log('calendarDays index', months.indexOf(data.month));
 
     if (res.ok) {
       const filteredDays = data.days.filter((day) =>
@@ -81,7 +77,7 @@ function TimeSlots({
     if (calendarDays === null) {
       getCalendarDays();
     }
-    // das klappt leider nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
+    // das gwht nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
   });
 
   //$ getTimeSlots -----------------------------------------------------------
@@ -100,7 +96,7 @@ function TimeSlots({
         }
       );
       const data = await res.json();
-      console.log('timeSlots', { data });
+      // console.log('timeSlots', { data });
 
       if (res.ok) {
         setTimeSlots(data.timeSlots);
@@ -124,7 +120,7 @@ function TimeSlots({
   const handleMonthChange = (e) => {
     let prev = [...month.name].join('');
     setPrevMonth(prev);
-    console.log({ prev });
+    // console.log({ prev });
     // setMonth(e.target.value);
     setMonth({ name: e.target.value, index: months.indexOf(e.target.value) });
 
@@ -143,7 +139,7 @@ function TimeSlots({
             ([day, hours]) => day === selectedDate.day
           )
         : null;
-      console.log({ slots });
+      // console.log({ slots });
 
       if (slots) {
         setDailySlots(slots ? Object.values(slots[1]) : []);
@@ -154,15 +150,15 @@ function TimeSlots({
 
   //! console logs -----------------------------------------------
 
-  console.log(month);
-  console.log(doctor);
+  // console.log(month);
+  // console.log(doctor);
   //   console.log({ visitingHours });
-  console.log({ calendarDays });
-  console.log('selectedDate', selectedDate);
-  console.log('selectedTime', selectedTime);
-  console.log('timeSlots:', timeSlots);
-  console.log('dailySlots:', dailySlots);
-  console.log({ prevMonth });
+  // console.log({ calendarDays });
+  // console.log('selectedDate', selectedDate);
+  // console.log('selectedTime', selectedTime);
+  // console.log('timeSlots:', timeSlots);
+  // console.log('dailySlots:', dailySlots);
+  // console.log({ prevMonth });
 
   return (
     <>

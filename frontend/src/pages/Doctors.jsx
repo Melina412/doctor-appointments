@@ -27,7 +27,7 @@ function Doctors({ doctors, setDoctors, specialties }) {
 
   // console.log({ homeSpecialty });
   // console.log({ filteredDoctors });
-  console.log({ filteredOutput });
+  // console.log({ filteredOutput });
   // console.log({ value });
 
   return (
