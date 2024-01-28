@@ -144,3 +144,7 @@ export async function addImage(req, res) {
     res.status(500).end();
   }
 }
+
+export async function getMyAppointments(req, res) {
+  res.end();
+}

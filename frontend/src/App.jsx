@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-// import { LoginContext } from './context/LoginContext';
 
 import Landingpage from './pages/Landingpage';
 import Doctors from './pages/Doctors';
@@ -74,8 +73,7 @@ function App() {
       }
     } catch (error) {
       setLoginData(null);
-      console.error(error);
-      console.error('das ist nur der error vom abgelaufenen token 😌');
+      console.error('token expired', error);
     }
   }
 
@@ -138,7 +136,6 @@ function App() {
 
   return (
     <>
-      {/* <LoginContext.Provider value={{ loginData, setLoginData }}> */}
       <ErrorBoundary FallbackComponent={Fallback}>
         <BrowserRouter>
           <Header loginData={loginData} userLogout={userLogout} login={login} />
@@ -187,7 +184,6 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-        {/* </LoginContext.Provider> */}
       </ErrorBoundary>
     </>
   );

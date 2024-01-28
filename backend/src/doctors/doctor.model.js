@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-// import { visitingHoursSchema } from '../models/visitinghours.model.js';
 
 const doctorSchema = new mongoose.Schema({
   email: {
