@@ -5,4 +5,27 @@ main.landingpage {
   h1 {
     @include text-style(Arial, 3rem, $blue);
   }
+
+  section.covid {
+    width: auto;
+  }
+
+  section.section2 {
+    div.wrapper {
+      padding: 2rem;
+      border-radius: 10px;
+      background: $gradient-fill;
+
+      div.flex {
+        display: flex;
+        justify-content: space-between;
+        
+        div.text {
+          display: flex;
+          flex-direction: column;
+        }        
+      }      
+    }
+  }
+
 }
