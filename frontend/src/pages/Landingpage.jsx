@@ -19,7 +19,7 @@ function Landingpage({ doctors, specialties, setSpecialties }) {
         <div>
         <Link to='/doctors' title='doctors list'>
             <div className='img-container'>
-              <img src='/img/covid-19.svg' alt='covid-19' />
+              <img src='/img/covid-no-shadow.svg' alt='covid-19' />
             </div>
           </Link>
         </div>

@@ -3,15 +3,33 @@
 @import './partials/fonts';
 
 main.landingpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h1 {
     @include text-style(Arial, 3rem, $blue);
   }
 
   section.covid {
-    width: auto;
+    width: 100%;
+
+
+    div {
+      a {
+        div.img-container {
+          display: flex;
+          justify-content: center;
+          img {
+            @include size(100%, auto);
+            // object-fit: cover;
+          }
+        }
+      }
+    }
   }
 
   section.section2 {
+    width: 100%;
     div.wrapper {
       padding: 2rem;
       border-radius: 10px;
@@ -30,15 +48,17 @@ main.landingpage {
   }
 
   section.specialty-list {
+    width: 100%;
     h2 {
       @include text-style($Roboto400, 1.5rem, $text-fill);
       padding-bottom: 2.5rem;
     }
-    
+
     div.list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 31.5%);
       justify-items: center;
+      justify-content: center;
       text-align: center;
       gap: 1rem;
 
