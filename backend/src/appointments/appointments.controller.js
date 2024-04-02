@@ -8,13 +8,17 @@ import { Appointment } from './appointments.model.js';
 export async function getDaysPerMonth(req, res) {
   const month = req.query.month;
   const year = req.query.year;
+  // const year = '2025';
   const today = new Date();
-  //   console.log({ month }, { year });
+  console.log({today});
+    console.log({ month }, { year });
 
   // die funktion funktioniert aktuell nur für das jahr 2024
   const monthOverview = generateCalendarDays(today);
   const query = monthOverview[year] ? monthOverview[year][month] || [] : [];
-  //   console.log(query);
+    console.log('month, query:', month, query);
+    // console.log('overview', monthOverview[year][month]);
+   
 
   res.json({ year: year, month: month, days: query });
 }
@@ -40,7 +44,7 @@ export async function getTimeSlots(req, res) {
         timeSlots[day] = generateTimeSlots(day, visitingHours);
       }
 
-      //   console.log({ timeSlots });
+        // console.log({ timeSlots });
       res.json({ timeSlots: timeSlots });
     }
   } catch (error) {

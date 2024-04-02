@@ -1,7 +1,14 @@
 import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema({
-  date: Date,
+  date: {
+    type: Date,
+    validate: {
+      validator: function (value) {
+        return value >= Date.now();
+      },
+    },
+  },
   time_slot: String,
   confirmed: Boolean,
   doctor: {
