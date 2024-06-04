@@ -1,5 +1,7 @@
 # Doctor Appointments App
 
+(in progress)
+
 ## Features
 
 [✅] doctors can register, login & logout
@@ -16,7 +18,7 @@
 
 ## Todo, planned extra features & tools
 
-[❌] time slot generator logic (broken)
+[✅] time slot generator logic fixed 🥳
 <br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position

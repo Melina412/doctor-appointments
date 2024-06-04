@@ -10,25 +10,17 @@ export async function getDaysPerMonth(req, res) {
   const monthIndex = req.query.index;
   const year = req.query.year;
 
-  // const month = 8;
-  // const year = '2024';
-
-  const today = new Date();
-  // console.log({today});
-
   console.log({ monthIndex }, { year });
+
   const requestDate = new Date(year, monthIndex);
-  // const requestDate = new Date(year, month - 1, 1); // month index bereits in query richtig
   console.log({ requestDate });
 
-  // die funktion funktioniert aktuell nur für das jahr 2024
-  // const monthOverview = generateCalendarDays(today);
   const monthOverview = generateCalendarDays(requestDate);
   // console.log({ monthOverview });
 
+  // hier wird der month name zb 'June' gematcht, nicht der index!
   const days = monthOverview[year] ? monthOverview[year][month] || [] : [];
   console.log('month, days:', month, days);
-  // console.log('overview', monthOverview[year][month]);
 
   console.log('req backend: ', { year: year, month: month, days: days });
   res.json({ year: year, month: month, days: days });
