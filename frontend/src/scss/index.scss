@@ -3,9 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  // color-scheme: light dark;
+  // color: rgba(255, 255, 255, 0.87);
+  // background-color: #242424;
 }
 
 * {
@@ -20,11 +20,17 @@ html {
 }
 
 body {
-  margin: 5vw;
+  //! Einstellungen nur für viewport, später ggf. löschen!
+  width: 430px; // iPhone 15 MAX
+  // width: 390px; // iPhone 12, 13, 14
+  border: 1px solid gray;
+  margin: 0 auto;
 }
 
 section {
   margin-bottom: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 /* darkmode system preference css option (wenn man das mit js macht brauche ich das nicht mehr??) */

@@ -7,7 +7,7 @@ import './config/storage.config.js';
 
 import { router as authRouter } from './auth/auth.router.js';
 import { router as doctorRouter } from './doctors/doctor.router.js';
-import { router as userRouter } from './user/user.router.js';
+import { router as userRouter } from './users/user.router.js';
 import { router as appointmentRouter } from './appointments/appointments.router.js';
 
 export const app = express();

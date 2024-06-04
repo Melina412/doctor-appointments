@@ -1,8 +1,90 @@
 @import './partials/variables';
 @import './partials/mixins';
+@import './partials/fonts';
 
 main.landingpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h1 {
     @include text-style(Arial, 3rem, $blue);
+  }
+
+  section.covid {
+    width: 100%;
+
+
+    div {
+      a {
+        div.img-container {
+          display: flex;
+          justify-content: center;
+          img {
+            @include size(100%, auto);
+            // object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+
+  section.section2 {
+    width: 100%;
+    div.wrapper {
+      padding: 2rem;
+      border-radius: 10px;
+      background: $gradient-fill;
+
+      div.flex {
+        display: flex;
+        justify-content: space-between;
+        
+        div.text {
+          display: flex;
+          flex-direction: column;
+        }        
+      }      
+    }
+  }
+
+  section.specialty-list {
+    width: 100%;
+    h2 {
+      @include text-style($Roboto400, 1.5rem, $text-fill);
+      padding-bottom: 2.5rem;
+    }
+
+    div.list {
+      display: grid;
+      grid-template-columns: repeat(3, 31.5%);
+      justify-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1rem;
+
+      div.specialty-item {
+        @include size(100%, 100%);
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        border-radius: 10px;
+        background: $gradient-fill;
+        a {
+          text-decoration: none;
+          div.icon {
+            text-align: center;
+            padding-bottom: 2rem
+
+          }
+          p.specialty {
+            @include text-style($Roboto400, 1.5rem, $text-fill);
+            padding-bottom: 0.5rem;
+          }
+          p.number {
+            @include text-style($Roboto300, 1rem, $input-fill);
+          }
+        }
+      }
+    }
   }
 }

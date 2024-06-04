@@ -45,7 +45,9 @@ function TimeSlots({
     const res = await fetch(
       `${
         import.meta.env.VITE_BACKENDURL
-      }/api/appointments/days?year=${year}&month=${month.name}`,
+      }/api/appointments/days?year=${year}&month=${month.name}&index=${
+        month.index
+      }`,
       {
         method: 'GET',
         headers: {
@@ -54,7 +56,7 @@ function TimeSlots({
       }
     );
     const data = await res.json();
-    // console.log('calendarDays', { data });
+    console.log('res calendarDays', { data });
     // console.log('calendarDays month', data.month);
     // console.log('calendarDays index', months.indexOf(data.month));
 
@@ -96,7 +98,7 @@ function TimeSlots({
         }
       );
       const data = await res.json();
-      // console.log('timeSlots', { data });
+      console.log('timeSlots', { data });
 
       if (res.ok) {
         setTimeSlots(data.timeSlots);
@@ -139,7 +141,7 @@ function TimeSlots({
             ([day, hours]) => day === selectedDate.day
           )
         : null;
-      // console.log({ slots });
+      console.log({ slots });
 
       if (slots) {
         setDailySlots(slots ? Object.values(slots[1]) : []);
@@ -150,10 +152,10 @@ function TimeSlots({
 
   //! console logs -----------------------------------------------
 
-  // console.log(month);
-  // console.log(doctor);
+  console.log({ month });
+  console.log(doctor);
   //   console.log({ visitingHours });
-  // console.log({ calendarDays });
+  console.log({ calendarDays });
   // console.log('selectedDate', selectedDate);
   // console.log('selectedTime', selectedTime);
   // console.log('timeSlots:', timeSlots);

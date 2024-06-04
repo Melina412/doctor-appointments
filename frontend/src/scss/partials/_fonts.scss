@@ -7,6 +7,10 @@
   src: url('/font/Roboto/Roboto-Medium.ttf');
 }
 @font-face {
+  font-family: RobotoRegular;
+  src: url('/font/Roboto/Roboto-Regular.ttf');
+}
+@font-face {
   font-family: RobotoBold;
   src: url('/font/Roboto/Roboto-Bold.ttf');
 }
@@ -16,12 +20,12 @@
 }
 
 $Roboto300: RobotoLight, system-ui, Helvetica, Arial, sans-serif;
+$Roboto400: RobotoRegular, system-ui, Helvetica, Arial, sans-serif;
 $Roboto500: RobotoMedium, system-ui, Helvetica, Arial, sans-serif;
 $Roboto700: RobotoBold, system-ui, Helvetica, Arial, sans-serif;
 $Roboto900: RobotoBlack, system-ui, Helvetica, Arial, sans-serif;
 
 // $Roboto100: RobotoThin
-// $Roboto400: RobotoRegular
 // ThinItalic
 // LightItalic
 // MediumItalic

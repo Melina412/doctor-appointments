@@ -1,5 +1,7 @@
 # Doctor Appointments App
 
+(in progress)
+
 ## Features
 
 [✅] doctors can register, login & logout
@@ -14,6 +16,13 @@
 <br/> [❌] deployment
 <br/> [❌] style
 
+## Todo, planned extra features & tools
+
+[✅] time slot generator logic fixed 🥳
+<br/> [❌] more tests, also for react
+<br/> [❌] autocomplete search with debounce
+<br/> [❌] use navigate to remember scroll position
+
 ## Tools
 
 - docker
@@ -22,8 +31,8 @@
 - cloudinary
 - react error boundary
 
-## Sample Data
+<!-- ## Sample Data -->
 
-sample dataset can be uploaded to mongodb from within directory backend/src/ with the command:
+<!-- sample dataset can be uploaded to mongodb from within directory backend/src/ with the command: -->
 
-`mongoimport --uri 'mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<db name>?' --collection '<collection name>' --file 'sample-data.json' --jsonArray`
+<!-- `mongoimport --uri 'mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<db name>?' --collection '<collection name>' --file 'sample-data.json' --jsonArray` -->

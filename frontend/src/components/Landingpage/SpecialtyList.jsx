@@ -2,13 +2,14 @@ import SpecialtyItem from './SpecialtyItem';
 
 function SpecialtyList({ specialties }) {
   return (
-    <section className='spacialty-list'>
-      <p>specialty list</p>
-
+    <section className='specialty-list'>
+      <h2>Specialty 😷</h2>
+      <div className='list'>
       {specialties?.map((specialty, index) => (
         <SpecialtyItem key={index} specialty={specialty} />
-      ))}
-    </section>
+        ))}
+      </div>
+    </section>     
   );
 }
 
