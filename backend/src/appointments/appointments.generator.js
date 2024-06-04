@@ -4,10 +4,10 @@ export function generateCalendarDays(startDate) {
   const startDay = startDate.getDate();
   const today = new Date();
 
-  console.log({startDay});
-  console.log({startMonth});
-  console.log({today});
-  console.log({startDate});
+  console.log({ startDay });
+  console.log({ startMonth }); // index!
+  console.log({ today });
+  console.log({ startDate });
 
   const months = [
     'January',
@@ -25,54 +25,54 @@ export function generateCalendarDays(startDate) {
   ];
 
   const monthOverview = {};
-  
-  
-  let currentMonthIndex = startMonth;
-  console.log({currentMonthIndex});
-  
-  months.forEach((month, index) => {
-    const currentMonth = new Date(startYear, startMonth + index, 1);
+
+  // months.forEach((month, index) => {
+  //   const currentMonth = new Date(startYear, startMonth + index, 1);
+  //   const daysInMonth = new Date(
+  //     currentMonth.getFullYear(),
+  //     currentMonth.getMonth() + 1,
+  //     0
+  //   ).getDate();
+  //# forEach durch einen for loop ersetzen, um besser über month index iterieren zu können
+
+  for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
+    const currentMonth = new Date(startYear, startMonth + monthIndex, 1);
     const daysInMonth = new Date(
       currentMonth.getFullYear(),
       currentMonth.getMonth() + 1,
-      // currentMonth.getMonth(),
       0
     ).getDate();
     const monthDays = [];
-    // console.log({monthDays});
 
-    console.log({currentMonth});
-    // die brechnung bis hier ist an sich richtig, es werden nur die monate ab dem aktuellen monat berechnet
-
-    if (currentMonth >= today) {
     for (let day = 1; day <= daysInMonth; day++) {
-      // hier fange ich immer bei day 1 an das ist das erste problem. ich muss checken ob der monat mit dem aktuellen übereinstimmt und dann ab den starDay machen, ansonsten ab day 1 
+      // hier fange ich immer bei day 1 an -> das passt jetzt, der aktuelle monat wird später gefiltert
       const date = new Date(
         currentMonth.getFullYear(),
         currentMonth.getMonth(),
         day
       );
-      // console.log({date});
+
       const dayOfWeek = date.toLocaleDateString('en-US', {
         weekday: 'short',
       });
 
-      if (date >= today) {
-        monthDays.push({ date: day, day: dayOfWeek });
-        // console.log('date, day, weekday', date, day, dayOfWeek);
+      if (monthIndex === 0 && date < today) {
+        // hier prüfe ich jetzt noch ob das datum im aktuellen monat < today ist und wenn ja skippe den nächsten schritt
+        continue;
       }
+
+      monthDays.push({ date: day, day: dayOfWeek });
     }
-    
+
+    console.log({ monthIndex }, { startMonth }, { monthDays });
+
     if (monthDays.length > 0) {
-      monthOverview[months[currentMonthIndex]] = monthDays;
-      // console.log('month overview [month] :');
-      // console.log(months[currentMonthIndex], monthOverview[months[currentMonthIndex]]);
+      monthOverview[months[startMonth + monthIndex]] = monthDays;
+      // der currentMonthIndex wird jetzt durch startMonth + monthIndex berechnet
     }
   }
 
-  currentMonthIndex++;
-  // es ist jetzt fast richtig, nur der aktuelle monat fehlt noch ... UND es geht nur für 2024 🤧
-  });
+  console.log('month overview: ', monthOverview);
   return { [startYear]: monthOverview };
 }
 

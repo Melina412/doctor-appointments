@@ -45,7 +45,9 @@ function TimeSlots({
     const res = await fetch(
       `${
         import.meta.env.VITE_BACKENDURL
-      }/api/appointments/days?year=${year}&month=${month.name}`,
+      }/api/appointments/days?year=${year}&month=${month.name}&index=${
+        month.index
+      }`,
       {
         method: 'GET',
         headers: {
@@ -150,8 +152,8 @@ function TimeSlots({
 
   //! console logs -----------------------------------------------
 
-  // console.log(month);
-  // console.log(doctor);
+  console.log({ month });
+  console.log(doctor);
   //   console.log({ visitingHours });
   console.log({ calendarDays });
   // console.log('selectedDate', selectedDate);

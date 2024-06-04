@@ -7,20 +7,31 @@ import { Appointment } from './appointments.model.js';
 
 export async function getDaysPerMonth(req, res) {
   const month = req.query.month;
+  const monthIndex = req.query.index;
   const year = req.query.year;
-  // const year = '2025';
+
+  // const month = 8;
+  // const year = '2024';
+
   const today = new Date();
-  console.log({today});
-    console.log({ month }, { year });
+  // console.log({today});
+
+  console.log({ monthIndex }, { year });
+  const requestDate = new Date(year, monthIndex);
+  // const requestDate = new Date(year, month - 1, 1); // month index bereits in query richtig
+  console.log({ requestDate });
 
   // die funktion funktioniert aktuell nur für das jahr 2024
-  const monthOverview = generateCalendarDays(today);
-  const query = monthOverview[year] ? monthOverview[year][month] || [] : [];
-    console.log('month, query:', month, query);
-    // console.log('overview', monthOverview[year][month]);
-   
+  // const monthOverview = generateCalendarDays(today);
+  const monthOverview = generateCalendarDays(requestDate);
+  // console.log({ monthOverview });
 
-  res.json({ year: year, month: month, days: query });
+  const days = monthOverview[year] ? monthOverview[year][month] || [] : [];
+  console.log('month, days:', month, days);
+  // console.log('overview', monthOverview[year][month]);
+
+  console.log('req backend: ', { year: year, month: month, days: days });
+  res.json({ year: year, month: month, days: days });
 }
 
 export async function getTimeSlots(req, res) {
@@ -44,7 +55,7 @@ export async function getTimeSlots(req, res) {
         timeSlots[day] = generateTimeSlots(day, visitingHours);
       }
 
-        // console.log({ timeSlots });
+      // console.log({ timeSlots });
       res.json({ timeSlots: timeSlots });
     }
   } catch (error) {
