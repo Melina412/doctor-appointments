@@ -1,6 +1,8 @@
 import { Doctor } from '../doctors/doctor.model.js';
 import { createSalt, createHash, createToken } from './auth.service.js';
 
+//$ register() ---------------------------------------------------------------
+
 export async function register(req, res) {
   // console.log('req.body:', req.body);
   try {
@@ -37,6 +39,8 @@ export async function register(req, res) {
   }
 }
 
+//$ login() ---------------------------------------------------------------
+
 export async function login(req, res) {
   const { email } = req.body;
   // console.log({ email });
@@ -50,9 +54,15 @@ export async function login(req, res) {
       return res.status(401).json({ message: 'login failed' }).end();
 
     const payload = { user: user._id, username: user.name, email: user.email };
-    const token = createToken(payload);
+    const accessToken = createToken('access', payload);
+    const refreshToken = createToken('refresh', payload);
 
-    res.cookie('doctorauth', token, {
+    res.cookie('a_doctorauth', accessToken, {
+      httpOnly: true,
+      secure: true,
+    });
+
+    res.cookie('r_doctorauth', refreshToken, {
       httpOnly: true,
       secure: true,
     });
@@ -68,21 +78,29 @@ export async function login(req, res) {
     res.status(500).end();
   }
 }
-
+//$ check() ---------------------------------------------------------------
 // diese funktion nutzt der client für die protector route!
-export function check(_, res) {
+export function check(req, res) {
+  const payload = req.payload;
+  res.json(payload.exp);
   res.end();
 }
 
+//$ logout() ---------------------------------------------------------------
+
 export function logout(req, res) {
-  const cookie = req.cookies.doctorauth;
+  const accessCookie = req.cookies.a_doctorauth;
+  const refreshCookie = req.cookies.r_doctorauth;
   // console.log('cookie:', { doctorauth: cookie });
 
-  res.clearCookie('doctorauth');
+  res.clearCookie('a_doctorauth');
+  res.clearCookie('r_doctorauth');
   res.json({
     message: 'logout successful',
   });
 }
+
+//$ getUserInfo() ---------------------------------------------------------------
 
 export function getUserinfo(req, res) {
   const { username, email, exp } = req.payload;
@@ -97,22 +115,24 @@ export function getUserinfo(req, res) {
   // expiresCET nur als info für mich damit ich sehe wann der token abläuft
 }
 
+//$ refreshToken() ---------------------------------------------------------------
+
 export async function refreshToken(req, res) {
-  const { email } = req.payload.email;
-  // console.log({ email }, 'refresh token');
+  const { email } = req.payload;
+  console.log({ email }, 'refresh token payload');
 
   try {
     const user = await Doctor.findOne({ email });
     // console.log({ user });
-    if (!user) return res.status(401).json({ message: 'user not found' }).end();
-
-    if (user.password !== createHash(req.body.password, user.salt))
-      return res.status(401).json({ message: 'auth failed' }).end();
+    if (!user) {
+      console.log('user not found during refresh');
+      return res.status(401).json({ message: 'user not found' }).end();
+    }
 
     const payload = { user: user._id, username: user.name, email: user.email };
-    const token = createToken(payload);
+    const accessToken = createToken('access', payload);
 
-    res.cookie('doctorauth', token, {
+    res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
       secure: true,
     });
@@ -122,10 +142,8 @@ export async function refreshToken(req, res) {
       message: 'token refreshed',
       data: { username: user.name, email: user.email },
     });
-
-    res.end();
   } catch (error) {
-    console.log(error);
+    console.log('error in refreshToken:', error);
     res.status(500).end();
   }
 }

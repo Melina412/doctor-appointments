@@ -1,12 +1,20 @@
 import jwt from 'jsonwebtoken';
 import { createHmac, randomBytes } from 'node:crypto';
 
-export function createToken(payload) {
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+export function createToken(type, payload) {
+  if (type === 'access')
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5min' });
+  if (type === 'refresh')
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
 }
 
 export function verifyToken(token) {
-  return jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    console.log('verifyToken failed:', error.message);
+    throw error;
+  }
 }
 
 export function createHash(password, salt) {

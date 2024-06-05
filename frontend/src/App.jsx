@@ -15,22 +15,22 @@ import Fallback from './components/error/Fallback';
 function App() {
   const [login, setLogin] = useState(false);
   const [loginData, setLoginData] = useState(null);
-  const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch???
+  // const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch??? -> hoffentlich nicht ^^
   const [doctors, setDoctors] = useState([]);
   const [specialties, setSpecialties] = useState([]);
 
-  let localLogin = localStorage.getItem('doctor-login');
+  // let localLogin = localStorage.getItem('doctor-login');
 
-  useEffect(() => {
-    setLocalStorageLogin(localLogin);
-  }, []);
+  // useEffect(() => {
+  //   setLocalStorageLogin(localLogin);
+  // }, []);
 
   useEffect(() => {
     if (loginData === null) {
       getLoginData();
     }
   }, []);
-  // um die login data beim ändern des profils zu atualisieren muss ich die refresh token route noch ins frontend einbauen (nicht fertig)
+  // um die login data beim ändern des profils zu aktualisieren muss ich die refresh token route noch ins frontend einbauen (nicht fertig)
 
   useEffect(() => {
     fetchDoctors();
@@ -66,14 +66,14 @@ function App() {
       if (res.ok) {
         setLogin(true);
         setLoginData(response);
-        setLocalStorageLogin(true);
+        // setLocalStorageLogin(true);
       } else {
-        localStorage.setItem('doctor-login', false);
+        // localStorage.setItem('doctor-login', false);
         setLoginData(null);
       }
     } catch (error) {
       setLoginData(null);
-      // console.error('token expired', error);
+      console.error('token expired', error);
     }
   }
 
@@ -96,12 +96,12 @@ function App() {
       // console.log(response);
 
       if (res.ok) {
-        localStorage.setItem('doctor-login', false);
-        localLogin = localStorage.getItem('doctor-login');
-        setLocalStorageLogin(localLogin);
+        // localStorage.setItem('doctor-login', false);
+        // localLogin = localStorage.getItem('doctor-login');
+        // setLocalStorageLogin(localLogin);
         setLogin(false);
         getLoginData();
-        // console.log(response.message);
+        console.log(response.message);
       } else if (res.status === 401) {
         console.error(response.message);
       }
@@ -126,7 +126,7 @@ function App() {
 
   //$ console logs -------------------------------------------------------
 
-  // console.log({ login });
+  console.log({ login });
   // console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
