@@ -74,6 +74,7 @@ function Login({ setLogin, getLoginData }) {
         userRef.current.value = '';
         passwordRef.current.value = '';
         setRegister(true);
+        setLogin(true);
         // console.log(response.message);
       } else if (res.status === 400) {
         console.error(response.message);

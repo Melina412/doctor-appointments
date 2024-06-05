@@ -79,7 +79,7 @@ function TimeSlots({
     if (calendarDays === null) {
       getCalendarDays();
     }
-    // das gwht nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
+    // das geht nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
   });
 
   //$ getTimeSlots -----------------------------------------------------------
@@ -152,10 +152,10 @@ function TimeSlots({
 
   //! console logs -----------------------------------------------
 
-  console.log({ month });
-  console.log(doctor);
-  //   console.log({ visitingHours });
-  console.log({ calendarDays });
+  // console.log({ month });
+  // console.log(doctor);
+  // console.log({ visitingHours });
+  // console.log({ calendarDays });
   // console.log('selectedDate', selectedDate);
   // console.log('selectedTime', selectedTime);
   // console.log('timeSlots:', timeSlots);
@@ -169,6 +169,7 @@ function TimeSlots({
           {months.map((month, index) => (
             <option value={month} key={index}>
               {month}
+              {/* hier muss die auswahl erst ab dem aktuellen monat möglich sein! */}
             </option>
           ))}
         </select>
