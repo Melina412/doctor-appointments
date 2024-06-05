@@ -19,10 +19,10 @@
 ## Todo, planned extra features & tools
 
 [✅] time slot generator logic fixed 🥳
+<br/> [✅] refresh token
 <br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position
-<br/> [❌] refresh token
 
 ## Tools
 
