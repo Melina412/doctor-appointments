@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+// import { createBrowserHistory } from 'history';
 
 import Landingpage from './pages/Landingpage';
 import Doctors from './pages/Doctors';
@@ -9,7 +10,7 @@ import Appointment from './pages/Appointment';
 import Login from './routes/Login';
 import Protector from './routes/Protector';
 import Dashboard from './pages/Dashboard';
-import Header from './components/Header';
+import HeaderTemplate from './components/Header/HeaderTemplate';
 import Fallback from './components/error/Fallback';
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
   // const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch??? -> hoffentlich nicht ^^
   const [doctors, setDoctors] = useState([]);
   const [specialties, setSpecialties] = useState([]);
+
+  // const history = createBrowserHistory();
 
   // let localLogin = localStorage.getItem('doctor-login');
 
@@ -131,6 +134,7 @@ function App() {
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
   // console.log({ doctors });
+  // console.log({ history });
 
   // console.log(darkModeSettings);
   // console.log('dark mode activated:', darkModeSettings.matches);
@@ -139,7 +143,11 @@ function App() {
     <>
       <ErrorBoundary FallbackComponent={Fallback}>
         <BrowserRouter>
-          <Header loginData={loginData} userLogout={userLogout} login={login} />
+          <HeaderTemplate
+            loginData={loginData}
+            userLogout={userLogout}
+            login={login}
+          />
           <Routes>
             <Route
               path='/'

@@ -1,7 +1,30 @@
+@import './partials/variables';
+@import './partials/mixins';
+@import './partials/fonts';
+
 header {
   margin-bottom: 2rem;
   nav {
     display: flex;
     gap: 2rem;
+  }
+
+  div.header-flex {
+    @include text-style($Roboto400, 1.8rem, $text-stroke);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5rem 2.5rem;
+
+    div.right {
+      div.home-right {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &.hidden {
+      display: none;
+    }
   }
 }

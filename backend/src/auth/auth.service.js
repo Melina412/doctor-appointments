@@ -3,7 +3,7 @@ import { createHmac, randomBytes } from 'node:crypto';
 
 export function createToken(type, payload) {
   if (type === 'access')
-    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5min' });
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   if (type === 'refresh')
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
 }

@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState, useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import '../scss/Header.scss';
+import { Link, NavLink, useLocation, useParams } from 'react-router-dom';
+import '../../scss/Header.scss';
 
-function Header({ loginData, userLogout, login }) {
+function Header({ left, mid, right, loginData, userLogout, login }) {
   const handleLogout = () => {
     userLogout();
   };
-  // console.log(loginData?.username);
+  // console.log({ route });
+  console.log('username', loginData?.username);
 
   return (
     <header>
@@ -22,10 +22,16 @@ function Header({ loginData, userLogout, login }) {
       </nav>
 
       <p>
-        user: {loginData !== null ? loginData.username : 'bitte einloggen'}{' '}
+        user: {loginData !== null ? loginData?.username : 'bitte einloggen'}{' '}
         {!login && <Link to='/login'>login</Link>}
       </p>
       {login && <button onClick={handleLogout}>logout</button>}
+
+      <div className={`header-flex ${right === null && 'hidden'}`}>
+        <div className='left'>{left}</div>
+        <div className='mid'>{mid}</div>
+        <div className='right'>{right}</div>
+      </div>
     </header>
   );
 }

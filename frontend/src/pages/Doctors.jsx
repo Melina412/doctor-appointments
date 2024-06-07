@@ -32,7 +32,6 @@ function Doctors({ doctors, setDoctors, specialties }) {
 
   return (
     <main className='doctors'>
-      <h1>Doctors</h1>
       {homeSpecialty !== 'all' && (
         <>
           <div>
