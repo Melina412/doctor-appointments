@@ -4,9 +4,13 @@
 
 header {
   margin-bottom: 2rem;
-  nav {
-    display: flex;
-    gap: 2rem;
+  div.demo-header {
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
   }
 
   div.header-flex {
@@ -14,7 +18,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 5rem 2.5rem;
+    margin: 3rem 2.5rem 1rem 2.5rem;
 
     div.right {
       div.home-right {

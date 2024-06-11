@@ -1,40 +1,44 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Header from './Header';
-import { templates } from './header.templates.jsx';
+import { getHeaderTemplate } from '../../utils/getHeaderTemplate';
 import { useState, useEffect } from 'react';
-import { createBrowserHistory } from 'history';
 
 function HeaderTemplate({ loginData, userLogout, login }) {
   const location = useLocation();
-  const headerItems = templates(loginData?.username);
+  const [currentRoute, setCurrentRoute] = useState(location.pathname);
   const [prevLocation, setPrevLocation] = useState(null);
+  const headerItems = getHeaderTemplate(
+    loginData?.username,
+    prevLocation,
+    login,
+    Link
+  );
 
-  console.log(location);
-  console.log(headerItems);
+  console.log('location-pathname: --', location.pathname);
+  // console.log({ headerItems });
+  console.log({ prevLocation });
+  console.log({ currentRoute });
 
-  const history = createBrowserHistory();
-  console.log({ history });
-
-  // useEffect(() => {
-  //   return history.listen(({ location, action }) => {
-  //     if (action === 'PUSH' || action === 'POP') {
-  //       setPrevLocation(location.pathname);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    // bei reload der route soll prevLocation nicht aktualisiert werden
+    if (currentRoute !== location.pathname) {
+      setPrevLocation(currentRoute);
+      setCurrentRoute(location.pathname);
+    }
+  }, [location.pathname]);
 
   let route;
-  if (location.pathname === '/') {
+  if (currentRoute === '/') {
     route = 'Home';
-  } else if (location.pathname === '/doctors') {
+  } else if (currentRoute === '/doctors') {
     route = 'Doctors';
-  } else if (location.pathname === '/login') {
+  } else if (currentRoute === '/login') {
     route = 'Login';
-  } else if (location.pathname.startsWith('/doctor/details')) {
+  } else if (currentRoute.startsWith('/doctor/details')) {
     route = 'Details';
-  } else if (location.pathname.startsWith('/appointment')) {
+  } else if (currentRoute.startsWith('/appointment')) {
     route = 'Appointment';
-  } else if (location.pathname === '/dashboard') {
+  } else if (currentRoute === '/dashboard') {
     route = 'Dashboard';
   } else {
     route = 'Default';
@@ -50,6 +54,8 @@ function HeaderTemplate({ loginData, userLogout, login }) {
       loginData={loginData}
       userLogout={userLogout}
       login={login}
+      Link={Link}
+      prevLocation={prevLocation}
     />
   );
 }

@@ -4,7 +4,10 @@ import {
 } from './appointments.generator.js';
 import { Doctor } from '../doctors/doctor.model.js';
 import { Appointment } from './appointments.model.js';
+import { sendEmail } from '../config/email.config.js';
+import { newAppointmentTemplate as template } from '../templates/email.template.js';
 
+// $ getDaysPerMonth() --------------------------------------------------------
 export async function getDaysPerMonth(req, res) {
   const month = req.query.month;
   const monthIndex = req.query.index;
@@ -20,12 +23,13 @@ export async function getDaysPerMonth(req, res) {
 
   // hier wird der month name zb 'June' gematcht, nicht der index!
   const days = monthOverview[year] ? monthOverview[year][month] || [] : [];
-  console.log('month, days:', month, days);
+  // console.log('month, days:', month, days);
 
-  console.log('req backend: ', { year: year, month: month, days: days });
+  // console.log('req backend: ', { year: year, month: month, days: days });
   res.json({ year: year, month: month, days: days });
 }
 
+// $ getTimeSlots() -----------------------------------------------------------
 export async function getTimeSlots(req, res) {
   const doctor_id = req.query.doctor;
 
@@ -56,6 +60,7 @@ export async function getTimeSlots(req, res) {
   res.end();
 }
 
+// $ requestAppointment() -----------------------------------------------------
 export async function requestAppointment(req, res) {
   console.log('req body:', req.body);
 
@@ -70,6 +75,8 @@ export async function requestAppointment(req, res) {
     doctor_id,
   } = req.body;
 
+  // hier error handling für  date: 'Invalid Date' / time_slot: 'null'
+
   try {
     const doctor = await Doctor.findById(doctor_id).exec();
     // console.log('doctor:', doctor.name);
@@ -78,6 +85,7 @@ export async function requestAppointment(req, res) {
         date,
         time_slot,
         confirmed: false,
+        confirmation_response: null,
         doctor: doctor._id,
         patient: {
           full_name,
@@ -91,9 +99,12 @@ export async function requestAppointment(req, res) {
       try {
         const result = await appointment.save();
         if (result) {
-          // hier muss ich die mail an den doctor senden!
-          //
-          //
+          const { email, name } = doctor;
+          console.log({ email, name });
+          //# hier muss ich die mail an den doctor senden! ---------------------------------
+
+          sendEmail(template(email, name, full_name));
+
           res.status(201).json({
             success: true,
             message: 'new appointment request added to db',

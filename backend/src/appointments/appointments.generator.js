@@ -4,10 +4,10 @@ export function generateCalendarDays(startDate) {
   const startDay = startDate.getDate();
   const today = new Date();
 
-  console.log({ startDay });
-  console.log({ startMonth }); // index!
-  console.log({ today });
-  console.log({ startDate });
+  // console.log({ startDay });
+  // console.log({ startMonth }); // index!
+  // console.log({ today });
+  // console.log({ startDate });
 
   const months = [
     'January',
@@ -64,7 +64,7 @@ export function generateCalendarDays(startDate) {
       monthDays.push({ date: day, day: dayOfWeek });
     }
 
-    console.log({ monthIndex }, { startMonth }, { monthDays });
+    // console.log({ monthIndex }, { startMonth }, { monthDays });
 
     if (monthDays.length > 0) {
       monthOverview[months[startMonth + monthIndex]] = monthDays;
@@ -72,7 +72,7 @@ export function generateCalendarDays(startDate) {
     }
   }
 
-  console.log('month overview: ', monthOverview);
+  // console.log('month overview: ', monthOverview);
   return { [startYear]: monthOverview };
 }
 

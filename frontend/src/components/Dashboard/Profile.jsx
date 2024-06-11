@@ -3,7 +3,13 @@ import { getSelectedDays } from '../../utils/getSelectedDays';
 
 // beim ersten einloggen nach der registrierung soll man direkt zum profile formular navigiert werden (nicht fertig)
 
-function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
+function Profile({
+  profileData,
+  setEditMode,
+  getProfileData,
+  getLoginData,
+  fetchDoctors,
+}) {
   const [selectedDays, setSelectedDays] = useState(
     profileData ? getSelectedDays(profileData) : null
   );
@@ -57,6 +63,7 @@ function Profile({ profileData, setEditMode, getProfileData, getLoginData }) {
         setEditMode(false);
         await getProfileData();
         getLoginData();
+        fetchDoctors();
       } else if (res.status === 400) {
         console.error(response.message);
       }

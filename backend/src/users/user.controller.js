@@ -160,7 +160,8 @@ export async function getMyAppointments(req, res) {
 
 export async function confirmAppointment(req, res) {
   // der doctor hat zwei möglichkeiten:
-  // 1. accept - der patient bekommt eine bestätigung und confirmed wird auf true gesetzt
-  // 2. decline - der patient bekommt eine absage mail und der termin wird gelöscht
+  // 1. accept - der patient bekommt eine bestätigungsmail und confirmed wird auf true gesetzt und comfirmation_response auch
+  // (das muss ich irgendwie noch ändern weil das verwirrend ist; vielleicht aus confirmed -> responded und dann confirmed erst auf null und dann true/false für accept/decline)
+  // 2. decline - der patient bekommt eine absage mail und der termin wird auf declined gesetzt
   res.end();
 }

@@ -183,11 +183,15 @@ function App() {
                 <Login setLogin={setLogin} getLoginData={getLoginData} />
               }
             />
-            <Route element={<Protector />}>
+            <Route element={<Protector setLogin={setLogin} />}>
               <Route
                 path='/dashboard'
                 element={
-                  <Dashboard login={login} getLoginData={getLoginData} />
+                  <Dashboard
+                    login={login}
+                    getLoginData={getLoginData}
+                    fetchDoctors={fetchDoctors}
+                  />
                 }
               />
             </Route>

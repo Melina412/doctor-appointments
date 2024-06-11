@@ -20,7 +20,7 @@ function Appointment({ doctors }) {
   // console.log('appointment params ', params);
   return (
     <main className='appointment'>
-      <div className='upper-wrapper'>
+      {/* <div className='upper-wrapper'>
         <div className='flex'>
           <Link to={`/doctors/details/${params.id}`} title='back'>
             <div className='icon-container'>
@@ -32,8 +32,7 @@ function Appointment({ doctors }) {
             <img src='' alt='settings icon' />
           </div>
         </div>
-      </div>
-      <h1>Appointment</h1>
+      </div> */}
       <p>book appointment for {doctor?.name}</p>
       <TimeSlots
         visitingHours={visitingHours}

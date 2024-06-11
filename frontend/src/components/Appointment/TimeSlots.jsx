@@ -22,13 +22,21 @@ function TimeSlots({
     'November',
     'December',
   ];
+
+  //# constants  ---------------------------------------------------------------
+
+  const doctor_id = doctor?._id;
   const defaultMonth = new Date().getMonth();
+  const defaultYear = new Date().getFullYear();
+  const yearOptions = [2024, 2025];
+
+  //# useStates -----------------------------------------------------------------
 
   // const [selectedDate, setSelectedDate] = useState({ day: null, date: null });
   // const [selectedTime, setSelectedTime] = useState(null);
   const [calendarDays, setCalendarDays] = useState(null);
   const [timeSlots, setTimeSlots] = useState(null);
-
+  const [selectedYear, setSelectedYear] = useState(defaultYear);
   const [month, setMonth] = useState({
     name: months[defaultMonth],
     index: months.indexOf(months[defaultMonth]),
@@ -36,8 +44,8 @@ function TimeSlots({
   const [dailySlots, setDailySlots] = useState([]);
   const [prevMonth, setPrevMonth] = useState(months[defaultMonth]);
 
-  let doctor_id = doctor?._id;
-  let year = '2024';
+  let remainingMonths =
+    selectedYear === defaultYear ? months.slice(defaultMonth) : months;
 
   //$ getCalendarDays() -----------------------------------------------------------
 
@@ -45,7 +53,7 @@ function TimeSlots({
     const res = await fetch(
       `${
         import.meta.env.VITE_BACKENDURL
-      }/api/appointments/days?year=${year}&month=${month.name}&index=${
+      }/api/appointments/days?year=${selectedYear}&month=${month.name}&index=${
         month.index
       }`,
       {
@@ -56,7 +64,7 @@ function TimeSlots({
       }
     );
     const data = await res.json();
-    console.log('res calendarDays', { data });
+    // console.log('res calendarDays', { data });
     // console.log('calendarDays month', data.month);
     // console.log('calendarDays index', months.indexOf(data.month));
 
@@ -98,7 +106,7 @@ function TimeSlots({
         }
       );
       const data = await res.json();
-      console.log('timeSlots', { data });
+      // console.log('timeSlots', { data });
 
       if (res.ok) {
         setTimeSlots(data.timeSlots);
@@ -150,31 +158,42 @@ function TimeSlots({
     getDailySlots();
   }, [selectedDate]);
 
-  //! console logs -----------------------------------------------
+  //! console logs ==================================================================
 
   // console.log({ month });
   // console.log(doctor);
   // console.log({ visitingHours });
   // console.log({ calendarDays });
-  // console.log('selectedDate', selectedDate);
-  // console.log('selectedTime', selectedTime);
+  console.log('selectedDate', selectedDate);
+  console.log('selectedTime', selectedTime);
   // console.log('timeSlots:', timeSlots);
   // console.log('dailySlots:', dailySlots);
   // console.log({ prevMonth });
+  console.log({ defaultMonth });
+  console.log({ selectedYear });
+  console.log({ remainingMonths });
+  console.log({ defaultYear });
 
   return (
     <>
       <section className='calendar-days'>
         <select name='month' id='month' onChange={handleMonthChange}>
-          {months.map((month, index) => (
+          {remainingMonths.map((month, index) => (
             <option value={month} key={index}>
               {month}
               {/* hier muss die auswahl erst ab dem aktuellen monat möglich sein! */}
             </option>
           ))}
         </select>
-        <select name='year' id='year'>
-          <option value='2024'>2024</option>
+        <select
+          name='year'
+          id='year'
+          onChange={(e) => setSelectedYear(Number(e.target.value))}>
+          {yearOptions.map((year, index) => (
+            <option value={year} key={index}>
+              {year}
+            </option>
+          ))}
         </select>
 
         <div className='days-grid'>
