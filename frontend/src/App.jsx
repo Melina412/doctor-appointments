@@ -133,7 +133,7 @@ function App() {
   // console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
-  // console.log({ doctors });
+  console.log({ doctors });
   // console.log({ history });
 
   // console.log(darkModeSettings);

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+// Link auch als parameter und dann die funktion in utils auslagern?
 
 export const templates = (username, prevLocation) => {
   return {
