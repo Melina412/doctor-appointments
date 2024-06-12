@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 // import { LoginContext } from './context/LoginContext';
 
-function Protector() {
+function Protector({ setLogin }) {
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 

@@ -14,10 +14,9 @@ function Landingpage({ doctors, specialties, setSpecialties }) {
 
   return (
     <main className='landingpage'>
-      <h1>-- header landingpage --</h1>
       <section className='covid'>
         <div>
-        <Link to='/doctors' title='doctors list'>
+          <Link to='/doctors' title='doctors list'>
             <div className='img-container'>
               <img src='/img/covid-no-shadow.svg' alt='covid-19' />
             </div>
@@ -28,14 +27,17 @@ function Landingpage({ doctors, specialties, setSpecialties }) {
         <div className='wrapper'>
           <div className='flex'>
             <div className='text'>
-            <h3>STI Problems?</h3>
-            <p>Find suitable specialists here</p>
+              <h3>STI Problems?</h3>
+              <p>Find suitable specialists here</p>
             </div>
             <Link to='/doctors' title='doctors list'>
-            <div className='icon-container'>
-              <img src='/img/forward-arrow-icon.png' alt='arrow forward icon' />
-            </div>
-          </Link>
+              <div className='icon-container'>
+                <img
+                  src='/img/forward-arrow-icon.png'
+                  alt='arrow forward icon'
+                />
+              </div>
+            </Link>
           </div>
         </div>
       </section>

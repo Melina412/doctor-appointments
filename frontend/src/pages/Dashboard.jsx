@@ -3,7 +3,7 @@ import Profile from '../components/Dashboard/Profile';
 import IncomingReservations from '../components/Dashboard/IncomingReservations';
 import '../scss/Dashboard.scss';
 
-function Dashboard({ login, getLoginData }) {
+function Dashboard({ login, getLoginData, fetchDoctors }) {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
@@ -99,6 +99,7 @@ function Dashboard({ login, getLoginData }) {
                 setEditMode={setEditMode}
                 getProfileData={getProfileData}
                 getLoginData={getLoginData}
+                fetchDoctors={fetchDoctors}
               />
               <button onClick={() => setEditMode(false)}>cancel</button>
             </>

@@ -36,7 +36,7 @@ function Login({ setLogin, getLoginData }) {
       // console.log(response);
 
       if (res.ok) {
-        localStorage.setItem('doctor-login', true);
+        // localStorage.setItem('doctor-login', true);
         getLoginData();
         navigate('/dashboard');
       } else if (res.status === 401) {

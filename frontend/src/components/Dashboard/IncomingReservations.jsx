@@ -28,13 +28,17 @@ function IncomingReservations() {
     getMyAppointments();
   }, []);
 
-  // console.log('myAppointments', myAppointments);
+  console.log('myAppointments', myAppointments);
 
   return (
     <section className='incoming-reservations'>
       <h1>incoming reservations</h1>
       {myAppointments?.map((appt, index) => (
-        <AppointmentItem key={index} appt={appt} />
+        <AppointmentItem
+          key={index}
+          appt={appt}
+          allAppointments={myAppointments}
+        />
       ))}
     </section>
   );

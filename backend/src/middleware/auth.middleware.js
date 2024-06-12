@@ -2,7 +2,9 @@ import { verifyToken } from '../auth/auth.service.js';
 
 export function checkToken(req, res, next) {
   const token = req.cookies.a_doctorauth;
-  console.log('checkToken: ✅', token.slice(-5));
+  token
+    ? console.log('checkToken: ✅', token.slice(-5))
+    : console.log('checkToken: ❌, no access token');
   try {
     req.payload = verifyToken(token);
     // console.log('access token payload:', req.payload);
@@ -15,7 +17,9 @@ export function checkToken(req, res, next) {
 
 export function checkRefreshToken(req, res, next) {
   const token = req.cookies.r_doctorauth;
-  console.log('checkRefreshToken: ✅', token.slice(-5));
+  token
+    ? console.log('checkRefreshToken: ✅', token.slice(-5))
+    : console.log('checkRefreshToken: ❌, no refresh token');
   try {
     req.payload = verifyToken(token);
     // console.log('refresh token payload:', req.payload);

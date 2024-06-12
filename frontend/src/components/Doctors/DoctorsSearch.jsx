@@ -82,6 +82,9 @@ function DoctorsSearch({
     });
   }, [checkedSpecialties, doctors]);
 
+  const handleIconClick = () => {
+    setFilter((prev) => !prev);
+  };
   //! console logs
 
   // console.log({ doctorAutocomplete });
@@ -92,23 +95,30 @@ function DoctorsSearch({
   // console.log('********** filteredOutput von DoctorsSearch:', filteredOutput);
 
   return (
-    <section className='doctors-search'>
-      <h1>Search</h1>
-
-      <div className='upper-wrapper'>
-        <div className='flex'>
-          <Link to='/' title='back'>
-            <div className='icon-container'>
-              <img src='/img/arrow-icon.svg' alt='arrow back icon' />
+    <>
+      <header>
+        <div className={`header-flex`}>
+          <div className='left'>
+            <Link to='/' title='back'>
+              <div className='icon-container'>
+                <img src='/img/arrow-icon.svg' alt='arrow back icon' />
+              </div>
+            </Link>
+          </div>
+          <div className='mid'>
+            <p>Doctors</p>
+          </div>
+          <div className='right'>
+            <div className='icon-container' onClick={handleIconClick}>
+              <img src='/img/settings-icon.svg' alt='settings icon' />
             </div>
-          </Link>
-
-          <div
-            className='icon-container'
-            onClick={() => setFilter((prev) => !prev)}>
-            <img src='/img/settings-icon.svg' alt='settings icon' />
           </div>
         </div>
+      </header>
+
+      <section className='doctors-search'>
+        <h1>Search</h1>
+
         {filter === true && (
           <>
             {specialties.map((specialty, index) => (
@@ -124,34 +134,36 @@ function DoctorsSearch({
             ))}
           </>
         )}
-      </div>
 
-      <div className='searchbar'>
-        <div className='input-flex'>
-          <input
-            type='text'
-            name='doctorName'
-            value={input}
-            placeholder='🔎 search for doctors'
-            onChange={handleOnChange}
-          />
-          {input.length > 0 && <p>please klick on suggestion to select name</p>}
-        </div>
-        {input.length > 0 && (
-          <div className='suggestions-list'>
-            {suggestions.slice(0, 10).map((suggestion, index) => (
-              <option
-                className='suggestion'
-                key={index}
-                value={suggestion}
-                onClick={handleOnClick}>
-                {suggestion}
-              </option>
-            ))}
+        <div className='searchbar'>
+          <div className='input-flex'>
+            <input
+              type='text'
+              name='doctorName'
+              value={input}
+              placeholder='🔎 search for doctors'
+              onChange={handleOnChange}
+            />
+            {input.length > 0 && (
+              <p>please klick on suggestion to select name</p>
+            )}
           </div>
-        )}
-      </div>
-    </section>
+          {input.length > 0 && (
+            <div className='suggestions-list'>
+              {suggestions.slice(0, 10).map((suggestion, index) => (
+                <option
+                  className='suggestion'
+                  key={index}
+                  value={suggestion}
+                  onClick={handleOnClick}>
+                  {suggestion}
+                </option>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 }
 
