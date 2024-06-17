@@ -48,16 +48,16 @@ function MyAppointments() {
   return (
     <>
       <section className='my-appointments'>
-        <h1>My Appointments</h1>
-        <section>
-          <div>
-            <h2>Incoming Requests</h2>
+        <h2>My Appointments</h2>
+        <section className='requests'>
+          <div className='sub-headline'>
+            <h3>Incoming Requests</h3>
             <button onClick={() => toggleView('requests')}>
               {view?.requests ? '︿ hide' : '﹀ view'}
             </button>
           </div>
           {view?.requests && (
-            <div>
+            <div className='item-wrapper'>
               {myAppointments
                 ?.filter((appt) => appt?.confirmed === null)
                 .map((appt, index) => (
@@ -73,14 +73,14 @@ function MyAppointments() {
         </section>
 
         <section className='confirmed'>
-          <div>
-            <h2>Confirmed Appointments</h2>
+          <div className='sub-headline'>
+            <h3>Confirmed Appointments</h3>
             <button onClick={() => toggleView('confirmed')}>
               {view?.confirmed ? '︿ hide' : '﹀ view'}
             </button>
           </div>
           {view?.confirmed && (
-            <div>
+            <div className='item-wrapper'>
               {myAppointments
                 ?.filter((appt) => appt?.confirmed === true)
                 .map((appt, index) => (
@@ -96,14 +96,14 @@ function MyAppointments() {
         </section>
 
         <section className='declined'>
-          <div>
-            <h2>Declined Appointments</h2>
+          <div className='sub-headline'>
+            <h3>Declined Appointments</h3>
             <button onClick={() => toggleView('declined')}>
               {view?.declined ? '︿ hide' : '﹀ view'}
             </button>
           </div>
           {view?.declined && (
-            <div>
+            <div className='item-wrapper'>
               {myAppointments
                 ?.filter((appt) => appt?.confirmed === false)
                 .map((appt, index) => (
@@ -119,13 +119,13 @@ function MyAppointments() {
         </section>
 
         <section className='canceled'>
-          <div>
-            <h2>Canceled Appointments</h2>
+          <div className='sub-headline'>
+            <h3>Canceled Appointments</h3>
             <button onClick={() => toggleView('canceled')}>
               {view?.cancelled ? '︿ hide' : '﹀ view'}
             </button>
           </div>
-          {view?.cancelled && <div></div>}
+          {view?.cancelled && <div className='item-wrapper'></div>}
         </section>
       </section>
     </>

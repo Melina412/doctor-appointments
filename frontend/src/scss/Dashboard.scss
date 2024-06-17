@@ -1,4 +1,6 @@
 @import './partials/variables';
+@import './partials/mixins';
+@import './partials/fonts';
 
 main.dashboard {
   section.picture {
@@ -14,10 +16,34 @@ main.dashboard {
     }
   }
 
-  section.incoming-reservations {
-    div.appt-item {
-      margin-top: 1rem;
-      border: 0.1px solid $border;
+  section.my-appointments {
+    section {
+      div.sub-headline {
+        display: flex;
+      }
+      div.item-wrapper {
+        div.appt-item {
+          margin-top: 1rem;
+          border: 0.1px solid $border;
+
+          p {
+            padding: 0.2rem 0;
+
+            &.warning {
+              color: crimson;
+            }
+          }
+          button.info {
+            margin: 0.5rem;
+          }
+
+          dialog.modal {
+            width: 90vw;
+            margin: auto;
+            padding: 2rem;
+          }
+        }
+      }
     }
   }
 }

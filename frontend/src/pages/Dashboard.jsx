@@ -63,7 +63,6 @@ function Dashboard({ login, getLoginData, fetchDoctors }) {
 
   return (
     <main className='dashboard'>
-      <h1>Dashboard</h1>
       {/* {login ? ( */}
       <>
         <h2>Hello {profileData?.name}</h2>

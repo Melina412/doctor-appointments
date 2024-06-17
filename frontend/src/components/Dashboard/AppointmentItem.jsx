@@ -30,6 +30,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
       if (res.ok) {
         console.log(response.message);
         getMyAppointments();
+        setAction(null);
       } else {
         console.error(response.message);
       }
@@ -50,6 +51,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
       <p>patient name: {patient?.full_name}</p>
 
       <button
+        className='info'
         onClick={() =>
           document.getElementById(`id-${patient?._id}`).showModal()
         }>
@@ -58,7 +60,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
       <dialog id={`id-${patient?._id}`} className='modal'>
         <div className='modal-box'>
           <h2>Patient Info</h2>
-          <p>patient name: {patient?.full_name}</p>
+          <p className=''>patient name: {patient?.full_name}</p>
           <p>email: {patient?.email}</p>
           <p>age group: {patient?.age_group}</p>
           <p>gender: {patient?.gender}</p>
@@ -74,7 +76,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
 
       {allAppointments.some(
         (item) => item.date === appt.date && item._id !== appt._id
-      ) && <p>double booking!</p>}
+      ) && <p className='warning'>double booking!</p>}
       {status === null ? (
         <div>
           <input
