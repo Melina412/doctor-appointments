@@ -57,6 +57,7 @@ function Protector({ setLogin }) {
           // console.log(expDate);
           if (exp && expDate < now) {
             console.log('access token expired, refreshing...');
+            setLoading(true);
             await refreshToken();
           } else {
             console.log('access token is valid');
@@ -87,6 +88,7 @@ function Protector({ setLogin }) {
       </main>
     );
   }
+  // if (authorized && !loading) return <Outlet />;
   return <Outlet />;
 }
 
