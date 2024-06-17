@@ -28,7 +28,7 @@ function TimeSlots({
   const doctor_id = doctor?._id;
   const defaultMonth = new Date().getMonth();
   const defaultYear = new Date().getFullYear();
-  const yearOptions = [2024, 2025];
+  const yearOptions = [2024, 2025]; //todo: dynamisch immer das aktuelle und folgejahr
 
   //# useStates -----------------------------------------------------------------
 

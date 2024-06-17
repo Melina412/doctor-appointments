@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Profile from '../components/Dashboard/Profile';
-import IncomingReservations from '../components/Dashboard/IncomingReservations';
+import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
 
 function Dashboard({ login, getLoginData, fetchDoctors }) {
@@ -63,53 +63,50 @@ function Dashboard({ login, getLoginData, fetchDoctors }) {
 
   return (
     <main className='dashboard'>
-      <h1>Dashboard</h1>
-      {login ? (
-        <>
-          <h2>Hello {profileData?.name}</h2>
+      {/* {login ? ( */}
+      <>
+        <h2>Hello {profileData?.name}</h2>
 
-          <section className='picture'>
-            <div className='avatar-container'>
-              <img src={profileData?.avatar} alt='user avatar' />
-            </div>
-            <button onClick={() => setEditAvatar(true)}>
-              edit profile pic
-            </button>
-            {editAvatar && (
-              <>
-                <form onSubmit={uploadAvatar}>
-                  <div>
-                    <label htmlFor='avatar'>select profile pic to upload</label>
-                    <input type='file' name='avatar' id='avatar' />
-                  </div>
-                  <button type='submit'>upload pic</button>
-                </form>
-
-                <button onClick={() => setEditAvatar(false)}>cancel</button>
-              </>
-            )}
-          </section>
-
-          <IncomingReservations />
-          <h2>Profile</h2>
-          {editMode ? (
+        <section className='picture'>
+          <div className='avatar-container'>
+            <img src={profileData?.avatar} alt='user avatar' />
+          </div>
+          <button onClick={() => setEditAvatar(true)}>edit profile pic</button>
+          {editAvatar && (
             <>
-              <Profile
-                profileData={profileData}
-                setEditMode={setEditMode}
-                getProfileData={getProfileData}
-                getLoginData={getLoginData}
-                fetchDoctors={fetchDoctors}
-              />
-              <button onClick={() => setEditMode(false)}>cancel</button>
+              <form onSubmit={uploadAvatar}>
+                <div>
+                  <label htmlFor='avatar'>select profile pic to upload</label>
+                  <input type='file' name='avatar' id='avatar' />
+                </div>
+                <button type='submit'>upload pic</button>
+              </form>
+
+              <button onClick={() => setEditAvatar(false)}>cancel</button>
             </>
-          ) : (
-            <button onClick={() => setEditMode(true)}>edit profile</button>
           )}
-        </>
-      ) : (
-        <p>please login to view dashboard</p>
-      )}
+        </section>
+
+        <MyAppointments />
+        <h2>Profile</h2>
+        {editMode ? (
+          <>
+            <Profile
+              profileData={profileData}
+              setEditMode={setEditMode}
+              getProfileData={getProfileData}
+              getLoginData={getLoginData}
+              fetchDoctors={fetchDoctors}
+            />
+            <button onClick={() => setEditMode(false)}>cancel</button>
+          </>
+        ) : (
+          <button onClick={() => setEditMode(true)}>edit profile</button>
+        )}
+      </>
+      {/* ) : ( */}
+      {/* <p>please login to view dashboard</p> */}
+      {/* )} */}
     </main>
   );
 }

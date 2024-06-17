@@ -2,6 +2,7 @@ import { Appointment } from '../appointments/appointments.model.js';
 import { Doctor } from '../doctors/doctor.model.js';
 import { uploadImage, deleteImage } from './user.service.js';
 
+// $ profileData() -----------------------------------------------------
 export async function profileData(req, res) {
   //   console.log('req.payload von getProfileData:', req.payload);
 
@@ -23,6 +24,7 @@ export async function profileData(req, res) {
   }
 }
 
+// $ editProfile() -----------------------------------------------------
 export async function editProfile(req, res) {
   //   console.log('req.payload von editProfile:', req.payload);
   //   console.log('req body:', req.body);
@@ -92,6 +94,7 @@ export async function editProfile(req, res) {
   }
 }
 
+// $ addImage() -----------------------------------------------------
 export async function addImage(req, res) {
   const user_id = req.payload.user;
 
@@ -144,24 +147,4 @@ export async function addImage(req, res) {
     console.log(error);
     res.status(500).end();
   }
-}
-
-export async function getMyAppointments(req, res) {
-  const user_id = req.payload.user;
-
-  try {
-    const appointments = await Appointment.find({ doctor: user_id });
-    // console.log({ appointments });
-    res.json(appointments);
-  } catch (error) {
-    res.status(500).end();
-  }
-}
-
-export async function confirmAppointment(req, res) {
-  // der doctor hat zwei möglichkeiten:
-  // 1. accept - der patient bekommt eine bestätigungsmail und confirmed wird auf true gesetzt und comfirmation_response auch
-  // (das muss ich irgendwie noch ändern weil das verwirrend ist; vielleicht aus confirmed -> responded und dann confirmed erst auf null und dann true/false für accept/decline)
-  // 2. decline - der patient bekommt eine absage mail und der termin wird auf declined gesetzt
-  res.end();
 }
