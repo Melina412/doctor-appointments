@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Profile from '../components/Dashboard/Profile';
-import IncomingReservations from '../components/Dashboard/IncomingReservations';
+import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
 
 function Dashboard({ login, getLoginData, fetchDoctors }) {
@@ -90,7 +90,7 @@ function Dashboard({ login, getLoginData, fetchDoctors }) {
             )}
           </section>
 
-          <IncomingReservations />
+          <MyAppointments />
           <h2>Profile</h2>
           {editMode ? (
             <>

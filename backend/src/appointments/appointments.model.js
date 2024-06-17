@@ -10,8 +10,8 @@ const appointmentSchema = new mongoose.Schema({
     },
   },
   time_slot: String,
-  confirmed: Boolean,
-  confirmation_response: Boolean || null,
+  confirmed: Boolean || null,
+  // confirmation_response: Boolean || null,
   doctor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'doctor',

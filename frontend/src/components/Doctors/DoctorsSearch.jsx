@@ -94,6 +94,7 @@ function DoctorsSearch({
   // console.log('specialties von search:', specialties);
   // console.log('********** filteredOutput von DoctorsSearch:', filteredOutput);
 
+  //? der header ist hier innerhalb der main section der doctors page was inkorrekte html semantik ist -> ändern
   return (
     <>
       <header>

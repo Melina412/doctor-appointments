@@ -1,20 +1,51 @@
+import { useEffect, useState } from 'react';
 import PatientForm from '../Appointment/PatientForm';
 
-function AppointmentItem({ appt, allAppointments }) {
+function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
   // console.log({ appt });
   let date = new Date(appt?.date);
   let status = appt?.confirmed;
   let patient = appt?.patient;
-  let response = appt?.confirmation_response;
+  let id = appt?._id;
+  const [action, setAction] = useState(null);
+  // console.log({ action });
+
+  async function updateAppointmentStatus() {
+    console.log('action an server:', action);
+    if (action !== null) {
+      const res = await fetch(
+        `${
+          import.meta.env.VITE_BACKENDURL
+        }/api/appointments/confirm?id=${id}&action=${action}`,
+        {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json',
+          },
+          credentials: 'include',
+        }
+      );
+      const response = await res.json();
+
+      if (res.ok) {
+        console.log(response.message);
+        getMyAppointments();
+      } else {
+        console.error(response.message);
+      }
+    } else {
+      console.error('no action selected');
+    }
+  }
 
   return (
     <div className='appt-item'>
       <p>date: {date.toLocaleString()}</p>
-      <p>confirmed: {status ? 'yes' : 'no'}</p>
+      <p>responsed: {status !== null ? 'yes' : 'no'}</p>
       <p>
         {' '}
-        {response == true && '✅'} {response == false && '❎'}{' '}
-        {response == null && '📥'}
+        {status == true && '✅ accepted'} {status == false && '❎ declined'}{' '}
+        {status == null && '📥 new request'}
       </p>
       <p>patient name: {patient?.full_name}</p>
 
@@ -44,8 +75,32 @@ function AppointmentItem({ appt, allAppointments }) {
       {allAppointments.some(
         (item) => item.date === appt.date && item._id !== appt._id
       ) && <p>double booking!</p>}
-      <button>Confirm</button>
-      <button>Decline</button>
+      {status === null ? (
+        <div>
+          <input
+            type='radio'
+            name={`btn-action-${appt?._id}`}
+            id={`confirm-${appt?._id}`}
+            value='confirm'
+            onChange={(e) => setAction(e.target.value)}
+          />
+          <label htmlFor={`confirm-${appt?._id}`}>confirm</label>
+
+          <input
+            type='radio'
+            name={`btn-action-${appt?._id}`}
+            id={`decline-${appt?._id}`}
+            value='decline'
+            onChange={(e) => setAction(e.target.value)}
+          />
+          <label htmlFor={`decline-${appt?._id}`}>decline</label>
+          <button onClick={updateAppointmentStatus}>Send Response</button>
+        </div>
+      ) : (
+        <div>
+          <button>~~cancel appointment ~~</button>
+        </div>
+      )}
     </div>
   );
 }

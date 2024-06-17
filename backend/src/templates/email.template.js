@@ -15,3 +15,53 @@ export const newAppointmentTemplate = (email, doctorname, patientname) => {
           </div>`,
   };
 };
+
+export const confirmAppointmentTemplate = (
+  patientemail,
+  patientname,
+  doctorname,
+  date,
+  timeslot
+) => {
+  return {
+    from: '"doc appointments admin" <admin@doctorappointments.com>',
+    to: patientemail,
+    subject: 'appointment confirmation',
+    text: `
+          Hello ${patientname}!
+        Your appointment with ${doctorname} has been confirmed. Date: ${date}, Time: ${timeslot}. LG, doc appointments admin`,
+    html: `
+          <div style='font-family: system-ui, -apple-system, sans-serif, Arial'>
+          <h2>Hello ${patientname}!</h2>
+          <p>Your appointment with <span style='font-weight: bold'>${doctorname}</span> has been confirmed.</p>
+          <p>Date: ${date}, Time: ${timeslot}.</p>
+          <p>LG, doc appointments admin</p>
+          </div>`,
+  };
+};
+export const declineAppointmentTemplate = (
+  patientemail,
+  patientname,
+  doctoremail,
+  doctorname,
+  date,
+  timeslot
+) => {
+  return {
+    from: '"doc appointments admin" <admin@doctorappointments.com>',
+    to: patientemail,
+    subject: 'appointment declined',
+    text: `
+          Hello ${patientname}!
+        Unfortunately your appointment with ${doctorname} has been declined. Date: ${date}, Time: ${timeslot}. Please contact your doctor [${doctoremail}] or try booking another slot. LG, doc appointments admin`,
+    html: `
+          <div style='font-family: system-ui, -apple-system, sans-serif, Arial'>
+          <h2>Hello ${patientname}!</h2>
+          <p>Unfortunately your appointment with <span style='font-weight: bold'> ${doctorname}</span> has been declined.</p>
+          <p>Please <a href='mailto:${doctoremail}'>contact your doctor</a> or try booking another slot.</p>
+          <p>Date: ${date}, Time: ${timeslot}.</p>
+          <p>LG, doc appointments admin</p>
+          </div>`,
+  };
+};
+// datum/zeit in den templates usw muss noch angepasst werden

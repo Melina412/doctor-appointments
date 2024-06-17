@@ -34,6 +34,7 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
         )
       ),
     },
+    // Doctors header is in DoctorsSearch.jsx for search/filter function
     Doctors: {
       left: null,
       mid: null,

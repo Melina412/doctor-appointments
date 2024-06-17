@@ -8,8 +8,10 @@ function Header({ left, mid, right, loginData, userLogout, login, Link }) {
   // console.log({ route });
   // console.log('username', loginData?.username);
 
+  // login/logout soll am ende über ein icon möglich sein
   return (
     <header>
+      {/* dieser Teil kommt am Ende raus! xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */}
       <div className='demo-header'>
         <nav>
           <NavLink to='/'>HOME</NavLink>
@@ -27,6 +29,7 @@ function Header({ left, mid, right, loginData, userLogout, login, Link }) {
           {!login && <Link to='/login'>login</Link>}
         </p>
         {login && <button onClick={handleLogout}>logout</button>}
+        {/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */}
       </div>
       <div className={`header-flex ${right === null && 'hidden'}`}>
         <div className='left'>{left}</div>
