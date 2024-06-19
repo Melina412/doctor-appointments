@@ -25,16 +25,6 @@ export function generateCalendarDays(startDate) {
   ];
 
   const monthOverview = {};
-
-  // months.forEach((month, index) => {
-  //   const currentMonth = new Date(startYear, startMonth + index, 1);
-  //   const daysInMonth = new Date(
-  //     currentMonth.getFullYear(),
-  //     currentMonth.getMonth() + 1,
-  //     0
-  //   ).getDate();
-  //# forEach durch einen for loop ersetzen, um besser über month index iterieren zu können
-
   for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
     const currentMonth = new Date(startYear, startMonth + monthIndex, 1);
     const daysInMonth = new Date(

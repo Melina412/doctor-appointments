@@ -14,10 +14,10 @@ function HeaderTemplate({ loginData, userLogout, login }) {
     Link
   );
 
-  console.log('location-pathname: --', location.pathname);
+  // console.log('location-pathname: --', location.pathname);
   // console.log({ headerItems });
-  console.log({ prevLocation });
-  console.log({ currentRoute });
+  // console.log({ prevLocation });
+  // console.log({ currentRoute });
 
   useEffect(() => {
     // bei reload der route soll prevLocation nicht aktualisiert werden

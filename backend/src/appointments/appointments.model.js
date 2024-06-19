@@ -23,6 +23,7 @@ const appointmentSchema = new mongoose.Schema({
     gender: String,
     problem: String,
   }),
+  done: Boolean || null,
 });
 
 export const Appointment = mongoose.model('appointment', appointmentSchema);

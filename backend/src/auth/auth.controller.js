@@ -1,5 +1,6 @@
 import { Doctor } from '../doctors/doctor.model.js';
 import { createSalt, createHash, createToken } from './auth.service.js';
+import { Review } from '../reviews/reviews.model.js';
 
 //$ register() ---------------------------------------------------------------
 
@@ -80,6 +81,9 @@ export async function login(req, res) {
 }
 //$ check() ---------------------------------------------------------------
 // diese funktion nutzt der client für die protector route!
+// der eigentliche check passiert durch die middleware
+// ich kann also diese funktion mehrfach benutzen,
+// aber wenn ich eine andere middleware nehme dann muss ich auch eine andere api route erstellen!
 export function check(req, res) {
   const payload = req.payload;
   res.json(payload.exp);
@@ -145,5 +149,37 @@ export async function refreshToken(req, res) {
   } catch (error) {
     console.log('error in refreshToken:', error);
     res.status(500).end();
+  }
+}
+
+//$ verifyReviewCode() ---------------------------------------------------------------
+
+export async function verifyReviewCode(req, res) {
+  const { codeInput, path } = req.body;
+
+  try {
+    const review = await Review.findOne({ 'auth.path': path });
+    if (review) {
+      if (!codeInput === review.auth.code)
+        return res
+          .status(401)
+          .json({ message: 'code verification failed' })
+          .end();
+
+      const payload = { review: review._id };
+      const reviewToken = createToken('review', payload);
+
+      res.cookie('rev_doctorauth', reviewToken, {
+        httpOnly: true,
+        secure: true,
+      });
+      res.json({
+        message: 'verification successful',
+      });
+    } else {
+      res.status(404).json({ message: 'no valid review path found' });
+    }
+  } catch (error) {
+    console.log(error);
   }
 }

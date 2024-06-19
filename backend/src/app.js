@@ -9,6 +9,7 @@ import { router as authRouter } from './auth/auth.router.js';
 import { router as doctorRouter } from './doctors/doctor.router.js';
 import { router as userRouter } from './users/user.router.js';
 import { router as appointmentRouter } from './appointments/appointments.router.js';
+import { router as reviewRouter } from './reviews/reviews.router.js';
 
 export const app = express();
 
@@ -22,3 +23,4 @@ app.use('/api/auth', authRouter);
 app.use('/api/doctors', doctorRouter);
 app.use('/api/user', userRouter);
 app.use('/api/appointments', appointmentRouter);
+app.use('/api/review', reviewRouter);

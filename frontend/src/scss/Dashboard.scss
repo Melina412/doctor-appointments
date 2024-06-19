@@ -42,6 +42,10 @@ main.dashboard {
             margin: auto;
             padding: 2rem;
           }
+
+          &.done {
+            background-color: grey;
+          }
         }
       }
     }
