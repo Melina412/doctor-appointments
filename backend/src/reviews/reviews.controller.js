@@ -98,10 +98,31 @@ export async function enableReview(req, res) {
         if (updateResult.modifiedCount > 0) {
           const updatedAppointment = await Appointment.findById(_id).exec();
           // console.log({ updatedAppointment });
-          res.status(201).json({
-            success: true,
-            message: 'appointment set done in db & review enabled!',
+
+          //# initialize review in db
+
+          const review = new Review({
+            doctor: req.body.doctor,
+            appointment: _id,
+            patient: req.body.patient._id,
+            rating: 0,
+            auth: {
+              path: pathSecret,
+              code: code,
+            },
           });
+
+          try {
+            await review.save();
+
+            res.status(201).json({
+              success: true,
+              message: 'appointment set done & review initialized in db!',
+            });
+          } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false, message: error.message });
+          }
         } else {
           res
             .status(404)
@@ -115,6 +136,16 @@ export async function enableReview(req, res) {
   }
 }
 
-export async function postReview(req, res) {
+export async function addReview(req, res) {
+  const { rating, comment } = req.body;
+  console.log('req.body:', req.body);
+  // datum updaten?
+
+  res.json({
+    success: true,
+    message: 'review added to db',
+  });
+}
+export async function getReviews(req, res) {
   res.end();
 }

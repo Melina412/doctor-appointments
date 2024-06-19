@@ -29,3 +29,18 @@ export function checkRefreshToken(req, res, next) {
     res.status(401).end();
   }
 }
+
+export function checkReviewToken(req, res, next) {
+  const token = req.cookies.rev_doctorauth;
+  token
+    ? console.log('checkReviewToken: ✅', token.slice(-5))
+    : console.log('checkReviewToken: ❌, no review token');
+  try {
+    req.payload = verifyToken(token);
+    // console.log('review token payload:', req.payload);
+    next();
+  } catch (error) {
+    console.log('checkReviewToken: ❌', error.message);
+    res.status(401).end();
+  }
+}

@@ -150,3 +150,30 @@ export async function refreshToken(req, res) {
     res.status(500).end();
   }
 }
+
+//$ verifyReviewCode() ---------------------------------------------------------------
+
+export async function verifyReviewCode(req, res) {
+  const { codeInput, path } = req.body;
+
+  try {
+    const review = await Review.findOne({ 'auth.path': path });
+    if (review) {
+      if (!codeInput === review.auth.code)
+        return res
+          .status(401)
+          .json({ message: 'code verification failed' })
+          .end();
+
+      const payload = { review: review._id };
+      const reviewToken = createToken('review', payload);
+
+      res.cookie('rev_doctorauth', reviewToken, {
+        httpOnly: true,
+        secure: true,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

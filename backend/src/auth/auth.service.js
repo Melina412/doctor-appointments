@@ -6,6 +6,8 @@ export function createToken(type, payload) {
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   if (type === 'refresh')
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
+  if (type === 'review')
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
 export function verifyToken(token) {
