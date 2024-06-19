@@ -12,15 +12,15 @@
 <br/> [✅] doctors have to accept reserved time slots in order to confirm the appointment
 <br/> [✅] patients receive an email to notify them about the outcome of their requested booking after the time slot has been accepted or declined by a doctor
 <br/> [✅] if more than one patient reserved the same time slot, other patients will also be notified that the booking was unsuccessful
-<br/> [❌] patients who visited a doctor will get an email with a link to rank their experience the day after an appointment
+<br/> [✅] patients who visited a doctor will get an email with a link to rank their experience the day after an appointment
 -- steps:
 <br/> - cron job to send email to patient with review link + code to authorize ✅
 <br/> - new route in react ✅
-<br/> - protect route
-<br/> - save code & path in db
-<br/> - create review access token on correct code input
-<br/> -
-
+<br/> - protect route ✅
+<br/> - save code & path in db ✅
+<br/> - create review access token on correct code input ✅
+<br/> - delete cookie, path & code ✅
+😬😬😬😬😬
 <br/> [❌] deployment
 <br/> [❌] style
 
