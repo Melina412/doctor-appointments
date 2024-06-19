@@ -1,8 +1,9 @@
 import express from 'express';
 // import { checkToken } from '../middleware/auth.middleware.js';
 import { enableReview, addReview } from './reviews.controller.js';
+import { checkReviewToken, checkToken } from '../middleware/auth.middleware.js';
 
 export const router = new express.Router();
 
-router.put('/enable', enableReview);
-router.post('/add', addReview);
+router.put('/enable', checkToken, enableReview);
+router.post('/add', checkReviewToken, addReview);

@@ -14,6 +14,7 @@ import HeaderTemplate from './components/Header/HeaderTemplate';
 import Fallback from './components/error/Fallback';
 import Review from './routes/Review';
 import ReviewProtector from './routes/ReviewProtector';
+import Verify from './routes/Verify';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -200,6 +201,7 @@ function App() {
             <Route element={<ReviewProtector />}>
               <Route path='/review/:id' element={<Review />} />
             </Route>
+            <Route path='/review/verify/:id' element={<Verify />} />
           </Routes>
         </BrowserRouter>
       </ErrorBoundary>

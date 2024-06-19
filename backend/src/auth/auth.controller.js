@@ -1,5 +1,6 @@
 import { Doctor } from '../doctors/doctor.model.js';
 import { createSalt, createHash, createToken } from './auth.service.js';
+import { Review } from '../reviews/reviews.model.js';
 
 //$ register() ---------------------------------------------------------------
 
@@ -172,6 +173,11 @@ export async function verifyReviewCode(req, res) {
         httpOnly: true,
         secure: true,
       });
+      res.json({
+        message: 'verification successful',
+      });
+    } else {
+      res.status(404).json({ message: 'no valid review path found' });
     }
   } catch (error) {
     console.log(error);

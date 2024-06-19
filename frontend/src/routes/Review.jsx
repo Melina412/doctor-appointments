@@ -25,7 +25,6 @@ function Review() {
       setTimeout(() => {
         console.log('redirecting to home...');
         navigate('/');
-        //! hier dann den token löschen
       }, 5000);
     }
   }

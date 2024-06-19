@@ -32,11 +32,11 @@ const reviewSchema = new mongoose.Schema({
   },
   auth: {
     path: {
-      type: String,
+      type: String || null,
       required: true,
     },
     code: {
-      type: String,
+      type: String || null,
       required: true,
       minLength: 6,
       maxLength: 6,
