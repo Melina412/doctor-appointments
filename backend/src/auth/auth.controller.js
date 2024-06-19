@@ -80,6 +80,9 @@ export async function login(req, res) {
 }
 //$ check() ---------------------------------------------------------------
 // diese funktion nutzt der client für die protector route!
+// der eigentliche check passiert durch die middleware
+// ich kann also diese funktion mehrfach benutzen,
+// aber wenn ich eine andere middleware nehme dann muss ich auch eine andere api route erstellen!
 export function check(req, res) {
   const payload = req.payload;
   res.json(payload.exp);

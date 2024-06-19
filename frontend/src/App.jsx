@@ -8,10 +8,12 @@ import Doctors from './pages/Doctors';
 import DoctorDetails from './pages/DoctorDetails';
 import Appointment from './pages/Appointment';
 import Login from './routes/Login';
-import Protector from './routes/Protector';
+import DasboardProtector from './routes/DasboardProtector';
 import Dashboard from './pages/Dashboard';
 import HeaderTemplate from './components/Header/HeaderTemplate';
 import Fallback from './components/error/Fallback';
+import Review from './routes/Review';
+import ReviewProtector from './routes/ReviewProtector';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -183,7 +185,7 @@ function App() {
                 <Login setLogin={setLogin} getLoginData={getLoginData} />
               }
             />
-            <Route element={<Protector setLogin={setLogin} />}>
+            <Route element={<DasboardProtector setLogin={setLogin} />}>
               <Route
                 path='/dashboard'
                 element={
@@ -194,6 +196,9 @@ function App() {
                   />
                 }
               />
+            </Route>
+            <Route element={<ReviewProtector />}>
+              <Route path='/review/:id' element={<Review />} />
             </Route>
           </Routes>
         </BrowserRouter>

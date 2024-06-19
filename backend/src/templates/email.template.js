@@ -65,3 +65,30 @@ export const declineAppointmentTemplate = (
   };
 };
 // datum/zeit in den templates usw muss noch angepasst werden
+export const reviewDoctorTemplate = (
+  patientemail,
+  patientname,
+  doctorname,
+  date,
+  code,
+  link
+) => {
+  return {
+    from: '"doc appointments admin" <admin@doctorappointments.com>',
+    to: patientemail,
+    subject: 'review your doctor appointment',
+    text: `
+          Hello ${patientname}!
+         Tell us about your appointment with ${doctorname}on ${date}.
+         You can rate your doctor and leave a review here [${link}].
+         To write a review enter this code to verify your identity: ${code}. LG, doc appointments admin`,
+    html: `
+          <div style='font-family: system-ui, -apple-system, sans-serif, Arial'>
+          <h2>Hello ${patientname}!</h2>
+          <p>Tell us about your appointment with <span style='font-weight: bold'> ${doctorname}</span> on ${date}.</p>
+          <p>You can rate your doctor and leave a review <a href='${link}'>here</a></p>
+          <p>To write a review enter this code to verify your identity: <span style='font-weight: bold'> ${code}</span>.</p>
+          <p>LG, doc appointments admin</p>
+          </div>`,
+  };
+};

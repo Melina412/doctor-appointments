@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 // import { LoginContext } from './context/LoginContext';
 
-function Protector({ setLogin }) {
+function DashboardProtector({ setLogin }) {
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -92,4 +92,4 @@ function Protector({ setLogin }) {
   return <Outlet />;
 }
 
-export default Protector;
+export default DashboardProtector;

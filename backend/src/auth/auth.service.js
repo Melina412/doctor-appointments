@@ -27,8 +27,21 @@ export function createSalt() {
   return randomBytes(12).toString('hex');
 }
 
-// diese funktion brauche ich nur einmal um ein jwt secret zu generieren
-export function createSecret() {
-  const jwtSecret = randomBytes(12).toString('hex');
-  // console.log('new secret created:', `JWT_SECRET=${jwtSecret}`);
+export function createSecret(digits) {
+  // für jwt secret 12 bytes
+  const secret = randomBytes(digits).toString('hex');
+  // console.log('new secret created:', `JWT_SECRET=${secret}`);
+
+  // diese funktion kann auch für den review link benutzt werden!
+  // eig. ist create hash auch schon das gleiche
+
+  console.log({ secret });
+  return secret;
+}
+
+export function createNumericalCode(digits) {
+  const bytes = randomBytes(Math.ceil(digits / 2));
+  const code = parseInt(bytes.toString('hex'), 16).toString().slice(0, digits);
+  console.log({ code });
+  return code;
 }

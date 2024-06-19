@@ -7,8 +7,13 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
   let status = appt?.confirmed;
   let patient = appt?.patient;
   let id = appt?._id;
+  let now = new Date();
+
+  //todo: im appt model muss vermerkt werden dass der termin done ist, damit beim nächsten laden der state nicht wieder false ist
+  let doneStatus = appt?.done;
+
   const [action, setAction] = useState(null);
-  // console.log({ action });
+  const [done, setDone] = useState(false);
 
   async function updateAppointmentStatus() {
     console.log('action an server:', action);
@@ -39,13 +44,58 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
     }
   }
 
+  async function setAppointmentDone() {
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKENDURL}/api/review/enable`,
+      {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(appt),
+        credentials: 'include',
+      }
+    );
+    const response = await res.json();
+
+    if (res.ok) {
+      console.log(response.message);
+      getMyAppointments();
+    } else {
+      console.error(response.message);
+    }
+  }
+
+  const handleDone = async () => {
+    setAppointmentDone();
+    setDone(true);
+  };
+
+  // console.log({ action });
+  // console.log({ doneStatus });
+
   return (
-    <div className='appt-item'>
+    <div className={`appt-item ${done || doneStatus ? 'done' : ''}`}>
+      {now > date && (
+        <div>
+          {status && !done && !doneStatus ? (
+            <>
+              <p>
+                this appointment is over. please confirm that the patient has
+                appeared ASAP!
+              </p>
+              <button onClick={handleDone}>patient appeared ✔️</button>
+            </>
+          ) : (
+            <p>appointment done!</p>
+          )}
+        </div>
+      )}
       <p>date: {date.toLocaleString()}</p>
       <p>responsed: {status !== null ? 'yes' : 'no'}</p>
       <p>
-        {' '}
-        {status == true && '✅ accepted'} {status == false && '❎ declined'}{' '}
+        {status == true && '✅ accepted'}
+        {status == false && '❎ declined'}
         {status == null && '📥 new request'}
       </p>
       <p>patient name: {patient?.full_name}</p>
@@ -100,7 +150,8 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
         </div>
       ) : (
         <div>
-          <button>~~cancel appointment ~~</button>
+          {!doneStatus ||
+            (status === false && <button>cancel appointment</button>)}
         </div>
       )}
     </div>
