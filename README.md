@@ -24,18 +24,22 @@
 <br/> [❌] deployment
 <br/> [❌] style
 
-## Todo, planned extra features & tools
+## Todo
 
 [✅] refresh token
+<br/> [✅] doctors should be able to confirm the patient showed up before they're allowed to leave a review/rank (also neccessary for review initializing)
+<br/> [❌] archive past appointments (also to count patient number)
+<br/> [❌] seperate register & login routes
+
+## planned extra features & tools
+
 <br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position
 <br/> [❌] b version with luxon instead manual generator function
 <br/> [❌] doctors can cancel already confirmed appointment
-<br/> [❌] doctors should be able to confirm the patient showed up before they're allowed to leave a review/rank
-<br/> [❌] archive past appointments (also to count patient number)
 
-## Tools
+## Tools used
 
 - docker
 - JWT
@@ -45,6 +49,8 @@
 - cron job
 
 <!-- ## Sample Data -->
+
+<!-- todo: data models checken und neue daten erstellen  -->
 
 <!-- sample dataset can be uploaded to mongodb from within directory backend/src/ with the command: -->
 

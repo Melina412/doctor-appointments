@@ -88,7 +88,7 @@ function DoctorsSearch({
   //! console logs
 
   // console.log({ doctorAutocomplete });
-  // console.log({ filter }, 'klick auf filter icon');
+  console.log({ filter }, 'klick auf filter icon');
   // console.log({ checkedSpecialties });
   // console.log({ input });
   // console.log('specialties von search:', specialties);
@@ -102,7 +102,11 @@ function DoctorsSearch({
           <div className='left'>
             <Link to='/' title='back'>
               <div className='icon-container'>
-                <img src='/img/arrow-icon.svg' alt='arrow back icon' />
+                <img
+                  src='/img/arrow-back-icon.svg'
+                  alt='arrow back icon'
+                  className='arrow-back'
+                />
               </div>
             </Link>
           </div>
@@ -111,7 +115,11 @@ function DoctorsSearch({
           </div>
           <div className='right'>
             <div className='icon-container' onClick={handleIconClick}>
-              <img src='/img/settings-icon.svg' alt='settings icon' />
+              <img
+                src='/img/filter-icon.svg'
+                alt='filter icon'
+                className='filter'
+              />
             </div>
           </div>
         </div>
@@ -138,13 +146,18 @@ function DoctorsSearch({
 
         <div className='searchbar'>
           <div className='input-flex'>
-            <input
-              type='text'
-              name='doctorName'
-              value={input}
-              placeholder='🔎 search for doctors'
-              onChange={handleOnChange}
-            />
+            <div className='search-icon'>
+              <img src='/img/search-icon.svg' alt='search icon' />
+            </div>
+            <div className='search-input'>
+              <input
+                type='text'
+                name='doctorName'
+                value={input}
+                placeholder='search for doctors'
+                onChange={handleOnChange}
+              />
+            </div>
             {input.length > 0 && (
               <p>please klick on suggestion to select name</p>
             )}

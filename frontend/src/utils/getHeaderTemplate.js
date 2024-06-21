@@ -13,10 +13,12 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
           { to: '/', title: '' },
           React.createElement(
             'div',
+            { className: 'icon-container' },
             null,
             React.createElement('img', {
               key: 'schedule',
-              src: '/img/schedule-icon.png',
+              src: '/img/schedule-icon.svg',
+              className: 'schedule',
             })
           )
         ),
@@ -25,10 +27,12 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
           { to: '/', title: '' },
           React.createElement(
             'div',
+            { className: 'icon-container' },
             null,
             React.createElement('img', {
               key: 'dots',
               src: '/img/dots-icon.svg',
+              className: 'dots',
             })
           )
         )
@@ -46,18 +50,25 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
         { to: prevLocation, title: 'back' },
         React.createElement(
           'div',
+          { className: 'icon-container' },
           null,
           React.createElement('img', {
             key: 'arrow',
-            src: '/img/arrow-icon.svg',
+            src: '/img/arrow-back-icon.svg',
+            className: 'arrow-back',
           })
         )
       ),
       mid: null,
-      right: React.createElement('img', {
-        key: 'dots',
-        src: '/img/dots-icon.svg',
-      }),
+      right: React.createElement(
+        'div',
+        { className: 'icon-container' },
+        React.createElement('img', {
+          key: 'dots',
+          src: '/img/dots-icon.svg',
+          className: 'dots',
+        })
+      ),
     },
     Appointment: {
       left: React.createElement(

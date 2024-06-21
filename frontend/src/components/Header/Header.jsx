@@ -31,7 +31,10 @@ function Header({ left, mid, right, loginData, userLogout, login, Link }) {
         {login && <button onClick={handleLogout}>logout</button>}
         {/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */}
       </div>
-      <div className={`header-flex ${right === null && 'hidden'}`}>
+      <div
+        className={`header-flex ${
+          right === null && mid === null && left === null && 'hidden'
+        }`}>
         <div className='left'>{left}</div>
         <div className='mid'>{mid}</div>
         <div className='right'>{right}</div>

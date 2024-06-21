@@ -24,6 +24,19 @@ header {
       div.home-right {
         display: flex;
         align-items: center;
+        gap: 1rem;
+
+        a {
+          div {
+            @include size(4rem, 4rem);
+            // background-color: red;
+
+            img.dots {
+              @include size(100%, 100%);
+              padding: 1rem 0;
+            }
+          }
+        }
       }
     }
 
