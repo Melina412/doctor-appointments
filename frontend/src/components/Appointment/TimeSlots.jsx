@@ -7,6 +7,7 @@ function TimeSlots({
   setSelectedDate,
   selectedTime,
   setSelectedTime,
+  apptSent,
 }) {
   const months = [
     'January',
@@ -160,13 +161,13 @@ function TimeSlots({
 
   //! console logs ==================================================================
 
-  // console.log({ month });
+  console.log({ month });
   // console.log(doctor);
   // console.log({ visitingHours });
   // console.log({ calendarDays });
   console.log('selectedDate', selectedDate);
   console.log('selectedTime', selectedTime);
-  // console.log('timeSlots:', timeSlots);
+  console.log('timeSlots:', timeSlots);
   // console.log('dailySlots:', dailySlots);
   // console.log({ prevMonth });
   console.log({ defaultMonth });
@@ -176,64 +177,74 @@ function TimeSlots({
 
   return (
     <>
-      <section className='calendar-days'>
-        <select name='month' id='month' onChange={handleMonthChange}>
-          {remainingMonths.map((month, index) => (
-            <option value={month} key={index}>
-              {month}
-              {/* hier muss die auswahl erst ab dem aktuellen monat möglich sein! */}
-            </option>
-          ))}
-        </select>
-        <select
-          name='year'
-          id='year'
-          onChange={(e) => setSelectedYear(Number(e.target.value))}>
-          {yearOptions.map((year, index) => (
-            <option value={year} key={index}>
-              {year}
-            </option>
-          ))}
-        </select>
-
-        <div className='days-grid'>
-          {calendarDays?.days?.map((item, index) => (
-            <div
-              className={`calendar-items ${
-                selectedDate.date === item.date ? 'selected' : ''
-              }`}
-              key={index}
-              onClick={() =>
-                handleDateClick(
-                  item.day,
-                  item.date,
-                  calendarDays.month,
-                  calendarDays.index
-                )
-              }>
-              <p>{item.date}</p>
-              <p>{item.day}</p>
+      {!apptSent && (
+        <>
+          <section className='calendar-days'>
+            <div className='select-month'>
+              <div className='select-focus'>
+                <select name='month' id='month' onChange={handleMonthChange}>
+                  {remainingMonths.map((month, index) => (
+                    <option value={month} key={index}>
+                      {month}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className='select-focus'>
+                <select
+                  name='year'
+                  id='year'
+                  onChange={(e) => setSelectedYear(Number(e.target.value))}>
+                  {yearOptions.map((year, index) => (
+                    <option value={year} key={index}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section className='time-slots'>
-        <h2>Available Time</h2>
-
-        <div className='time-grid'>
-          {dailySlots?.map((item, index) => (
-            <div
-              className={`time-slot-items ${
-                selectedTime === item ? 'selected' : ''
-              }`}
-              key={index}
-              onClick={() => handleTimeClick(item)}>
-              {item}
+            <div className='days-grid'>
+              {calendarDays?.days?.map((item, index) => (
+                <div
+                  className={`calendar-items item ${
+                    selectedDate.date === item.date ? 'selected' : ''
+                  }`}
+                  key={index}
+                  onClick={() =>
+                    handleDateClick(
+                      item.day,
+                      item.date,
+                      calendarDays.month,
+                      calendarDays.index
+                    )
+                  }>
+                  <p className='date'>{item.date}</p>
+                  <p className='day'>{item.day}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+          {selectedDate.day && (
+            <section className='time-slots'>
+              <h2>Available Time</h2>
+
+              <div className='time-grid'>
+                {dailySlots?.map((item, index) => (
+                  <div
+                    className={`time-slot-items item ${
+                      selectedTime === item ? 'selected' : ''
+                    }`}
+                    key={index}
+                    onClick={() => handleTimeClick(item)}>
+                    <p className='time'>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </>
+      )}
     </>
   );
 }

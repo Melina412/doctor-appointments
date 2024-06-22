@@ -88,7 +88,7 @@ function DoctorsSearch({
   //! console logs
 
   // console.log({ doctorAutocomplete });
-  console.log({ filter }, 'klick auf filter icon');
+  // console.log({ filter }, 'klick auf filter icon');
   // console.log({ checkedSpecialties });
   // console.log({ input });
   // console.log('specialties von search:', specialties);
@@ -97,7 +97,7 @@ function DoctorsSearch({
   //? der header ist hier innerhalb der main section der doctors page was inkorrekte html semantik ist -> ändern
   return (
     <>
-      <header>
+      <header id='doctors'>
         <div className={`header-flex`}>
           <div className='left'>
             <Link to='/' title='back'>
@@ -126,8 +126,6 @@ function DoctorsSearch({
       </header>
 
       <section className='doctors-search'>
-        <h1>Search</h1>
-
         {filter === true && (
           <>
             {specialties.map((specialty, index) => (
@@ -165,13 +163,14 @@ function DoctorsSearch({
           {input.length > 0 && (
             <div className='suggestions-list'>
               {suggestions.slice(0, 10).map((suggestion, index) => (
-                <option
+                // option tag außerhalb von select wird von safari nichgt gerendert. div tag hat kein value was alles todes verkompliziert, also button!
+                <button
                   className='suggestion'
                   key={index}
                   value={suggestion}
                   onClick={handleOnClick}>
                   {suggestion}
-                </option>
+                </button>
               ))}
             </div>
           )}

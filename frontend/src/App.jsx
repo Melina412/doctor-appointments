@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 // import { createBrowserHistory } from 'history';
@@ -15,6 +15,8 @@ import Fallback from './components/error/Fallback';
 import Review from './routes/Review';
 import ReviewProtector from './routes/ReviewProtector';
 import Verify from './routes/Verify';
+import Register from './routes/Register';
+import NotFound from './routes/NotFound';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -107,6 +109,7 @@ function App() {
         // setLocalStorageLogin(localLogin);
         setLogin(false);
         getLoginData();
+
         console.log(response.message);
       } else if (res.status === 401) {
         console.error(response.message);
@@ -186,12 +189,19 @@ function App() {
                 <Login setLogin={setLogin} getLoginData={getLoginData} />
               }
             />
+            <Route
+              path='/register'
+              element={
+                <Register setLogin={setLogin} getLoginData={getLoginData} />
+              }
+            />
             <Route element={<DasboardProtector setLogin={setLogin} />}>
               <Route
                 path='/dashboard'
                 element={
                   <Dashboard
                     login={login}
+                    setLogin={setLogin}
                     getLoginData={getLoginData}
                     fetchDoctors={fetchDoctors}
                   />
@@ -202,6 +212,7 @@ function App() {
               <Route path='/review/:id' element={<Review />} />
             </Route>
             <Route path='/review/verify/:id' element={<Verify />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </ErrorBoundary>

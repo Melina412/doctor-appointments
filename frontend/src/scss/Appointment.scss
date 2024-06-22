@@ -1,46 +1,192 @@
 @import './partials/variables';
+@import './partials/mixins';
+@import './partials/fonts';
+@import './partials/classes';
 
 main.appointment {
-  div.upper-wrapper {
-    div.flex {
-      display: flex;
-      justify-content: space-between;
+  h2 {
+    @include text-style($Roboto700, 1.8rem, $text-fill);
+    margin-bottom: 2rem;
+  }
+  p.notice {
+    @include text-style($Roboto400, 1.2rem, $text-grey);
+  }
+  div.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // padding: 2rem 0;
+    border: 1px solid $border;
+    border-radius: 15px;
+  }
 
-      div.icon-container {
-        background-color: blanchedalmond;
-        border-radius: 5px;
-        cursor: pointer;
+  div.select-focus {
+    outline: none;
+    appearance: none;
 
-        img {
-          width: 100%;
-          height: 100%;
-        }
+    &:focus-within {
+      outline: 2px auto -webkit-focus-ring-color;
+    }
+
+    select {
+      background-color: transparent;
+      border: none;
+      outline: none;
+
+      appearance: none; // entfernt den hässlichen hintergrund in safari aber leider auch den dropdown pfeil. muss für alle browser eingestellt werden:
+      -webkit-appearance: none; // chrome & safari
+      -moz-appearance: none; // firefox
+      &::-ms-expand {
+        display: none; // microsoft
+      }
+
+      // neuen dropdown pfeil als bg
+      background: url('/img/dropdown.svg') no-repeat 100% 50%;
+
+      &:focus {
+        outline: none;
       }
     }
   }
 
+  // *** calendar days *********************************************************
   section.calendar-days {
+    div.select-month {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      div.select-focus {
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        select {
+          @include text-style($Roboto700, 1.8rem, $text-fill);
+          letter-spacing: 0.3px;
+          border: none;
+          padding-right: 2rem;
+        }
+      }
+    }
     div.days-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
 
       div.calendar-items {
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        padding: 2rem 0;
+        // border: 1px solid $border;
+        // border-radius: 20px;
+
+        p.date {
+          @include text-style($Roboto500, 2.4rem, $text-grey);
+          margin-bottom: 0.5rem;
+        }
+        p.day {
+          @include text-style($Roboto400, 1.2rem, $text-grey);
+        }
         &.selected {
           background-color: $blue;
+          p {
+            color: white;
+          }
         }
       }
     }
   }
 
+  // *** time slots *********************************************************
   section.time-slots {
     div.time-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
       div.time-slot-items {
+        padding: 1rem 0;
+        p.time {
+          @include text-style($Roboto500, 1.4rem, $text-grey);
+        }
         &.selected {
           background-color: $blue;
+          p {
+            color: white;
+          }
         }
       }
+    }
+  }
+
+  // *** patient form *********************************************************
+  section.patient-form {
+    form {
+      display: flex;
+      flex-direction: column;
+
+      label,
+      legend {
+        @include text-style($Roboto400, 1.4rem, $text-grey);
+        margin-bottom: 0.5rem;
+      }
+
+      input#patient-name,
+      input#email,
+      textarea {
+        @include text-style($Roboto400, 1.6rem, $text-fill);
+        border: none;
+        background-color: $input-fill;
+        border-radius: 1.5rem;
+        padding: 1.5rem 2rem;
+        letter-spacing: 0.5px;
+        margin-bottom: 2rem;
+      }
+
+      div.select-focus {
+        background-color: $input-fill;
+        border-radius: 1.5rem;
+        padding: 1.5rem 2rem;
+        select#age {
+          @include text-style($Roboto400, 1.6rem, $text-fill);
+          width: 100%;
+        }
+      }
+
+      div.radio-container {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        input {
+          display: none;
+        }
+        label {
+          display: inline-block;
+          padding: 1rem 0;
+          width: 10rem;
+          text-align: center;
+          border: 1px solid $border;
+          border-radius: 15px;
+
+          &.selected {
+            background-color: $blue;
+            color: white;
+          }
+        }
+      }
+
+      textarea {
+        margin-bottom: 0;
+      }
+      div.textarea {
+        margin-bottom: 2rem;
+        p.chars {
+          color: $text-grey;
+        }
+      }
+    }
+
+    button.set {
+      @include text-style($Roboto400, 1.6rem, white);
+      @extend .set-appointment-btn;
     }
   }
 }

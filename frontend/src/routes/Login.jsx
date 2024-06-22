@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 // nach der registrierung soll eine mail mit 6 digit code zur auth des users gesendet werden, erst dann kann man das profil erstellen (nicht fertig)
 
@@ -7,9 +7,6 @@ function Login({ setLogin, getLoginData }) {
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
-
-  const [register, setRegister] = useState(false);
-  const [registerMode, setRegisterMode] = useState(false);
 
   async function userLogin() {
     const user = {
@@ -36,7 +33,7 @@ function Login({ setLogin, getLoginData }) {
       // console.log(response);
 
       if (res.ok) {
-        // localStorage.setItem('doctor-login', true);
+        setLogin(true);
         getLoginData();
         navigate('/dashboard');
       } else if (res.status === 401) {
@@ -47,49 +44,8 @@ function Login({ setLogin, getLoginData }) {
     }
   }
 
-  async function userRegister() {
-    const newUser = {
-      email: userRef.current.value,
-      password: passwordRef.current.value,
-    };
-
-    // console.log({ newUser });
-
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/register`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(newUser),
-        }
-      );
-
-      const response = await res.json();
-      // console.log(response);
-
-      if (res.ok) {
-        userRef.current.value = '';
-        passwordRef.current.value = '';
-        setRegister(true);
-        setLogin(true);
-        // console.log(response.message);
-      } else if (res.status === 400) {
-        console.error(response.message);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   const handleLogin = () => {
     userLogin();
-  };
-
-  const handleRegister = () => {
-    userRegister();
   };
 
   const handleKeyDown = (e) => {
@@ -126,10 +82,11 @@ function Login({ setLogin, getLoginData }) {
         </div>
 
         <button onClick={handleLogin}>Login</button>
-        <p>(Login only for already registered users for now)</p>
+        <p>No account yet?</p>
+        <Link to={'/register'}>Register now!</Link>
       </div>
 
-      {register ? (
+      {/* {register ? (
         <p style={{ fontSize: '2rem' }}>register successful. please log in!</p>
       ) : (
         <div>
@@ -139,7 +96,7 @@ function Login({ setLogin, getLoginData }) {
           </p>
           <button onClick={handleRegister}>Sign up</button>
         </div>
-      )}
+      )} */}
     </section>
   );
 }

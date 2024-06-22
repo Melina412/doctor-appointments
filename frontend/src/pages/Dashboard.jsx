@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import Profile from '../components/Dashboard/Profile';
 import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
+import Logout from '../routes/Logout';
+import { useNavigate } from 'react-router-dom';
 
-function Dashboard({ login, getLoginData, fetchDoctors }) {
+function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
+
+  const navigate = useNavigate();
 
   // console.log({ profileData });
 
@@ -65,12 +69,31 @@ function Dashboard({ login, getLoginData, fetchDoctors }) {
     <main className='dashboard'>
       {/* {login ? ( */}
       <>
-        <h2>Hello {profileData?.name}</h2>
-
-        <section className='picture'>
+        <section className='profile'>
+          <h2>Hello {profileData?.name}</h2>
           <div className='avatar-container'>
-            <img src={profileData?.avatar} alt='user avatar' />
+            <div
+              className='blur-bg'
+              style={{ backgroundImage: `url(${profileData?.avatar})` }}></div>
+
+            <img width={100} src={profileData?.avatar} alt='user avatar' />
           </div>
+
+          {!editMode ? (
+            <button onClick={() => setEditMode(true)}>edit profile</button>
+          ) : (
+            <>
+              <Profile
+                profileData={profileData}
+                setEditMode={setEditMode}
+                getProfileData={getProfileData}
+                getLoginData={getLoginData}
+                fetchDoctors={fetchDoctors}
+              />
+              <button onClick={() => setEditMode(false)}>cancel</button>
+            </>
+          )}
+
           <button onClick={() => setEditAvatar(true)}>edit profile pic</button>
           {editAvatar && (
             <>
@@ -85,24 +108,14 @@ function Dashboard({ login, getLoginData, fetchDoctors }) {
               <button onClick={() => setEditAvatar(false)}>cancel</button>
             </>
           )}
+          <Logout
+            navigate={navigate}
+            setLogin={setLogin}
+            getLoginData={getLoginData}
+          />
         </section>
 
         <MyAppointments />
-        <h2>Profile</h2>
-        {editMode ? (
-          <>
-            <Profile
-              profileData={profileData}
-              setEditMode={setEditMode}
-              getProfileData={getProfileData}
-              getLoginData={getLoginData}
-              fetchDoctors={fetchDoctors}
-            />
-            <button onClick={() => setEditMode(false)}>cancel</button>
-          </>
-        ) : (
-          <button onClick={() => setEditMode(true)}>edit profile</button>
-        )}
       </>
       {/* ) : ( */}
       {/* <p>please login to view dashboard</p> */}

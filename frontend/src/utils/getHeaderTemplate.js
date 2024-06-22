@@ -1,6 +1,12 @@
 import React from 'react';
 
-export const getHeaderTemplate = (username, prevLocation, login, Link) => {
+export const getHeaderTemplate = (
+  username,
+  prevLocation,
+  login,
+  Link,
+  logout
+) => {
   return {
     Home: {
       left: login ? `Welcome, ${username}` : null,
@@ -10,7 +16,7 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
         { className: 'home-right' },
         React.createElement(
           Link,
-          { to: '/', title: '' },
+          { to: '/dashboard', title: 'dashboard' },
           React.createElement(
             'div',
             { className: 'icon-container' },
@@ -23,17 +29,39 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
           )
         ),
         React.createElement(
-          Link,
-          { to: '/', title: '' },
+          'details',
+          null,
+          React.createElement(
+            'summary',
+            null,
+            React.createElement(
+              'div',
+              { className: 'icon-container', title: 'login' },
+              null,
+              React.createElement('img', {
+                key: 'dots',
+                src: '/img/dots-icon.svg',
+                className: 'dots',
+              })
+            )
+          ),
           React.createElement(
             'div',
-            { className: 'icon-container' },
+            { className: 'links' },
             null,
-            React.createElement('img', {
-              key: 'dots',
-              src: '/img/dots-icon.svg',
-              className: 'dots',
-            })
+            React.createElement(
+              Link,
+              {
+                to: '/login',
+                title: 'login',
+              },
+              'Login'
+            ),
+            React.createElement(
+              Link,
+              { to: '/register', title: 'register' },
+              'Register'
+            )
           )
         )
       ),
@@ -47,7 +75,7 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
     Details: {
       left: React.createElement(
         Link,
-        { to: prevLocation, title: 'back' },
+        { to: '/doctors', title: 'back' },
         React.createElement(
           'div',
           { className: 'icon-container' },
@@ -79,12 +107,14 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
           null,
           React.createElement('img', {
             key: 'arrow',
-            src: '/img/arrow-icon.svg',
+            src: '/img/arrow-back-icon.svg',
           })
         )
       ),
       mid: 'New Appointment',
-      right: null,
+      right: React.createElement('div', {
+        className: 'empty',
+      }),
     },
     Dashboard: {
       left: React.createElement(
@@ -95,12 +125,50 @@ export const getHeaderTemplate = (username, prevLocation, login, Link) => {
           null,
           React.createElement('img', {
             key: 'arrow',
-            src: '/img/arrow-icon.svg',
+            src: '/img/arrow-back-icon.svg',
           })
         )
       ),
       mid: 'Dashboard',
-      right: 'Logout',
+      right: React.createElement('div', {
+        className: 'empty',
+      }),
+    },
+    Login: {
+      left: React.createElement(
+        Link,
+        { to: '/', title: 'home' },
+        React.createElement(
+          'div',
+          null,
+          React.createElement('img', {
+            key: 'arrow',
+            src: '/img/arrow-back-icon.svg',
+          })
+        )
+      ),
+      mid: 'Login',
+      right: React.createElement('div', {
+        className: 'empty',
+      }),
+    },
+    Register: {
+      left: React.createElement(
+        Link,
+        { to: '/', title: 'home' },
+        React.createElement(
+          'div',
+          null,
+          React.createElement('img', {
+            key: 'arrow',
+            src: '/img/arrow-back-icon.svg',
+          })
+        )
+      ),
+      mid: 'Register',
+      right: React.createElement('div', {
+        className: 'empty',
+      }),
     },
   };
 };

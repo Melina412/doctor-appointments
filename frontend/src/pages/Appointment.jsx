@@ -13,6 +13,7 @@ function Appointment({ doctors }) {
     month: null,
     index: null,
   });
+  const [apptSent, setApptSent] = useState(false);
 
   const doctor = doctors?.find((item) => item._id === params.id);
   const visitingHours = doctor?.visiting_hours;
@@ -33,7 +34,14 @@ function Appointment({ doctors }) {
           </div>
         </div>
       </div> */}
-      <p>book appointment for {doctor?.name}</p>
+      {!apptSent && (
+        <section>
+          <p className='notice'>
+            Select an available slot & fill in your details to send a
+            appointment request to {doctor?.name}.
+          </p>
+        </section>
+      )}
       <TimeSlots
         visitingHours={visitingHours}
         doctor={doctor}
@@ -41,11 +49,15 @@ function Appointment({ doctors }) {
         setSelectedDate={setSelectedDate}
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
+        setApptSent={setApptSent}
+        apptSent={apptSent}
       />
       <PatientForm
         selectedDate={selectedDate}
         selectedTime={selectedTime}
         doctor={doctor}
+        setApptSent={setApptSent}
+        apptSent={apptSent}
       />
     </main>
   );
