@@ -19,6 +19,9 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use('images', express.static('./images'));
 
+const FRONTEND_DIR = new URL('.././frontend/dist', import.meta.url).pathname;
+app.use(express.static(FRONTEND_DIR));
+
 app.use('/api/auth', authRouter);
 app.use('/api/doctors', doctorRouter);
 app.use('/api/user', userRouter);
