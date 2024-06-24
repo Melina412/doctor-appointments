@@ -13,8 +13,6 @@ app.get('*', (_, res) => {
   res.sendFile(FRONTEND_INDEX);
 });
 
-app.listen(
-  process.env.PORT,
-  () => connect(),
-  console.log('✅ express runs on port', process.env.PORT)
-);
+app.listen(process.env.PORT, () => {
+  connect(), console.log('✅ express runs on port', process.env.PORT);
+});
