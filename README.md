@@ -2,6 +2,18 @@
 
 (in progress)
 
+## Stack
+
+<div>
+ <img src="https://img.shields.io/badge/MongoDB-47A248.svg?style=for-the-badge&logo=MongoDB&logoColor=white" />
+ <img src="https://img.shields.io/badge/Express-000000.svg?style=for-the-badge&logo=Express&logoColor=white" />
+ <img src="https://img.shields.io/badge/React-61DAFB.svg?style=for-the-badge&logo=React&logoColor=black" />
+ <img src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+ <img src="https://img.shields.io/badge/Mongoose-880000.svg?style=for-the-badge&logo=Mongoose&logoColor=white" />
+ <img src="https://img.shields.io/badge/Sass-CC6699.svg?style=for-the-badge&logo=Sass&logoColor=white" />
+ <img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" />
+</div>
+
 ## Features
 
 [✅] doctors can register, login & logout
@@ -21,7 +33,7 @@
 <br/> - create review access token on correct code input ✅
 <br/> - delete cookie, path & code ✅
 😬😬😬😬😬
-<br/> [❌] deployment
+<br/> [✅] deployment
 <br/> [❌] style
 
 ## Todo
@@ -29,7 +41,11 @@
 [✅] refresh token
 <br/> [✅] doctors should be able to confirm the patient showed up before they're allowed to leave a review/rank (also neccessary for review initializing)
 <br/> [❌] archive past appointments (also to count patient number)
-<br/> [❌] seperate register & login routes
+<br/> [✅] seperate register & login routes
+<br/> [✅] fix logout
+<br/> [❌] delete booked time slots
+<br/> [❌] convert getHeaderTemplate to jsx
+<br/> [❌] link patients/ & rating to doctors
 
 ## planned extra features & tools
 
