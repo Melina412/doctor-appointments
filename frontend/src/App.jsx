@@ -47,10 +47,14 @@ function App() {
   //$ fetchDoctors -------------------------------------------------------
 
   async function fetchDoctors() {
-    const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
-    if (res.ok) {
-      const data = await res.json();
-      setDoctors(data);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
+      if (res.ok) {
+        const data = await res.json();
+        setDoctors(data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
