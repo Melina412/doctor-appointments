@@ -56,10 +56,10 @@ function Login({ setLogin, getLoginData }) {
   };
 
   return (
-    <section className='login'>
-      <h1>Login</h1>
+    <section className='login-register'>
+      <h1>Dashboard Login</h1>
 
-      <div>
+      <article>
         <div>
           <label htmlFor='email'>User</label>
           <input
@@ -75,28 +75,21 @@ function Login({ setLogin, getLoginData }) {
           <input
             type='password'
             name='password'
-            placeholder='password'
+            placeholder='your password'
             ref={passwordRef}
             onKeyDown={handleKeyDown}
           />
         </div>
-
-        <button onClick={handleLogin}>Login</button>
-        <p>No account yet?</p>
-        <Link to={'/register'}>Register now!</Link>
-      </div>
-
-      {/* {register ? (
-        <p style={{ fontSize: '2rem' }}>register successful. please log in!</p>
-      ) : (
         <div>
-          <p>
-            new user? enter your email & password above then click here to
-            register:
-          </p>
-          <button onClick={handleRegister}>Sign up</button>
+          <button onClick={handleLogin}>Login</button>
         </div>
-      )} */}
+
+        <div className='method'>
+          <p>
+            No account yet? <Link to={'/register'}>Register now!</Link>
+          </p>
+        </div>
+      </article>
     </section>
   );
 }

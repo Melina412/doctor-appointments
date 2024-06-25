@@ -23,6 +23,7 @@ function PatientForm({
   // const [apptSent, setApptSent] = useState(false);
 
   const [selectedGender, setSelectedGender] = useState('diverse');
+  const [selectedAge, setSelectedAge] = useState(false);
 
   console.log(index, date);
   console.log({ appointmentDate });
@@ -79,7 +80,12 @@ function PatientForm({
 
                 <label htmlFor='age'>Age</label>
                 <div className='select-focus'>
-                  <select name='age_group' id='age'>
+                  <select
+                    name='age_group'
+                    id='age'
+                    className={selectedAge ? 'selected' : ''}
+                    onChange={(e) => setSelectedAge(e.target.value !== '')}
+                    defaultValue=''>
                     <option value=''>{'age group'}</option>
                     <option value='<18'>{'< 18'}</option>
                     <option value='18-25'>{'18 - 25'}</option>

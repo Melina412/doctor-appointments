@@ -29,5 +29,57 @@
   border: none;
 }
 
+.btn-full {
+  @include text-style($Roboto400, 1.6rem, white);
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  background-color: $blue;
+  display: block;
+  text-align: center;
+  width: 100%;
+  border: none;
+  border-radius: 1.5rem;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem 1.5rem;
+  cursor: pointer;
+}
+
+.input-regular {
+  @include text-style($Roboto400, 1.6rem, $text-fill);
+  border: none;
+  background-color: $input-fill;
+  border-radius: 1.5rem;
+  padding: 1.5rem 2rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+}
+
+.input-label {
+  @include text-style($Roboto400, 1.4rem, $text-grey);
+  margin-bottom: 0.5rem;
+}
+
+.h-stroke-shadow {
+  @include text-style($Roboto700, 2rem, $text-fill);
+  text-shadow: (
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000
+  );
+
+  //? shadow sieht nicht gut aus aber text stroke funktioniert nicht in allen browsern :/
+  -webkit-text-stroke: 1px $text-stroke;
+  text-shadow: 0 0.5rem 1rem $text-grey;
+  margin-bottom: 1rem;
+}
+
+.h-stroke {
+  @include text-style($Roboto700, 1.8rem, $text-fill);
+  letter-spacing: 0.5px;
+  -webkit-text-stroke: 1px $text-stroke;
+  margin-bottom: 1.2rem;
+}
+
 .item-active {
 }

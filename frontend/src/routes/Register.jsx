@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import '../scss/Login_Register.scss';
 
 function Register() {
   const userRef = useRef();
@@ -56,39 +57,49 @@ function Register() {
   };
 
   return (
-    <section className='register'>
+    <section className='login-register'>
       <h1>Register</h1>
+      <article>
+        <div className='text'>
+          <p>
+            <span>Doctors</span> who want to join the platform can create an
+            account here.
+          </p>
+          <p>
+            <span>Patients</span> don't need to sign up, just search for a
+            doctor and book your appointment today!
+          </p>
+        </div>
 
-      <p>Doctors who want to join the platform can create an account here.</p>
-      <p>
-        Patients don't need to sign up, just search for a doctor and book your
-        appointment today!
-      </p>
+        <div>
+          <label htmlFor='email'>Email</label>
+          <input
+            type='email'
+            name='email'
+            placeholder='enter your email'
+            ref={userRef}
+          />
+        </div>
 
-      <div>
-        <label htmlFor='email'>User</label>
-        <input
-          type='email'
-          name='email'
-          placeholder='your email'
-          ref={userRef}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          type='password'
-          name='password'
-          placeholder='password'
-          ref={passwordRef}
-          onKeyDown={handleKeyDown}
-        />
-      </div>
-      <button onClick={handleRegister}>Register</button>
-      <p>
-        Already have an account? <Link href='/login'>Login</Link>
-      </p>
+        <div>
+          <label htmlFor='password'>Password</label>
+          <input
+            type='password'
+            name='password'
+            placeholder='choose a password'
+            ref={passwordRef}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+        <div>
+          <button onClick={handleRegister}>Register</button>
+        </div>
+        <div className='method'>
+          <p>
+            Already have an account? <Link to={'/login'}>Login</Link>
+          </p>
+        </div>
+      </article>
     </section>
   );
 }

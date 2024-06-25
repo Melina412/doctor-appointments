@@ -1,0 +1,58 @@
+@import './partials/variables';
+@import './partials/mixins';
+@import './partials/fonts';
+@import './partials/classes';
+
+section.login-register {
+  h1 {
+    @extend .h-stroke;
+    margin-bottom: 2rem;
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        @extend .input-label;
+      }
+
+      input {
+        @extend .input-regular;
+
+        &::placeholder {
+          color: $text-placeholder;
+        }
+      }
+
+      button {
+        @extend .btn-full;
+      }
+
+      &.text {
+        @include text-style($Roboto400, 1.2rem, $text-fill);
+        margin-bottom: 1rem;
+
+        p {
+          padding: 0.5rem 0;
+          span {
+            font-family: $Roboto700;
+          }
+        }
+      }
+
+      &.method {
+        @include text-style($Roboto400, 1.2rem, $text-fill);
+
+        a {
+          color: $blue;
+        }
+      }
+    }
+  }
+}

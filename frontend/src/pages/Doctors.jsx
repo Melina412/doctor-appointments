@@ -13,7 +13,7 @@ function Doctors({ doctors, setDoctors, specialties }) {
   );
 
   useEffect(() => {
-    if (homeSpecialty !== 'all') {
+    if (homeSpecialty !== 'all' && homeSpecialty !== null) {
       setFilteredOutput(filteredDoctors);
     } else {
       setFilteredOutput(doctors);
@@ -25,27 +25,29 @@ function Doctors({ doctors, setDoctors, specialties }) {
     updateValue(value === true ? false : true);
   };
 
-  // console.log({ homeSpecialty });
-  // console.log({ filteredDoctors });
-  // console.log({ filteredOutput });
-  // console.log({ value });
+  console.log({ homeSpecialty });
+  console.log({ filteredDoctors });
+  console.log({ filteredOutput });
+  console.log({ value });
 
   return (
     <main className='doctors'>
-      {homeSpecialty !== 'all' && (
-        <>
-          <div>
-            <p>filter: {homeSpecialty}</p>
-            <button onClick={handleClick}>x</button>
-          </div>
-        </>
-      )}
       <DoctorsSearch
         doctors={doctors}
         specialties={specialties}
         setFilteredOutput={setFilteredOutput}
         filteredOutput={filteredOutput}
       />
+      {homeSpecialty !== 'all' && homeSpecialty !== null && (
+        <>
+          <div className='home-filter'>
+            <button onClick={handleClick}>✕</button>
+            <p>
+              filter: <span>{homeSpecialty}</span>
+            </p>
+          </div>
+        </>
+      )}
       <DoctorsList doctors={filteredOutput} />
     </main>
   );

@@ -47,18 +47,7 @@ main.doctor-details {
         }
       }
       p.name {
-        @include text-style($Roboto700, 2rem, $text-fill);
-
-        // text-shadow: (
-        //   -0.5px -0.5px 0 #000,
-        //   0.5px -0.5px 0 #000,
-        //   -0.5px 0.5px 0 #000,
-        //   0.5px 0.5px 0 #000
-        // );
-        //? shadow sieht nicht gut aus aber text stroke funktioniert nicht in allen browsern :/
-        -webkit-text-stroke: 1px $text-stroke;
-        text-shadow: 0 0.5rem 1rem $text-grey;
-        margin-bottom: 1rem;
+        @extend .h-stroke-shadow;
       }
       p.specialty {
         @include text-style($Roboto700, 1.4rem, $text-grey);
@@ -95,10 +84,7 @@ main.doctor-details {
   section.info {
     margin-bottom: 5rem;
     h2 {
-      @include text-style($Roboto700, 1.8rem, $text-fill);
-      letter-spacing: 0.5px;
-      -webkit-text-stroke: 1px $text-stroke;
-      margin-bottom: 1.2rem;
+      @extend .h-stroke;
     }
     h3 {
       @include text-style($Roboto700, 1.8rem, $text-fill);
