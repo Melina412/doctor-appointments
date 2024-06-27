@@ -25,10 +25,10 @@ function PatientForm({
   const [selectedGender, setSelectedGender] = useState('diverse');
   const [selectedAge, setSelectedAge] = useState(false);
 
-  console.log(index, date);
+  // console.log(index, date);
   console.log({ appointmentDate });
-  console.log({ timeString });
-  console.log({ selectedTime });
+  // console.log({ timeString });
+  // console.log({ selectedTime });
 
   async function requestAppointment(e) {
     e.preventDefault();

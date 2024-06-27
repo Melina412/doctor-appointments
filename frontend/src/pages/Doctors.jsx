@@ -25,10 +25,10 @@ function Doctors({ doctors, setDoctors, specialties }) {
     updateValue(value === true ? false : true);
   };
 
-  console.log({ homeSpecialty });
-  console.log({ filteredDoctors });
-  console.log({ filteredOutput });
-  console.log({ value });
+  // console.log({ homeSpecialty });
+  // console.log({ filteredDoctors });
+  // console.log({ filteredOutput });
+  // console.log({ value });
 
   return (
     <main className='doctors'>

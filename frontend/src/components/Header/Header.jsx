@@ -14,7 +14,7 @@ function Header({
   const handleLogout = () => {
     userLogout();
   };
-  console.log({ route });
+  // console.log({ route });
   // console.log('username', loginData?.username);
 
   // login/logout soll am ende über ein icon möglich sein

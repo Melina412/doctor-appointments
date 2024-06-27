@@ -13,9 +13,6 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
 
   const navigate = useNavigate();
 
-  // console.log({ profileData });
-  console.log({ gridStyle });
-
   //$ getProfileData() ----------------------------------------------------
 
   async function getProfileData() {
@@ -45,6 +42,7 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
 
   async function uploadAvatar(e) {
     e.preventDefault();
+    handleAvatarBtn();
     const form = new FormData(e.target);
     try {
       const res = await fetch(
@@ -77,9 +75,11 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
     gridStyle === 'open' ? setGridStyle('closed') : setGridStyle('open');
   };
 
+  // console.log({ profileData });
+  // console.log({ gridStyle });
+
   return (
     <main className='dashboard'>
-      {/* {login ? ( */}
       <>
         <section className='profile'>
           <h2>Hello {profileData?.name}</h2>

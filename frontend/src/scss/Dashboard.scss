@@ -305,9 +305,13 @@ main.dashboard {
             background-color: $input-fill;
 
             p.patient {
-              @include text-style($Roboto700, 1.5rem, $text-fill);
+              @include text-style($Roboto700, 1.4rem, $text-fill);
               margin: 0.5rem;
               letter-spacing: 0.3px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              flex: 1; // damit es auf einer zeile begrenzt bleibt
+              white-space: nowrap;
             }
             button.info {
               margin: 0.5rem;
@@ -376,11 +380,23 @@ main.dashboard {
               border-bottom-right-radius: 15px;
               padding: 0.5rem 1rem;
             }
+
+            &.feedback {
+              @include text-style($Roboto400, 1.2rem, $success);
+              padding: 3rem 0;
+              text-align: center;
+            }
           }
 
           &.done {
             background-color: $done-bg;
           }
+        }
+
+        p.feedback {
+          @include text-style($Roboto400, 1.2rem, $success);
+          padding: 3rem 0;
+          text-align: center;
         }
       }
     }

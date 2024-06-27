@@ -161,19 +161,21 @@ function TimeSlots({
 
   //! console logs ==================================================================
 
-  console.log({ month });
+  // console.log({ month });
   // console.log(doctor);
   // console.log({ visitingHours });
   // console.log({ calendarDays });
-  console.log('selectedDate', selectedDate);
-  console.log('selectedTime', selectedTime);
-  console.log('timeSlots:', timeSlots);
+  // console.log('selectedDate', selectedDate);
+  // console.log('selectedTime', selectedTime);
+  // console.log('timeSlots:', timeSlots);
   // console.log('dailySlots:', dailySlots);
   // console.log({ prevMonth });
-  console.log({ defaultMonth });
-  console.log({ selectedYear });
-  console.log({ remainingMonths });
-  console.log({ defaultYear });
+  // console.log({ defaultMonth });
+  // console.log({ selectedYear });
+  // console.log({ remainingMonths });
+  // console.log({ defaultYear });
+
+  //todo bei bereits ausgewähltem time slot, wenn der day geändert wird, ist das datum trotzdem valid auch wenn der slot an dem tag nicht existiert. bei klich auf das item muss also time slot noch zurückgesetzt werden!
 
   return (
     <>

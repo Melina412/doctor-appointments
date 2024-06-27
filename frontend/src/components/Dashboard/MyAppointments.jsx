@@ -44,7 +44,7 @@ function MyAppointments() {
   };
 
   // console.log('myAppointments', myAppointments);
-  console.log({ view });
+  // console.log({ view });
 
   return (
     <>

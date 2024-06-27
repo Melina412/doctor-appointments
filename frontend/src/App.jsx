@@ -139,7 +139,7 @@ function App() {
 
   //$ console logs -------------------------------------------------------
 
-  console.log({ login });
+  // console.log({ login });
   // console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });

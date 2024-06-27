@@ -18,7 +18,7 @@ function HeaderTemplate({ loginData, userLogout, login }) {
 
   // console.log('location-pathname: --', location.pathname);
   // console.log({ headerItems });
-  console.log({ prevLocation });
+  // console.log({ prevLocation });
   // console.log({ currentRoute });
 
   useEffect(() => {

@@ -49,6 +49,7 @@ function EditProfile({
 
   async function editProfile(e) {
     e.preventDefault();
+    handleEditBtn();
     const form = new FormData(e.target);
     try {
       const res = await fetch(
@@ -60,8 +61,10 @@ function EditProfile({
         }
       );
 
+      const response = await res.json();
+
       if (res.ok) {
-        // console.log('edit Profile hat was gemacht');
+        console.log(response.message);
         setEditMode(false);
         await getProfileData();
         getLoginData();
@@ -79,7 +82,6 @@ function EditProfile({
       <h3>Edit Profile Data</h3>
 
       <form onSubmit={editProfile}>
-        {/* <div> */}
         <label htmlFor='title'>Title</label>
         <div className='select-focus'>
           <select name='title' id='title' defaultValue={profileData?.title}>
@@ -88,9 +90,7 @@ function EditProfile({
             <option value='Prof.'>Prof.</option>
           </select>
         </div>
-        {/* </div> */}
 
-        {/* <div> */}
         <label htmlFor='firstName'>First name</label>
         <input
           type='text'
@@ -99,9 +99,7 @@ function EditProfile({
           autoComplete='given-name'
           defaultValue={profileData?.first_name}
         />
-        {/* </div> */}
 
-        {/* <div> */}
         <label htmlFor='lastName'>Last name</label>
         <input
           type='text'
@@ -110,9 +108,7 @@ function EditProfile({
           autoComplete='family-name'
           defaultValue={profileData?.last_name}
         />
-        {/* </div> */}
 
-        {/* <div> */}
         <label htmlFor='specialty'>Specialty</label>
         <input
           type='text'
@@ -120,9 +116,7 @@ function EditProfile({
           id='specialty'
           defaultValue={profileData?.specialty}
         />
-        {/* </div> */}
 
-        {/* <div> */}
         <label htmlFor='about'>About</label>
         <textarea
           name='about'
@@ -130,7 +124,6 @@ function EditProfile({
           cols='30'
           rows='10'
           defaultValue={profileData?.about}></textarea>
-        {/* </div> */}
 
         <article className='hours'>
           <h4>Visiting Hours</h4>

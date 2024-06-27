@@ -52,6 +52,7 @@
 <br/> [❌] link patients/ & rating to doctors
 <br/> [❌] convert date in emails etc.
 <br/> [❌] update db with new sample data
+<br/> [❌] more feedback for user actions
 
 ## planned extra features & tools
 
