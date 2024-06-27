@@ -44,11 +44,11 @@ export async function register(req, res) {
 
 export async function login(req, res) {
   const { email } = req.body;
-  // console.log({ email });
+  console.log({ email });
 
   try {
     const user = await Doctor.findOne({ email });
-    // console.log({ user });
+    console.log({ user });
     if (!user) return res.status(401).json({ message: 'login failed' }).end();
 
     if (user.password !== createHash(req.body.password, user.salt))
@@ -60,12 +60,14 @@ export async function login(req, res) {
 
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
-      secure: true,
+      secure: true, //! secure cookies gehen in safari nur mit https, also nicht mit localhost!
+      sameSite: 'None',
     });
 
     res.cookie('r_doctorauth', refreshToken, {
       httpOnly: true,
       secure: true,
+      sameSite: 'None',
     });
 
     res.json({
@@ -139,6 +141,7 @@ export async function refreshToken(req, res) {
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
       secure: true,
+      sameSite: 'None',
     });
 
     res.json({
@@ -172,6 +175,7 @@ export async function verifyReviewCode(req, res) {
       res.cookie('rev_doctorauth', reviewToken, {
         httpOnly: true,
         secure: true,
+        sameSite: 'None',
       });
       res.json({
         message: 'verification successful',

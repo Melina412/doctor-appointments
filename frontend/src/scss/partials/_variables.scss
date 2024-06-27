@@ -1,8 +1,27 @@
 $blue: #3e64ff;
+$green: #61c581;
+$orange: #f2725f;
+
 $border: #f1f4f7;
 $text-grey: #6b779a;
+$text-placeholder: rgb(107, 119, 154, 0.5);
 $text-fill: #222b45;
 $text-stroke: #000000;
-$input-fill: #6b779a;
-$gradient-fill: linear-gradient(rgb(107, 119, 154, 0.05), rgb(36, 40, 52, 0.05));
-$solid-fill: #6B779A;
+
+$input-fill: rgb(107, 119, 154, 0.05);
+$input-fill2: #6b779a0d;
+$solid-fill: #6b779a;
+$gradient-fill: linear-gradient(
+  rgb(107, 119, 154, 0.05),
+  rgb(36, 40, 52, 0.05)
+);
+$gradient-bg: linear-gradient(to bottom, #ffffff 0%, #fefefe 27%, #fcfafa 100%);
+$done-bg: rgb(107, 119, 154, 0.2);
+
+$info: #00b0ff;
+$warning: #ffb300;
+$success: #16a064;
+$error: #ff4959;
+
+// details upper bg linear gradient from 0%ffffff 27% FEFEFE to 100% FCFAFA
+// $gradient-bg: linear-gradient(to bottom, #ffffff, #fcfafa);

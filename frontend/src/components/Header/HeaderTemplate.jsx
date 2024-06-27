@@ -6,12 +6,14 @@ import { useState, useEffect } from 'react';
 function HeaderTemplate({ loginData, userLogout, login }) {
   const location = useLocation();
   const [currentRoute, setCurrentRoute] = useState(location.pathname);
-  const [prevLocation, setPrevLocation] = useState(null);
+  const [prevLocation, setPrevLocation] = useState('/');
+
   const headerItems = getHeaderTemplate(
     loginData?.username,
     prevLocation,
     login,
-    Link
+    Link,
+    userLogout
   );
 
   // console.log('location-pathname: --', location.pathname);
@@ -40,6 +42,10 @@ function HeaderTemplate({ loginData, userLogout, login }) {
     route = 'Appointment';
   } else if (currentRoute === '/dashboard') {
     route = 'Dashboard';
+  } else if (currentRoute === '/login') {
+    route = 'Login';
+  } else if (currentRoute === '/register') {
+    route = 'Register';
   } else {
     route = 'Default';
   }
@@ -56,6 +62,7 @@ function HeaderTemplate({ loginData, userLogout, login }) {
       login={login}
       Link={Link}
       prevLocation={prevLocation}
+      route={route}
     />
   );
 }

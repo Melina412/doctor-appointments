@@ -17,11 +17,20 @@ const appointmentSchema = new mongoose.Schema({
     ref: 'doctor',
   },
   patient: new mongoose.Schema({
-    full_name: String,
-    email: String,
+    full_name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
     age_group: String,
     gender: String,
-    problem: String,
+    problem: {
+      type: String,
+      maxLength: 500,
+    },
   }),
   done: Boolean || null,
 });

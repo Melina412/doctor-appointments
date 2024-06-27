@@ -97,12 +97,16 @@ function DoctorsSearch({
   //? der header ist hier innerhalb der main section der doctors page was inkorrekte html semantik ist -> ändern
   return (
     <>
-      <header>
+      <header id='doctors'>
         <div className={`header-flex`}>
           <div className='left'>
             <Link to='/' title='back'>
               <div className='icon-container'>
-                <img src='/img/arrow-icon.svg' alt='arrow back icon' />
+                <img
+                  src='/img/arrow-back-icon.svg'
+                  alt='arrow back icon'
+                  className='arrow-back'
+                />
               </div>
             </Link>
           </div>
@@ -111,15 +115,17 @@ function DoctorsSearch({
           </div>
           <div className='right'>
             <div className='icon-container' onClick={handleIconClick}>
-              <img src='/img/settings-icon.svg' alt='settings icon' />
+              <img
+                src='/img/filter-icon.svg'
+                alt='filter icon'
+                className='filter'
+              />
             </div>
           </div>
         </div>
       </header>
 
       <section className='doctors-search'>
-        <h1>Search</h1>
-
         {filter === true && (
           <>
             {specialties.map((specialty, index) => (
@@ -138,13 +144,18 @@ function DoctorsSearch({
 
         <div className='searchbar'>
           <div className='input-flex'>
-            <input
-              type='text'
-              name='doctorName'
-              value={input}
-              placeholder='🔎 search for doctors'
-              onChange={handleOnChange}
-            />
+            <div className='search-icon'>
+              <img src='/img/search-icon.svg' alt='search icon' />
+            </div>
+            <div className='search-input'>
+              <input
+                type='text'
+                name='doctorName'
+                value={input}
+                placeholder='search for doctors'
+                onChange={handleOnChange}
+              />
+            </div>
             {input.length > 0 && (
               <p>please klick on suggestion to select name</p>
             )}
@@ -152,13 +163,14 @@ function DoctorsSearch({
           {input.length > 0 && (
             <div className='suggestions-list'>
               {suggestions.slice(0, 10).map((suggestion, index) => (
-                <option
+                // option tag außerhalb von select wird von safari nichgt gerendert. div tag hat kein value was alles todes verkompliziert, also button!
+                <button
                   className='suggestion'
                   key={index}
                   value={suggestion}
                   onClick={handleOnClick}>
                   {suggestion}
-                </option>
+                </button>
               ))}
             </div>
           )}

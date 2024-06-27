@@ -13,36 +13,49 @@ function Landingpage({ doctors, specialties, setSpecialties }) {
   // console.log({ specialties });
 
   return (
-    <main className='landingpage'>
-      <section className='covid'>
-        <div>
-          <Link to='/doctors' title='doctors list'>
-            <div className='img-container'>
-              <img src='/img/covid-no-shadow.svg' alt='covid-19' />
-            </div>
-          </Link>
+    <>
+      {/* <details>
+        <summary>
+          <div className='icon-container'>
+            <img src='/img/dots-icon.svg' alt='' />
+          </div>
+        </summary>
+        <div class='links'>
+          <a href='/login'>Login</a>
+          <a href='/signup'>Signup</a>
         </div>
-      </section>
-      <section className='section2'>
-        <div className='wrapper'>
-          <div className='flex'>
-            <div className='text'>
-              <h3>STI Problems?</h3>
-              <p>Find suitable specialists here</p>
-            </div>
+      </details> */}
+      <main className='landingpage'>
+        <section className='covid'>
+          <div>
             <Link to='/doctors' title='doctors list'>
-              <div className='icon-container'>
-                <img
-                  src='/img/forward-arrow-icon.png'
-                  alt='arrow forward icon'
-                />
+              <div className='img-container'>
+                <img src='/img/covid-no-shadow.svg' alt='covid-19' />
               </div>
             </Link>
           </div>
-        </div>
-      </section>
-      <SpecialtyList specialties={specialties} />
-    </main>
+        </section>
+        <section className='section2'>
+          <div className='wrapper'>
+            <div className='flex'>
+              <div className='text'>
+                <h3>STI Problems?</h3>
+                <p>Find suitable specialists here</p>
+              </div>
+              <Link to='/doctors' title='doctors list'>
+                <div className='icon-container'>
+                  <img
+                    src='/img/forward-arrow-icon.png'
+                    alt='arrow forward icon'
+                  />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+        <SpecialtyList specialties={specialties} />
+      </main>
+    </>
   );
 }
 

@@ -2,6 +2,18 @@
 
 (in progress)
 
+## Stack
+
+<div>
+ <img src="https://img.shields.io/badge/MongoDB-47A248.svg?style=for-the-badge&logo=MongoDB&logoColor=white" />
+ <img src="https://img.shields.io/badge/Express-000000.svg?style=for-the-badge&logo=Express&logoColor=white" />
+ <img src="https://img.shields.io/badge/React-61DAFB.svg?style=for-the-badge&logo=React&logoColor=black" />
+ <img src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+ <img src="https://img.shields.io/badge/Mongoose-880000.svg?style=for-the-badge&logo=Mongoose&logoColor=white" />
+ <img src="https://img.shields.io/badge/Sass-CC6699.svg?style=for-the-badge&logo=Sass&logoColor=white" />
+ <img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" />
+</div>
+
 ## Features
 
 [✅] doctors can register, login & logout
@@ -21,21 +33,36 @@
 <br/> - create review access token on correct code input ✅
 <br/> - delete cookie, path & code ✅
 😬😬😬😬😬
-<br/> [❌] deployment
-<br/> [❌] style
+<br/> [✅] deployment
 
-## Todo, planned extra features & tools
+<br/> [✅] style (almost done) ⤵︎
+<br/> [❌] media queries tablet & bigger screens
+<br/> [❌] dark mode
+<br/> [❌] convert svg icons to jsx for dark mode theme
+
+## Todo
 
 [✅] refresh token
+<br/> [✅] doctors should be able to confirm the patient showed up before they're allowed to leave a review/rank (also neccessary for review initializing)
+<br/> [❌] archive past appointments (also to count patient number)
+<br/> [✅] seperate register & login routes
+<br/> [✅] fix logout
+<br/> [❌] delete booked time slots
+<br/> [❌] convert getHeaderTemplate to jsx
+<br/> [❌] link patients/ & rating to doctors
+<br/> [❌] convert date in emails etc.
+<br/> [❌] update db with new sample data
+<br/> [❌] more feedback for user actions
+
+## planned extra features & tools
+
 <br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position
 <br/> [❌] b version with luxon instead manual generator function
 <br/> [❌] doctors can cancel already confirmed appointment
-<br/> [❌] doctors should be able to confirm the patient showed up before they're allowed to leave a review/rank
-<br/> [❌] archive past appointments (also to count patient number)
 
-## Tools
+## Tools used
 
 - docker
 - JWT
@@ -44,7 +71,12 @@
 - react error boundary
 - cron job
 
+ <!-- <img src="https://img.shields.io/badge/tool%20name-485fcc?style=for-the-badge" />
+ <img src="https://img.shields.io/badge/tool-name-485fcc?style=for-the-badge" /> -->
+
 <!-- ## Sample Data -->
+
+<!-- todo: data models checken und neue daten erstellen  -->
 
 <!-- sample dataset can be uploaded to mongodb from within directory backend/src/ with the command: -->
 

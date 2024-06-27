@@ -1,0 +1,207 @@
+.appointment-btn {
+  background-color: $blue;
+  width: 90%;
+  border-radius: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 auto 2rem auto;
+  a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 1.5rem 0;
+    letter-spacing: 0.5px;
+  }
+}
+
+.set-appointment-btn {
+  background-color: $blue;
+  width: 100%;
+  border-radius: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 auto 2rem auto;
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 1.5rem 0;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.btn-full {
+  @include text-style($Roboto400, 1.6rem, white);
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  background-color: $blue;
+  display: block;
+  text-align: center;
+  width: 100%;
+  border: none;
+  border-radius: 1.5rem;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem 1.5rem;
+  cursor: pointer;
+}
+
+.btn-s {
+  @include text-style($Roboto300, 1.2rem, white);
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  background-color: $blue;
+  display: block;
+  text-align: center;
+  width: 100%;
+  border: none;
+  border-radius: 1.5rem;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+
+.btn-xs {
+  @include text-style($Roboto400, 1.1rem, $text-fill);
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  background-color: transparent;
+  display: block;
+  text-align: center;
+  border: 2px solid $text-fill;
+  border-radius: 1.5rem;
+  margin: 0 auto;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+}
+
+.input-regular {
+  @include text-style($Roboto400, 1.6rem, $text-fill);
+  border: none;
+  background-color: $input-fill;
+  border-radius: 1.5rem;
+  padding: 1.5rem 2rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+}
+
+.input-s {
+  @include text-style($Roboto400, 1.4rem, $text-fill);
+  border: none;
+  background-color: $input-fill;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+}
+
+.input-label {
+  @include text-style($Roboto400, 1.4rem, $text-grey);
+  margin-bottom: 0.5rem;
+}
+
+.h-stroke-shadow {
+  @include text-style($Roboto700, 2rem, $text-fill);
+  text-shadow: (
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000
+  );
+
+  //? shadow sieht nicht gut aus aber text stroke funktioniert nicht in allen browsern :/
+  -webkit-text-stroke: 1px $text-stroke;
+  text-shadow: 0 0.5rem 1rem $text-grey;
+  margin-bottom: 1rem;
+}
+
+.h-stroke {
+  @include text-style($Roboto700, 1.8rem, $text-fill);
+  letter-spacing: 0.5px;
+  -webkit-text-stroke: 1px $text-stroke;
+  margin-bottom: 1.2rem;
+}
+
+.item-active {
+}
+
+.item-shadow {
+  box-shadow: 0px 0px 20px -10px rgb(0, 0, 0, 0.5);
+}
+
+.select-focus-area {
+  outline: none;
+  appearance: none;
+
+  &:focus-within {
+    outline: 2px auto -webkit-focus-ring-color;
+  }
+
+  select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    appearance: none; // entfernt den hässlichen hintergrund in safari aber leider auch den dropdown pfeil. muss für alle browser eingestellt werden:
+    -webkit-appearance: none; // chrome & safari
+    -moz-appearance: none; // firefox
+    &::-ms-expand {
+      display: none; // microsoft
+    }
+
+    // neuen dropdown pfeil als bg
+    background: url('/img/dropdown.svg') no-repeat 100% 50%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.input-select {
+  background-color: $input-fill;
+  border-radius: 1.5rem;
+  padding: 1.5rem 2rem;
+}
+
+.radio-regular {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  input {
+    display: none;
+  }
+  label {
+    display: inline-block;
+    padding: 1rem 0;
+    width: 10rem;
+    text-align: center;
+    border: 1px solid $border;
+    border-radius: 15px;
+
+    &.selected {
+      background-color: $blue;
+      color: white;
+    }
+  }
+}
+
+.radio-xs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  input {
+    display: none;
+  }
+  label {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    width: 6rem;
+    text-align: center;
+    border: 1px solid $border;
+    border-radius: 15px;
+
+    &.selected {
+      background-color: $blue;
+      color: white;
+    }
+  }
+}

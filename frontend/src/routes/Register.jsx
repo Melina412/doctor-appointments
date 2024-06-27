@@ -1,31 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import '../scss/Login_Register.scss';
 
-// nach der registrierung soll eine mail mit 6 digit code zur auth des users gesendet werden, erst dann kann man das profil erstellen (nicht fertig)
-
-function Login({ setLogin, getLoginData }) {
+function Register() {
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
 
-  async function userLogin() {
-    const user = {
+  const [register, setRegister] = useState(false);
+
+  async function userRegister() {
+    const newUser = {
       email: userRef.current.value,
       password: passwordRef.current.value,
     };
 
-    // console.log({ user });
+    // console.log({ newUser });
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/login`,
+        `${import.meta.env.VITE_BACKENDURL}/api/auth/register`,
         {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
           },
-          body: JSON.stringify(user),
-          credentials: 'include',
+          body: JSON.stringify(newUser),
         }
       );
 
@@ -33,10 +33,12 @@ function Login({ setLogin, getLoginData }) {
       // console.log(response);
 
       if (res.ok) {
-        setLogin(true);
-        getLoginData();
-        navigate('/dashboard');
-      } else if (res.status === 401) {
+        userRef.current.value = '';
+        passwordRef.current.value = '';
+        setRegister(true);
+        navigate('/login');
+        // console.log(response.message);
+      } else if (res.status === 400) {
         console.error(response.message);
       }
     } catch (error) {
@@ -44,28 +46,37 @@ function Login({ setLogin, getLoginData }) {
     }
   }
 
-  const handleLogin = () => {
-    userLogin();
+  const handleRegister = () => {
+    userRegister();
   };
-
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      handleLogin();
+      handleRegister();
     }
   };
 
   return (
     <section className='login-register'>
-      <h1>Dashboard Login</h1>
-
+      <h1>Register</h1>
       <article>
+        <div className='text'>
+          <p>
+            <span>Doctors</span> who want to join the platform can create an
+            account here.
+          </p>
+          <p>
+            <span>Patients</span> don't need to sign up, just search for a
+            doctor and book your appointment today!
+          </p>
+        </div>
+
         <div>
-          <label htmlFor='email'>User</label>
+          <label htmlFor='email'>Email</label>
           <input
             type='email'
             name='email'
-            placeholder='your email'
+            placeholder='enter your email'
             ref={userRef}
           />
         </div>
@@ -75,18 +86,17 @@ function Login({ setLogin, getLoginData }) {
           <input
             type='password'
             name='password'
-            placeholder='your password'
+            placeholder='choose a password'
             ref={passwordRef}
             onKeyDown={handleKeyDown}
           />
         </div>
         <div>
-          <button onClick={handleLogin}>Login</button>
+          <button onClick={handleRegister}>Register</button>
         </div>
-
         <div className='method'>
           <p>
-            No account yet? <Link to={'/register'}>Register now!</Link>
+            Already have an account? <Link to={'/login'}>Login</Link>
           </p>
         </div>
       </article>
@@ -94,4 +104,4 @@ function Login({ setLogin, getLoginData }) {
   );
 }
 
-export default Login;
+export default Register;
