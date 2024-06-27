@@ -1,6 +1,7 @@
 @import './partials/variables';
 @import './partials/mixins';
 @import './partials/fonts';
+@import './partials/classes';
 
 main.doctors {
   header#doctors {
@@ -104,9 +105,8 @@ main.doctors {
     padding: 2rem;
 
     div.doctor-item {
-      border-radius: 10px;
+      @extend .item-shadow;
       border-radius: 20px;
-      box-shadow: 0px 0px 20px -10px rgb(0, 0, 0, 0.5);
       text-align: center;
 
       a {

@@ -136,9 +136,11 @@ main.appointment {
       }
 
       div.select-focus {
-        background-color: $input-fill;
-        border-radius: 1.5rem;
-        padding: 1.5rem 2rem;
+        @extend .select-focus-area;
+        @extend .input-select;
+        // background-color: $input-fill;
+        // border-radius: 1.5rem;
+        // padding: 1.5rem 2rem;
         select#age {
           @include text-style($Roboto400, 1.6rem, $text-grey);
           width: 100%;
@@ -150,25 +152,26 @@ main.appointment {
       }
 
       div.radio-container {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
-        input {
-          display: none;
-        }
-        label {
-          display: inline-block;
-          padding: 1rem 0;
-          width: 10rem;
-          text-align: center;
-          border: 1px solid $border;
-          border-radius: 15px;
+        @extend .radio-regular;
+        // display: flex;
+        // gap: 1rem;
+        // margin-bottom: 2rem;
+        // input {
+        //   display: none;
+        // }
+        // label {
+        //   display: inline-block;
+        //   padding: 1rem 0;
+        //   width: 10rem;
+        //   text-align: center;
+        //   border: 1px solid $border;
+        //   border-radius: 15px;
 
-          &.selected {
-            background-color: $blue;
-            color: white;
-          }
-        }
+        //   &.selected {
+        //     background-color: $blue;
+        //     color: white;
+        //   }
+        // }
       }
 
       textarea {

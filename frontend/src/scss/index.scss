@@ -20,6 +20,11 @@ html {
 }
 
 body {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   //! Einstellungen nur für viewport, später ggf. löschen!
   // width: 430px; // iPhone 15 MAX
   // width: 390px; // iPhone 12, 13, 14

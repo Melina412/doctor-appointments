@@ -34,7 +34,11 @@
 <br/> - delete cookie, path & code ✅
 😬😬😬😬😬
 <br/> [✅] deployment
-<br/> [❌] style
+
+<br/> [✅] style (almost done) ⤵︎
+<br/> [❌] media queries tablet & bigger screens
+<br/> [❌] dark mode
+<br/> [❌] convert svg icons to jsx for dark mode theme
 
 ## Todo
 
@@ -46,6 +50,8 @@
 <br/> [❌] delete booked time slots
 <br/> [❌] convert getHeaderTemplate to jsx
 <br/> [❌] link patients/ & rating to doctors
+<br/> [❌] convert date in emails etc.
+<br/> [❌] update db with new sample data
 
 ## planned extra features & tools
 

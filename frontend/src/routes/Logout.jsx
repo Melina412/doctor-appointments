@@ -31,9 +31,11 @@ function Logout({ setLogin, getLoginData, navigate }) {
     }
   }
   return (
-    <div>
-      <button onClick={userLogout}>Logout</button>
-    </div>
+    <>
+      <button className='logout' onClick={userLogout}>
+        Logout
+      </button>
+    </>
   );
 }
 

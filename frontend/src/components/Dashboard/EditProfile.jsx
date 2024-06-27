@@ -3,12 +3,14 @@ import { getSelectedDays } from '../../utils/getSelectedDays';
 
 // beim ersten einloggen nach der registrierung soll man direkt zum profile formular navigiert werden (nicht fertig)
 
-function Profile({
+function EditProfile({
   profileData,
   setEditMode,
   getProfileData,
   getLoginData,
   fetchDoctors,
+  setGridStyle,
+  handleEditBtn,
 }) {
   const [selectedDays, setSelectedDays] = useState(
     profileData ? getSelectedDays(profileData) : null
@@ -73,74 +75,70 @@ function Profile({
   }
 
   return (
-    <section>
-      <h1>Profile</h1>
+    <section className='edit-profile'>
+      <h3>Edit Profile Data</h3>
 
       <form onSubmit={editProfile}>
-        <div>
-          <label htmlFor='title'>
-            title
-            <select name='title' id='title' defaultValue={profileData?.title}>
-              <option value={null}>none</option>
-              <option value='Dr.'>Dr.</option>
-              <option value='Prof.'>Prof.</option>
-            </select>
-          </label>
+        {/* <div> */}
+        <label htmlFor='title'>Title</label>
+        <div className='select-focus'>
+          <select name='title' id='title' defaultValue={profileData?.title}>
+            <option value={null}>none</option>
+            <option value='Dr.'>Dr.</option>
+            <option value='Prof.'>Prof.</option>
+          </select>
         </div>
+        {/* </div> */}
 
-        <div>
-          <label htmlFor='firstName'>
-            first name
-            <input
-              type='text'
-              name='firstName'
-              id='firstName'
-              autoComplete='given-name'
-              defaultValue={profileData?.first_name}
-            />
-          </label>
-        </div>
+        {/* <div> */}
+        <label htmlFor='firstName'>First name</label>
+        <input
+          type='text'
+          name='firstName'
+          id='firstName'
+          autoComplete='given-name'
+          defaultValue={profileData?.first_name}
+        />
+        {/* </div> */}
 
-        <div>
-          <label htmlFor='lastName'>
-            last name
-            <input
-              type='text'
-              name='lastName'
-              id='lastName'
-              autoComplete='family-name'
-              defaultValue={profileData?.last_name}
-            />
-          </label>
-        </div>
+        {/* <div> */}
+        <label htmlFor='lastName'>Last name</label>
+        <input
+          type='text'
+          name='lastName'
+          id='lastName'
+          autoComplete='family-name'
+          defaultValue={profileData?.last_name}
+        />
+        {/* </div> */}
 
-        <div>
-          <label htmlFor='specialty'>specialty</label>
-          <input
-            type='text'
-            name='specialty'
-            id='specialty'
-            defaultValue={profileData?.specialty}
-          />
-        </div>
+        {/* <div> */}
+        <label htmlFor='specialty'>Specialty</label>
+        <input
+          type='text'
+          name='specialty'
+          id='specialty'
+          defaultValue={profileData?.specialty}
+        />
+        {/* </div> */}
 
-        <div>
-          <label htmlFor='about'>about</label>
-          <textarea
-            name='about'
-            id='about'
-            cols='30'
-            rows='10'
-            defaultValue={profileData?.about}></textarea>
-        </div>
+        {/* <div> */}
+        <label htmlFor='about'>About</label>
+        <textarea
+          name='about'
+          id='about'
+          cols='30'
+          rows='10'
+          defaultValue={profileData?.about}></textarea>
+        {/* </div> */}
 
-        <article>
-          <p>visiting hours</p>
-          <div>
+        <article className='hours'>
+          <h4>Visiting Hours</h4>
+          <div className='wrapper'>
             {Object.entries(selectedDays).map(
               ([day, { checked, id, open, close }]) => (
-                <div key={day}>
-                  <label htmlFor={id}>
+                <div key={day} className='day'>
+                  <div className='check-day'>
                     <input
                       type='checkbox'
                       name={id}
@@ -156,10 +154,10 @@ function Profile({
                         }))
                       }
                     />
-                    {day}
-                  </label>
+                    <label htmlFor={id}>{day}</label>
+                  </div>
                   {checked && (
-                    <div>
+                    <div className='times'>
                       <label htmlFor={`${id}_open`}>
                         open
                         <input
@@ -185,10 +183,17 @@ function Profile({
             )}
           </div>
         </article>
-        <button type='submit'>submit</button>
+        <div className='buttons'>
+          <button type='submit' className='submit'>
+            Submit
+          </button>
+          <button type='button' className='cancel' onClick={handleEditBtn}>
+            Cancel
+          </button>
+        </div>
       </form>
     </section>
   );
 }
 
-export default Profile;
+export default EditProfile;

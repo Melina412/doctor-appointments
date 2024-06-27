@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Profile from '../components/Dashboard/Profile';
+import EditProfile from '../components/Dashboard/EditProfile';
 import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
 import Logout from '../routes/Logout';
@@ -9,10 +9,12 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
+  const [gridStyle, setGridStyle] = useState('closed');
 
   const navigate = useNavigate();
 
   // console.log({ profileData });
+  console.log({ gridStyle });
 
   //$ getProfileData() ----------------------------------------------------
 
@@ -65,6 +67,16 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
     }
   }
 
+  const handleAvatarBtn = () => {
+    editAvatar ? setEditAvatar(false) : setEditAvatar(true);
+    gridStyle === 'open' ? setGridStyle('closed') : setGridStyle('open');
+  };
+
+  const handleEditBtn = () => {
+    editMode ? setEditMode(false) : setEditMode(true);
+    gridStyle === 'open' ? setGridStyle('closed') : setGridStyle('open');
+  };
+
   return (
     <main className='dashboard'>
       {/* {login ? ( */}
@@ -79,47 +91,73 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
             <img width={100} src={profileData?.avatar} alt='user avatar' />
           </div>
 
-          {!editMode ? (
-            <button onClick={() => setEditMode(true)}>edit profile</button>
-          ) : (
-            <>
-              <Profile
-                profileData={profileData}
-                setEditMode={setEditMode}
-                getProfileData={getProfileData}
-                getLoginData={getLoginData}
-                fetchDoctors={fetchDoctors}
-              />
-              <button onClick={() => setEditMode(false)}>cancel</button>
-            </>
-          )}
+          <section className={`dashboard-actions ${gridStyle}`}>
+            {/* //$ logout btn ------  */}
+            <Logout
+              navigate={navigate}
+              setLogin={setLogin}
+              getLoginData={getLoginData}
+            />
 
-          <button onClick={() => setEditAvatar(true)}>edit profile pic</button>
-          {editAvatar && (
-            <>
-              <form onSubmit={uploadAvatar}>
-                <div>
-                  <label htmlFor='avatar'>select profile pic to upload</label>
-                  <input type='file' name='avatar' id='avatar' />
-                </div>
-                <button type='submit'>upload pic</button>
-              </form>
+            {/* //$ edit profile btn ------  */}
+            {!editMode ? (
+              <button
+                className={editAvatar ? 'hide' : ''}
+                onClick={handleEditBtn}>
+                Edit Profile
+              </button>
+            ) : (
+              <>
+                <EditProfile
+                  profileData={profileData}
+                  setEditMode={setEditMode}
+                  getProfileData={getProfileData}
+                  getLoginData={getLoginData}
+                  fetchDoctors={fetchDoctors}
+                  setGridStyle={setGridStyle}
+                  handleEditBtn={handleEditBtn}
+                />
+                {/* <button onClick={handleEditBtn}>cancel</button> */}
+              </>
+            )}
 
-              <button onClick={() => setEditAvatar(false)}>cancel</button>
-            </>
-          )}
-          <Logout
-            navigate={navigate}
-            setLogin={setLogin}
-            getLoginData={getLoginData}
-          />
+            {/* //$ edit avatar btn ------  */}
+            {!editAvatar ? (
+              <button
+                className={editMode ? 'hide' : ''}
+                onClick={handleAvatarBtn}>
+                Edit Avatar
+              </button>
+            ) : (
+              <>
+                <section className='edit-avatar'>
+                  <form onSubmit={uploadAvatar}>
+                    <div className='avatar-input'>
+                      <label htmlFor='avatar' id='avatar-label'>
+                        Select image to use as avatar.
+                      </label>
+                      <input type='file' name='avatar' id='avatar' />
+                    </div>
+                    <div className='buttons'>
+                      <button type='submit' className='submit'>
+                        Upload
+                      </button>
+                      <button
+                        type='button'
+                        className='cancel'
+                        onClick={handleAvatarBtn}>
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </section>
+              </>
+            )}
+          </section>
         </section>
 
         <MyAppointments />
       </>
-      {/* ) : ( */}
-      {/* <p>please login to view dashboard</p> */}
-      {/* )} */}
     </main>
   );
 }
