@@ -91,7 +91,6 @@ function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
                   setGridStyle={setGridStyle}
                   handleEditBtn={handleEditBtn}
                 />
-                {/* <button onClick={handleEditBtn}>cancel</button> */}
               </>
             )}
 
