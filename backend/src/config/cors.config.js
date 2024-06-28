@@ -10,15 +10,21 @@ const ALLOWED_ORIGIN = [
 ];
 
 // origin kann nur string oder function sein, keine liste
+
+const origin =
+  process.env.NODE_ENV === 'production'
+    ? process.env.ALLOWED_ORIGIN
+    : function (origin, callback) {
+        if (ALLOWED_ORIGIN.indexOf(origin) !== -1 || !origin) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      };
+
 const corsOptions = {
   credentials: true,
-  origin: function (origin, callback) {
-    if (ALLOWED_ORIGIN.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: origin,
 };
 
 export default corsOptions;

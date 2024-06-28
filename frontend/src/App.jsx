@@ -150,6 +150,10 @@ function App() {
 
   // console.log(darkModeSettings);
   // console.log('dark mode activated:', darkModeSettings.matches);
+  console.log(process.env.NODE_ENV);
+
+  let viteenvs = import.meta.env;
+  console.log(viteenvs);
 
   return (
     <>
