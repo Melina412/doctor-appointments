@@ -38,7 +38,9 @@ function App() {
       getLoginData();
     }
   }, []);
-  // um die login data beim ändern des profils zu aktualisieren muss ich die refresh token route noch ins frontend einbauen (nicht fertig)
+  useEffect(() => {
+    getLoginData();
+  }, []);
 
   useEffect(() => {
     fetchDoctors();

@@ -9,7 +9,7 @@
     "name": "Dr. John Doe",
     "specialty": "Cardiology",
     "about": "Experienced cardiologist with a passion for patient care.",
-    "avatar": "https://picsum.photos/id/101/200/300",
+    "avatar": "https://i.pravatar.cc/300?u=1",
     "visiting_hours": {
       "Mon": { "open": "08:00", "close": "14:00" },
       "Tue": { "open": "09:00", "close": "15:00" },
@@ -26,7 +26,7 @@
     "name": "Prof. Jane Smith",
     "specialty": "Pediatrics",
     "about": "Passionate pediatrician dedicated to children's health.",
-    "avatar": "https://picsum.photos/id/102/200/300",
+    "avatar": "https://i.pravatar.cc/300?u=2",
     "visiting_hours": {
       "Mon": { "open": "09:00", "close": "15:00" },
       "Tue": { "open": "10:00", "close": "16:00" },
@@ -43,7 +43,7 @@
     "name": "Dr. Emily Johnson",
     "specialty": "Dermatology",
     "about": "Skilled dermatologist with expertise in skin conditions.",
-    "avatar": "https://picsum.photos/id/103/200/300",
+    "avatar": "https://i.pravatar.cc/300?u=3",
     "visiting_hours": {
       "Tue": { "open": "08:30", "close": "14:30" },
       "Wed": { "open": "09:30", "close": "15:30" },
@@ -60,41 +60,7 @@
     "name": "Prof. Michael Brown",
     "specialty": "Orthopedics",
     "about": "Passionate orthopedic surgeon focused on bone health.",
-    "avatar": "https://picsum.photos/id/104/200/300",
-    "visiting_hours": {
-      "Mon": { "open": "10:00", "close": "16:00" },
-      "Wed": { "open": "11:00", "close": "17:00" },
-      "Thu": { "open": "08:00", "close": "14:00" }
-    }
-  },
-  {
-    "email": "doc3@example.com",
-    "password": "hashedPassword3",
-    "salt": "123",
-    "title": "Dr.",
-    "first_name": "Emily",
-    "last_name": "Johnson",
-    "name": "Dr. Emily Johnson",
-    "specialty": "Dermatology",
-    "about": "Skilled dermatologist with expertise in skin conditions.",
-    "avatar": "https://picsum.photos/id/107/200/300",
-    "visiting_hours": {
-      "Tue": { "open": "08:30", "close": "14:30" },
-      "Wed": { "open": "09:30", "close": "15:30" },
-      "Fri": { "open": "10:30", "close": "16:30" }
-    }
-  },
-  {
-    "email": "doc4@example.com",
-    "password": "hashedPassword4",
-    "salt": "123",
-    "title": "Prof.",
-    "first_name": "John",
-    "last_name": "Doe",
-    "name": "Dr. John Doe",
-    "specialty": "Orthopedics",
-    "about": "Passionate orthopedic surgeon focused on bone health.",
-    "avatar": "https://picsum.photos/id/104/200/300",
+    "avatar": "https://i.pravatar.cc/300?u=4",
     "visiting_hours": {
       "Mon": { "open": "10:00", "close": "16:00" },
       "Wed": { "open": "11:00", "close": "17:00" },
@@ -106,16 +72,221 @@
     "password": "hashedPassword5",
     "salt": "123",
     "title": "Dr.",
+    "first_name": "Emily",
+    "last_name": "Johnson",
+    "name": "Dr. Emily Johnson",
+    "specialty": "Dermatology",
+    "about": "Skilled dermatologist with expertise in skin conditions.",
+    "avatar": "https://i.pravatar.cc/300?u=5",
+    "visiting_hours": {
+      "Tue": { "open": "08:30", "close": "14:30" },
+      "Wed": { "open": "09:30", "close": "15:30" },
+      "Fri": { "open": "10:30", "close": "16:30" }
+    }
+  },
+  {
+    "email": "doc6@example.com",
+    "password": "hashedPassword6",
+    "salt": "123",
+    "title": "Prof.",
+    "first_name": "John",
+    "last_name": "Doe",
+    "name": "Dr. John Doe",
+    "specialty": "Orthopedics",
+    "about": "Passionate orthopedic surgeon focused on bone health.",
+    "avatar": "https://i.pravatar.cc/300?u=6",
+    "visiting_hours": {
+      "Mon": { "open": "10:00", "close": "16:00" },
+      "Wed": { "open": "11:00", "close": "17:00" },
+      "Thu": { "open": "08:00", "close": "14:00" }
+    }
+  },
+  {
+    "email": "doc7@example.com",
+    "password": "hashedPassword7",
+    "salt": "123",
+    "title": "Dr.",
     "first_name": "Olivia",
     "last_name": "Smith",
     "name": "Dr. Olivia Smith",
     "specialty": "Ophthalmology",
     "about": "Experienced eye doctor dedicated to vision care.",
-    "avatar": "https://picsum.photos/id/105/200/300",
+    "avatar": "https://i.pravatar.cc/300?u=7",
     "visiting_hours": {
       "Mon": { "open": "08:30", "close": "14:30" },
       "Tue": { "open": "09:30", "close": "15:30" },
       "Wed": { "open": "10:30", "close": "16:30" }
+    }
+  },
+  {
+    "email": "doc12@example.com",
+    "password": "hashedPassword12",
+    "salt": "456",
+    "title": "Dr.",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "name": "Dr. Jane Smith",
+    "specialty": "Dermatology",
+    "about": "Board-certified dermatologist specializing in skin cancer.",
+    "avatar": "https://i.pravatar.cc/300?u=12",
+    "visiting_hours": {
+      "Mon": { "open": "09:00", "close": "15:00" },
+      "Tue": { "open": "10:00", "close": "16:00" },
+      "Wed": { "open": "11:00", "close": "17:00" }
+    }
+  },
+  {
+    "email": "doc13@example.com",
+    "password": "hashedPassword13",
+    "salt": "789",
+    "title": "Dr.",
+    "first_name": "Michael",
+    "last_name": "Johnson",
+    "name": "Dr. Michael Johnson",
+    "specialty": "Neurology",
+    "about": "Expert in treating neurological disorders.",
+    "avatar": "https://i.pravatar.cc/300?u=13",
+    "visiting_hours": {
+      "Mon": { "open": "08:00", "close": "14:00" },
+      "Wed": { "open": "10:00", "close": "16:00" },
+      "Fri": { "open": "09:00", "close": "15:00" }
+    }
+  },
+  {
+    "email": "doc14@example.com",
+    "password": "hashedPassword14",
+    "salt": "012",
+    "title": "Dr.",
+    "first_name": "Emily",
+    "last_name": "Davis",
+    "name": "Dr. Emily Davis",
+    "specialty": "Pediatrics",
+    "about": "Pediatrician dedicated to child health and wellness.",
+    "avatar": "https://i.pravatar.cc/300?u=14",
+    "visiting_hours": {
+      "Mon": { "open": "10:00", "close": "16:00" },
+      "Wed": { "open": "08:00", "close": "14:00" },
+      "Fri": { "open": "11:00", "close": "17:00" }
+    }
+  },
+  {
+    "email": "doc15@example.com",
+    "password": "hashedPasswor15",
+    "salt": "345",
+    "title": "Dr.",
+    "first_name": "William",
+    "last_name": "Miller",
+    "name": "Dr. William Miller",
+    "specialty": "Orthopedics",
+    "about": "Specializes in sports injuries and joint replacement.",
+    "avatar": "https://i.pravatar.cc/300?u=15",
+    "visiting_hours": {
+      "Mon": { "open": "11:00", "close": "17:00" },
+      "Tue": { "open": "08:00", "close": "14:00" },
+      "Wed": { "open": "09:00", "close": "15:00" }
+    }
+  },
+  {
+    "email": "doc16@example.com",
+    "password": "hashedPassword16",
+    "salt": "678",
+    "title": "Dr.",
+    "first_name": "Sarah",
+    "last_name": "Wilson",
+    "name": "Dr. Sarah Wilson",
+    "specialty": "Gastroenterology",
+    "about": "Experienced in treating digestive system disorders.",
+    "avatar": "https://i.pravatar.cc/300?u=16",
+    "visiting_hours": {
+      "Tue": { "open": "09:00", "close": "15:00" },
+      "Wed": { "open": "10:00", "close": "16:00" },
+      "Thu": { "open": "10:00", "close": "16:00" }
+    }
+  },
+  {
+    "email": "doc17@example.com",
+    "password": "hashedPassword17",
+    "salt": "901",
+    "title": "Dr.",
+    "first_name": "David",
+    "last_name": "Brown",
+    "name": "Dr. David Brown",
+    "specialty": "Ophthalmology",
+    "about": "Skilled in eye surgery and vision care.",
+    "avatar": "https://i.pravatar.cc/300?u=17",
+    "visiting_hours": {
+      "Mon": { "open": "09:00", "close": "15:00" },
+      "Tue": { "open": "10:00", "close": "16:00" },
+      "Wed": { "open": "11:00", "close": "17:00" },
+      "Thu": { "open": "10:00", "close": "18:00" }
+    }
+  },
+  {
+    "email": "doc8@example.com",
+    "password": "hashedPassword8",
+    "salt": "234",
+    "title": "Dr.",
+    "first_name": "Laura",
+    "last_name": "Taylor",
+    "name": "Dr. Laura Taylor",
+    "specialty": "Psychiatry",
+    "about": "Focuses on mental health and therapy.",
+    "avatar": "https://i.pravatar.cc/300?u=8",
+    "visiting_hours": {
+      "Mon": { "open": "10:00", "close": "16:00" },
+      "Tue": { "open": "11:00", "close": "17:00" },
+      "Wed": { "open": "08:00", "close": "14:00" }
+    }
+  },
+  {
+    "email": "doc9@example.com",
+    "password": "hashedPassword9",
+    "salt": "567",
+    "title": "Dr.",
+    "first_name": "James",
+    "last_name": "Anderson",
+    "name": "Dr. James Anderson",
+    "specialty": "Radiology",
+    "about": "Expert in imaging techniques for diagnosis.",
+    "avatar": "https://i.pravatar.cc/300?u=9",
+    "visiting_hours": {
+      "Mon": { "open": "08:00", "close": "14:00" },
+      "Tue": { "open": "09:00", "close": "15:00" },
+      "Wed": { "open": "10:00", "close": "16:00" }
+    }
+  },
+  {
+    "email": "doc10@example.com",
+    "password": "hashedPassword10",
+    "salt": "890",
+    "title": "Dr.",
+    "first_name": "Elizabeth",
+    "last_name": "Thomas",
+    "name": "Dr. Elizabeth Thomas",
+    "specialty": "Endocrinology",
+    "about": "Specializes in hormone-related disorders.",
+    "avatar": "https://i.pravatar.cc/300?u=10",
+    "visiting_hours": {
+      "Mon": { "open": "09:00", "close": "15:00" },
+      "Tue": { "open": "10:00", "close": "16:00" },
+      "Wed": { "open": "11:00", "close": "17:00" }
+    }
+  },
+  {
+    "email": "doc11@example.com",
+    "password": "hashedPassword11",
+    "salt": "1234",
+    "title": "Dr.",
+    "first_name": "Richard",
+    "last_name": "Moore",
+    "name": "Dr. Richard Moore",
+    "specialty": "Urology",
+    "about": "Experienced in treating urinary tract issues.",
+    "avatar": "https://i.pravatar.cc/300?u=11",
+    "visiting_hours": {
+      "Mon": { "open": "10:00", "close": "16:00" },
+      "Tue": { "open": "11:00", "close": "17:00" },
+      "Wed": { "open": "08:00", "close": "14:00" }
     }
   }
 ]

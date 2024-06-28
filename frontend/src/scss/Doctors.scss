@@ -121,15 +121,17 @@ main.doctors {
           padding: 2rem;
 
           div.avatar-container {
-            @include size(100%, 100%);
+            @include size(10rem, 10rem);
             display: flex;
             justify-content: center;
-            padding: 0 1.8rem 2rem 1.8rem;
+            margin: 0 1.8rem 2rem 1.8rem;
 
             img {
-              @include size(100%, auto);
+              @include size(100%, 100%);
               aspect-ratio: 1 / 1;
               border-radius: 50%;
+              object-fit: cover;
+              object-position: center;
             }
           }
           p.name {

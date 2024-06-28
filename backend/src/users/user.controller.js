@@ -1,5 +1,5 @@
 import { Appointment } from '../appointments/appointments.model.js';
-import { Doctor } from '../doctors/doctor.model.js';
+import { Doctor } from './user.model.js';
 import { uploadImage, deleteImage } from './user.service.js';
 
 // $ profileData() -----------------------------------------------------

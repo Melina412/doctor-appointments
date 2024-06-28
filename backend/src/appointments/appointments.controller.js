@@ -2,7 +2,7 @@ import {
   generateCalendarDays,
   generateTimeSlots,
 } from './appointments.generator.js';
-import { Doctor } from '../doctors/doctor.model.js';
+import { Doctor } from '../users/user.model.js';
 import { Appointment } from './appointments.model.js';
 import { sendEmail } from '../config/email.config.js';
 import {
