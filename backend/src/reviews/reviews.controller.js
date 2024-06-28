@@ -1,5 +1,5 @@
 import { Review } from './reviews.model.js';
-import { Doctor } from '../doctors/doctor.model.js';
+import { Doctor } from '../users/user.model.js';
 import { Appointment } from '../appointments/appointments.model.js';
 import { sendEmail } from '../config/email.config.js';
 import { reviewDoctorTemplate } from '../templates/email.template.js';

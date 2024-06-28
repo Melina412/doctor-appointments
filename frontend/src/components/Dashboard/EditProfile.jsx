@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { getSelectedDays } from '../../utils/getSelectedDays';
+import Textarea from '../global/Textarea';
 
 // beim ersten einloggen nach der registrierung soll man direkt zum profile formular navigiert werden (nicht fertig)
 
@@ -118,12 +119,15 @@ function EditProfile({
         />
 
         <label htmlFor='about'>About</label>
-        <textarea
+        <Textarea
           name='about'
           id='about'
           cols='30'
           rows='10'
-          defaultValue={profileData?.about}></textarea>
+          defaultValue={profileData?.about}
+          ref={null}
+          maxChars={500}
+        />
 
         <article className='hours'>
           <h4>Visiting Hours</h4>

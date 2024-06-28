@@ -20,6 +20,7 @@ function HeaderTemplate({ loginData, userLogout, login }) {
   // console.log({ headerItems });
   // console.log({ prevLocation });
   // console.log({ currentRoute });
+  // console.log({ headerItems });
 
   useEffect(() => {
     // bei reload der route soll prevLocation nicht aktualisiert werden
