@@ -1,7 +1,105 @@
+@import './partials/variables';
+@import './partials/mixins';
+@import './partials/fonts';
+
 header {
   margin-bottom: 2rem;
-  nav {
+  div.demo-header {
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+  }
+
+  div.header-flex {
+    @include text-style($Roboto400, 1.8rem, $text-stroke);
     display: flex;
-    gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3rem 2.5rem 1rem 2.5rem;
+
+    div.right {
+      div.home-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        a {
+          div.icon-container {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        details {
+          position: relative;
+
+          summary {
+            list-style: none;
+            cursor: pointer;
+
+            &::marker {
+              display: none;
+            }
+            &::-webkit-details-marker {
+              display: none;
+            }
+            &::-moz-list-bullet {
+              display: none;
+            }
+            &::before {
+              display: none;
+            }
+
+            div.icon-container {
+              @include size(4rem, 4rem);
+              // background-color: red;
+
+              img.dots {
+                @include size(100%, 100%);
+                padding: 1rem 0;
+              }
+            }
+          }
+
+          &[open] div.links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: absolute;
+            right: -1rem;
+            background-color: white;
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+
+            a {
+              @include text-style($Roboto400, 1.4rem, $text-fill);
+              text-decoration: none;
+              display: block;
+              padding: 0.5rem;
+            }
+          }
+        }
+        // div {
+        //   @include size(4rem, 4rem);
+        //   // background-color: red;
+
+        //   img.dots {
+        //     @include size(100%, 100%);
+        //     padding: 1rem 0;
+        //   }
+        // }
+      }
+
+      div.empty {
+        @include size(4rem, 4rem);
+      }
+    }
+
+    &.hidden {
+      display: none;
+    }
   }
 }

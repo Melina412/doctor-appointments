@@ -1,19 +1,125 @@
+@import './partials/variables';
+@import './partials/mixins';
+@import './partials/fonts';
+@import './partials/classes';
+
 main.doctor-details {
-  div.upper-wrapper {
-    div.flex {
+  p {
+    letter-spacing: 0.5px;
+  }
+  div.upper-bg {
+    background: $gradient-bg;
+    border-radius: 20px;
+
+    section.avatar {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
 
-      div.icon-container {
-        background-color: blanchedalmond;
-        border-radius: 5px;
-        cursor: pointer;
+      div.avatar-container {
+        @include size(10rem, 10rem);
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 4.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 1rem 3rem #fcfafa;
 
-        img {
+        div.blur-bg {
+          position: absolute;
           width: 100%;
           height: 100%;
+          background-size: cover;
+          background-position: center;
+          filter: blur(1rem);
+          z-index: 1;
+        }
+        img {
+          width: 95%;
+          height: 95%;
+          object-fit: cover;
+          object-position: center;
+          position: relative;
+          z-index: 2;
+          border-radius: 50%;
+        }
+      }
+      p.name {
+        @extend .h-stroke-shadow;
+      }
+      p.specialty {
+        @include text-style($Roboto700, 1.4rem, $text-grey);
+      }
+    }
+
+    section.stats {
+      padding-bottom: 2.2rem;
+      div.wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        article {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: #ffffff;
+          border-radius: 20px;
+          div.img-container {
+            margin-bottom: 1.5rem;
+          }
+          p.number {
+            @include text-style($Roboto700, 1.7rem, $text-fill);
+            margin-bottom: 0.5rem;
+          }
+          p.category {
+            @include text-style($Roboto500, 1.2rem, $text-grey);
+            margin-bottom: 1.2rem;
+          }
         }
       }
     }
+  }
+  section.info {
+    margin-bottom: 5rem;
+    h2 {
+      @extend .h-stroke;
+    }
+    h3 {
+      @include text-style($Roboto700, 1.8rem, $text-fill);
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+    p {
+      @include text-style($Roboto400, 1.4rem, $text-grey);
+
+      &.about {
+        margin-bottom: 3rem;
+      }
+    }
+    div.working-time {
+      margin-bottom: 3rem;
+    }
+
+    div.communication-wrapper {
+      article {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+
+        p.title {
+          @include text-style($Roboto400, 1.6rem, $text-fill);
+          margin-bottom: 0.5rem;
+        }
+        p.text {
+          @include text-style($Roboto400, 1.2rem, $text-grey);
+        }
+      }
+    }
+  }
+  div.btn {
+    @include text-style($Roboto400, 1.6rem, white);
+    @extend .appointment-btn;
   }
 }

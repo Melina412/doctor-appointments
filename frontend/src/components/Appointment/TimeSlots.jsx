@@ -7,6 +7,7 @@ function TimeSlots({
   setSelectedDate,
   selectedTime,
   setSelectedTime,
+  apptSent,
 }) {
   const months = [
     'January',
@@ -22,13 +23,21 @@ function TimeSlots({
     'November',
     'December',
   ];
+
+  //# constants  ---------------------------------------------------------------
+
+  const doctor_id = doctor?._id;
   const defaultMonth = new Date().getMonth();
+  const defaultYear = new Date().getFullYear();
+  const yearOptions = [2024, 2025]; //todo: dynamisch immer das aktuelle und folgejahr
+
+  //# useStates -----------------------------------------------------------------
 
   // const [selectedDate, setSelectedDate] = useState({ day: null, date: null });
   // const [selectedTime, setSelectedTime] = useState(null);
   const [calendarDays, setCalendarDays] = useState(null);
   const [timeSlots, setTimeSlots] = useState(null);
-
+  const [selectedYear, setSelectedYear] = useState(defaultYear);
   const [month, setMonth] = useState({
     name: months[defaultMonth],
     index: months.indexOf(months[defaultMonth]),
@@ -36,8 +45,8 @@ function TimeSlots({
   const [dailySlots, setDailySlots] = useState([]);
   const [prevMonth, setPrevMonth] = useState(months[defaultMonth]);
 
-  let doctor_id = doctor?._id;
-  let year = '2024';
+  let remainingMonths =
+    selectedYear === defaultYear ? months.slice(defaultMonth) : months;
 
   //$ getCalendarDays() -----------------------------------------------------------
 
@@ -45,7 +54,9 @@ function TimeSlots({
     const res = await fetch(
       `${
         import.meta.env.VITE_BACKENDURL
-      }/api/appointments/days?year=${year}&month=${month.name}`,
+      }/api/appointments/days?year=${selectedYear}&month=${month.name}&index=${
+        month.index
+      }`,
       {
         method: 'GET',
         headers: {
@@ -54,7 +65,7 @@ function TimeSlots({
       }
     );
     const data = await res.json();
-    // console.log('calendarDays', { data });
+    // console.log('res calendarDays', { data });
     // console.log('calendarDays month', data.month);
     // console.log('calendarDays index', months.indexOf(data.month));
 
@@ -77,7 +88,7 @@ function TimeSlots({
     if (calendarDays === null) {
       getCalendarDays();
     }
-    // das gwht nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
+    // das geht nur wenn es keine abhängigkeiten gibt. der state wird sonst nach dem ersten rendern von Appointment wieder auf null gesetzt
   });
 
   //$ getTimeSlots -----------------------------------------------------------
@@ -139,7 +150,7 @@ function TimeSlots({
             ([day, hours]) => day === selectedDate.day
           )
         : null;
-      // console.log({ slots });
+      console.log({ slots });
 
       if (slots) {
         setDailySlots(slots ? Object.values(slots[1]) : []);
@@ -148,70 +159,94 @@ function TimeSlots({
     getDailySlots();
   }, [selectedDate]);
 
-  //! console logs -----------------------------------------------
+  //! console logs ==================================================================
 
-  // console.log(month);
+  // console.log({ month });
   // console.log(doctor);
-  //   console.log({ visitingHours });
+  // console.log({ visitingHours });
   // console.log({ calendarDays });
   // console.log('selectedDate', selectedDate);
   // console.log('selectedTime', selectedTime);
   // console.log('timeSlots:', timeSlots);
   // console.log('dailySlots:', dailySlots);
   // console.log({ prevMonth });
+  // console.log({ defaultMonth });
+  // console.log({ selectedYear });
+  // console.log({ remainingMonths });
+  // console.log({ defaultYear });
+
+  //todo bei bereits ausgewähltem time slot, wenn der day geändert wird, ist das datum trotzdem valid auch wenn der slot an dem tag nicht existiert. bei klich auf das item muss also time slot noch zurückgesetzt werden!
 
   return (
     <>
-      <section className='calendar-days'>
-        <select name='month' id='month' onChange={handleMonthChange}>
-          {months.map((month, index) => (
-            <option value={month} key={index}>
-              {month}
-            </option>
-          ))}
-        </select>
-        <select name='year' id='year'>
-          <option value='2024'>2024</option>
-        </select>
-
-        <div className='days-grid'>
-          {calendarDays?.days?.map((item, index) => (
-            <div
-              className={`calendar-items ${
-                selectedDate.date === item.date ? 'selected' : ''
-              }`}
-              key={index}
-              onClick={() =>
-                handleDateClick(
-                  item.day,
-                  item.date,
-                  calendarDays.month,
-                  calendarDays.index
-                )
-              }>
-              <p>{item.date}</p>
-              <p>{item.day}</p>
+      {!apptSent && (
+        <>
+          <section className='calendar-days'>
+            <div className='select-month'>
+              <div className='select-focus'>
+                <select name='month' id='month' onChange={handleMonthChange}>
+                  {remainingMonths.map((month, index) => (
+                    <option value={month} key={index}>
+                      {month}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className='select-focus'>
+                <select
+                  name='year'
+                  id='year'
+                  onChange={(e) => setSelectedYear(Number(e.target.value))}>
+                  {yearOptions.map((year, index) => (
+                    <option value={year} key={index}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section className='time-slots'>
-        <h2>Available Time</h2>
-
-        <div className='time-grid'>
-          {dailySlots?.map((item, index) => (
-            <div
-              className={`time-slot-items ${
-                selectedTime === item ? 'selected' : ''
-              }`}
-              key={index}
-              onClick={() => handleTimeClick(item)}>
-              {item}
+            <div className='days-grid'>
+              {calendarDays?.days?.map((item, index) => (
+                <div
+                  className={`calendar-items item ${
+                    selectedDate.date === item.date ? 'selected' : ''
+                  }`}
+                  key={index}
+                  onClick={() =>
+                    handleDateClick(
+                      item.day,
+                      item.date,
+                      calendarDays.month,
+                      calendarDays.index
+                    )
+                  }>
+                  <p className='date'>{item.date}</p>
+                  <p className='day'>{item.day}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+          {selectedDate.day && (
+            <section className='time-slots'>
+              <h2>Available Time</h2>
+
+              <div className='time-grid'>
+                {dailySlots?.map((item, index) => (
+                  <div
+                    className={`time-slot-items item ${
+                      selectedTime === item ? 'selected' : ''
+                    }`}
+                    key={index}
+                    onClick={() => handleTimeClick(item)}>
+                    <p className='time'>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </>
+      )}
     </>
   );
 }

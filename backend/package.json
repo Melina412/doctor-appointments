@@ -16,13 +16,14 @@
     "cloudinary": "^1.41.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cron": "^3.1.7",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.4",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.8"
+    "nodemailer": "^6.9.13"
   },
   "devDependencies": {
     "jest": "^29.7.0",

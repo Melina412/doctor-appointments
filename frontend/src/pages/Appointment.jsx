@@ -13,6 +13,7 @@ function Appointment({ doctors }) {
     month: null,
     index: null,
   });
+  const [apptSent, setApptSent] = useState(false);
 
   const doctor = doctors?.find((item) => item._id === params.id);
   const visitingHours = doctor?.visiting_hours;
@@ -20,7 +21,7 @@ function Appointment({ doctors }) {
   // console.log('appointment params ', params);
   return (
     <main className='appointment'>
-      <div className='upper-wrapper'>
+      {/* <div className='upper-wrapper'>
         <div className='flex'>
           <Link to={`/doctors/details/${params.id}`} title='back'>
             <div className='icon-container'>
@@ -32,9 +33,15 @@ function Appointment({ doctors }) {
             <img src='' alt='settings icon' />
           </div>
         </div>
-      </div>
-      <h1>Appointment</h1>
-      <p>book appointment for {doctor?.name}</p>
+      </div> */}
+      {!apptSent && (
+        <section>
+          <p className='notice'>
+            Select an available slot & fill in your details to send a
+            appointment request to {doctor?.name}.
+          </p>
+        </section>
+      )}
       <TimeSlots
         visitingHours={visitingHours}
         doctor={doctor}
@@ -42,11 +49,15 @@ function Appointment({ doctors }) {
         setSelectedDate={setSelectedDate}
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
+        setApptSent={setApptSent}
+        apptSent={apptSent}
       />
       <PatientForm
         selectedDate={selectedDate}
         selectedTime={selectedTime}
         doctor={doctor}
+        setApptSent={setApptSent}
+        apptSent={apptSent}
       />
     </main>
   );

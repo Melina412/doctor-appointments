@@ -1,36 +1,46 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+// import { createBrowserHistory } from 'history';
 
 import Landingpage from './pages/Landingpage';
 import Doctors from './pages/Doctors';
 import DoctorDetails from './pages/DoctorDetails';
 import Appointment from './pages/Appointment';
 import Login from './routes/Login';
-import Protector from './routes/Protector';
+import DasboardProtector from './routes/DasboardProtector';
 import Dashboard from './pages/Dashboard';
-import Header from './components/Header';
+import HeaderTemplate from './components/Header/HeaderTemplate';
 import Fallback from './components/error/Fallback';
+import Review from './routes/Review';
+import ReviewProtector from './routes/ReviewProtector';
+import Verify from './routes/Verify';
+import Register from './routes/Register';
+import NotFound from './routes/NotFound';
 
 function App() {
   const [login, setLogin] = useState(false);
   const [loginData, setLoginData] = useState(null);
-  const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch???
+  // const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch??? -> hoffentlich nicht ^^
   const [doctors, setDoctors] = useState([]);
   const [specialties, setSpecialties] = useState([]);
 
-  let localLogin = localStorage.getItem('doctor-login');
+  // const history = createBrowserHistory();
 
-  useEffect(() => {
-    setLocalStorageLogin(localLogin);
-  }, []);
+  // let localLogin = localStorage.getItem('doctor-login');
+
+  // useEffect(() => {
+  //   setLocalStorageLogin(localLogin);
+  // }, []);
 
   useEffect(() => {
     if (loginData === null) {
       getLoginData();
     }
   }, []);
-  // um die login data beim ändern des profils zu atualisieren muss ich die refresh token route noch ins frontend einbauen (nicht fertig)
+  useEffect(() => {
+    getLoginData();
+  }, []);
 
   useEffect(() => {
     fetchDoctors();
@@ -39,10 +49,14 @@ function App() {
   //$ fetchDoctors -------------------------------------------------------
 
   async function fetchDoctors() {
-    const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
-    if (res.ok) {
-      const data = await res.json();
-      setDoctors(data);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
+      if (res.ok) {
+        const data = await res.json();
+        setDoctors(data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -66,14 +80,14 @@ function App() {
       if (res.ok) {
         setLogin(true);
         setLoginData(response);
-        setLocalStorageLogin(true);
+        // setLocalStorageLogin(true);
       } else {
-        localStorage.setItem('doctor-login', false);
+        // localStorage.setItem('doctor-login', false);
         setLoginData(null);
       }
     } catch (error) {
       setLoginData(null);
-      // console.error('token expired', error);
+      console.error('token expired', error);
     }
   }
 
@@ -96,12 +110,13 @@ function App() {
       // console.log(response);
 
       if (res.ok) {
-        localStorage.setItem('doctor-login', false);
-        localLogin = localStorage.getItem('doctor-login');
-        setLocalStorageLogin(localLogin);
+        // localStorage.setItem('doctor-login', false);
+        // localLogin = localStorage.getItem('doctor-login');
+        // setLocalStorageLogin(localLogin);
         setLogin(false);
         getLoginData();
-        // console.log(response.message);
+
+        console.log(response.message);
       } else if (res.status === 401) {
         console.error(response.message);
       }
@@ -130,7 +145,8 @@ function App() {
   // console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
-  // console.log({ doctors });
+  console.log({ doctors });
+  // console.log({ history });
 
   // console.log(darkModeSettings);
   // console.log('dark mode activated:', darkModeSettings.matches);
@@ -139,7 +155,11 @@ function App() {
     <>
       <ErrorBoundary FallbackComponent={Fallback}>
         <BrowserRouter>
-          <Header loginData={loginData} userLogout={userLogout} login={login} />
+          <HeaderTemplate
+            loginData={loginData}
+            userLogout={userLogout}
+            login={login}
+          />
           <Routes>
             <Route
               path='/'
@@ -175,14 +195,30 @@ function App() {
                 <Login setLogin={setLogin} getLoginData={getLoginData} />
               }
             />
-            <Route element={<Protector />}>
+            <Route
+              path='/register'
+              element={
+                <Register setLogin={setLogin} getLoginData={getLoginData} />
+              }
+            />
+            <Route element={<DasboardProtector setLogin={setLogin} />}>
               <Route
                 path='/dashboard'
                 element={
-                  <Dashboard login={login} getLoginData={getLoginData} />
+                  <Dashboard
+                    login={login}
+                    setLogin={setLogin}
+                    getLoginData={getLoginData}
+                    fetchDoctors={fetchDoctors}
+                  />
                 }
               />
             </Route>
+            <Route element={<ReviewProtector />}>
+              <Route path='/review/:id' element={<Review />} />
+            </Route>
+            <Route path='/review/verify/:id' element={<Verify />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </ErrorBoundary>

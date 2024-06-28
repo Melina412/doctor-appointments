@@ -1,19 +1,34 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-function SpecialtyItem({ specialty }) {
+function SpecialtyItem({ specialty, number }) {
+  const [src, setSrc] = useState(
+    `/img/specialties/${specialty?.toLowerCase()}.svg`
+  );
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = () => {
+    if (!hasError) {
+      setSrc('/img/specialties/placeholder.svg');
+      setHasError(true);
+    }
+  };
+  // console.log({ specialty });
   return (
-    <div className='specialty-item'>
-      <Link
-        to={`/doctors`}
-        title={`show ${specialty} doctors`}
-        onClick={() => sessionStorage.setItem('doctorSpecialty', specialty)}>
-        <div>
-          <img src='' alt='specialty icon' />
+    <Link
+      to={`/doctors`}
+      title={`show ${specialty} doctors`}
+      onClick={() => sessionStorage.setItem('doctorSpecialty', specialty)}>
+      <div className='specialty-item'>
+        <div className='icon'>
+          <img src={src} alt='specialty icon' onError={handleError} />
         </div>
-        <h1>{specialty}</h1>
-        <h2>number of Doctors</h2>
-      </Link>
-    </div>
+        <p className='specialty'>{specialty}</p>
+        <p className='number'>
+          <span>{number}</span> {number === 1 ? 'Doctor' : 'Doctors'}
+        </p>
+      </div>
+    </Link>
   );
 }
 

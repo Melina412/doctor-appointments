@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 // nach der registrierung soll eine mail mit 6 digit code zur auth des users gesendet werden, erst dann kann man das profil erstellen (nicht fertig)
 
@@ -7,9 +7,10 @@ function Login({ setLogin, getLoginData }) {
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
-
-  const [register, setRegister] = useState(false);
-  const [registerMode, setRegisterMode] = useState(false);
+  const location = useLocation();
+  const state = location.state || {};
+  console.log({ location });
+  console.log({ state });
 
   async function userLogin() {
     const user = {
@@ -36,46 +37,10 @@ function Login({ setLogin, getLoginData }) {
       // console.log(response);
 
       if (res.ok) {
-        localStorage.setItem('doctor-login', true);
+        setLogin(true);
         getLoginData();
         navigate('/dashboard');
       } else if (res.status === 401) {
-        console.error(response.message);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function userRegister() {
-    const newUser = {
-      email: userRef.current.value,
-      password: passwordRef.current.value,
-    };
-
-    // console.log({ newUser });
-
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/register`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(newUser),
-        }
-      );
-
-      const response = await res.json();
-      // console.log(response);
-
-      if (res.ok) {
-        userRef.current.value = '';
-        passwordRef.current.value = '';
-        setRegister(true);
-        // console.log(response.message);
-      } else if (res.status === 400) {
         console.error(response.message);
       }
     } catch (error) {
@@ -87,10 +52,6 @@ function Login({ setLogin, getLoginData }) {
     userLogin();
   };
 
-  const handleRegister = () => {
-    userRegister();
-  };
-
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -99,10 +60,11 @@ function Login({ setLogin, getLoginData }) {
   };
 
   return (
-    <section className='login'>
-      <h1>Login</h1>
+    <section className='login-register'>
+      <h1>Dashboard Login</h1>
+      {state && <p>{state.user_feedback}</p>}
 
-      <div>
+      <article>
         <div>
           <label htmlFor='email'>User</label>
           <input
@@ -118,27 +80,21 @@ function Login({ setLogin, getLoginData }) {
           <input
             type='password'
             name='password'
-            placeholder='password'
+            placeholder='your password'
             ref={passwordRef}
             onKeyDown={handleKeyDown}
           />
         </div>
-
-        <button onClick={handleLogin}>Login</button>
-        <p>(Login only for already registered users for now)</p>
-      </div>
-
-      {register ? (
-        <p style={{ fontSize: '2rem' }}>register successful. please log in!</p>
-      ) : (
         <div>
-          <p>
-            new user? enter your email & password above then click here to
-            register:
-          </p>
-          <button onClick={handleRegister}>Sign up</button>
+          <button onClick={handleLogin}>Login</button>
         </div>
-      )}
+
+        <div className='method'>
+          <p>
+            No account yet? <Link to={'/register'}>Register now!</Link>
+          </p>
+        </div>
+      </article>
     </section>
   );
 }

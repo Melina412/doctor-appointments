@@ -1,4 +1,4 @@
-import { Doctor } from '../doctors/doctor.model.js';
+import { Doctor } from '../users/user.model.js';
 
 export async function getDoctors(_, res) {
   try {
