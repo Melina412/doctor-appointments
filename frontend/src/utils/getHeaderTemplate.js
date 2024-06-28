@@ -119,7 +119,7 @@ export const getHeaderTemplate = (
     Dashboard: {
       left: React.createElement(
         Link,
-        { to: prevLocation, title: 'back' },
+        { to: '/', title: 'back' },
         React.createElement(
           'div',
           null,

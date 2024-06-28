@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
-function Textarea({ name, id, cols, rows, ref, maxChars }) {
+function Textarea({ name, id, cols, rows, ref, maxChars, defaultValue }) {
   const [text, setText] = useState('');
-  const [remainingChars, setRemainingChars] = useState(maxChars);
+  const [remainingChars, setRemainingChars] = useState(
+    defaultValue.length > 1 ? maxChars - defaultValue.length : maxChars
+  );
 
   const handleChange = (e) => {
     const inputText = e.target.value;
@@ -23,11 +25,14 @@ function Textarea({ name, id, cols, rows, ref, maxChars }) {
           ref={ref}
           maxLength={maxChars}
           onChange={handleChange}
-          style={{ width: '100%' }}></textarea>
-
+          defaultValue={defaultValue}
+          style={{ width: '100%', marginBottom: 0 }}></textarea>
         <p
           className='chars'
-          style={{ textAlign: 'right' }}>{`${remainingChars}/${maxChars}`}</p>
+          style={{
+            textAlign: 'right',
+            marginBottom: '2rem',
+          }}>{`${remainingChars}/${maxChars}`}</p>
       </div>
     </>
   );

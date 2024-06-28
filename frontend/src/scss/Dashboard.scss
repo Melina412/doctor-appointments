@@ -157,11 +157,35 @@ main.dashboard {
           }
 
           div.avatar-input {
+            display: flex;
+            flex-direction: column;
             label#avatar-label {
               margin-bottom: 2rem;
             }
             input {
               margin-top: 2rem;
+            }
+
+            canvas {
+              margin: 0 auto;
+            }
+
+            div.slider {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 1rem;
+              margin: 2rem;
+
+              label {
+                margin: 0;
+              }
+
+              input#zoom {
+                @extend .input-slider;
+                margin: 0;
+                padding: 0;
+              }
             }
           }
 

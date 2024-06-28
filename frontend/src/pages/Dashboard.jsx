@@ -4,12 +4,15 @@ import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
 import Logout from '../routes/Logout';
 import { useNavigate } from 'react-router-dom';
+import ImageUpload from '../components/Dashboard/ImageUpload';
 
-function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
+function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
   const [gridStyle, setGridStyle] = useState('closed');
+  // const [newUser, setNewUser] = useState(profileData?.name ? false : true);
+  // console.log({ newUser });
 
   const navigate = useNavigate();
 
@@ -32,38 +35,21 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
     if (res.ok) {
       setProfileData(data);
     }
+    return data;
   }
 
   useEffect(() => {
     getProfileData();
   }, []);
 
-  //$ uploadAvatar() --------------------------------------------------------
-
-  async function uploadAvatar(e) {
-    e.preventDefault();
-    handleAvatarBtn();
-    const form = new FormData(e.target);
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/user/image`,
-        {
-          method: 'PUT',
-          body: form,
-          credentials: 'include',
-        }
-      );
-
-      if (res.ok) {
-        setEditAvatar(false);
-        getProfileData();
-      } else if (res.status === 404) {
-        console.error(response.message);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // useEffect(() => {
+  //   if (newUser) {
+  //     setEditMode(true);
+  //     setEditAvatar(true);
+  //     setGridStyle('open');
+  //   }
+  // }, [profileData]);
+  //! wenn ich das mache geht gar nix mehr. react rastet aus wegen den nicht existierenden visiting hours und man kann die auch nicht mal mehr bearbeiten wtaf
 
   const handleAvatarBtn = () => {
     editAvatar ? setEditAvatar(false) : setEditAvatar(true);
@@ -75,13 +61,14 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
     gridStyle === 'open' ? setGridStyle('closed') : setGridStyle('open');
   };
 
-  // console.log({ profileData });
-  // console.log({ gridStyle });
+  console.log({ profileData });
+  console.log({ gridStyle });
 
   return (
     <main className='dashboard'>
       <>
         <section className='profile'>
+          {/* <h2>Hello {newUser ? profileData?.email : profileData?.name}</h2> */}
           <h2>Hello {profileData?.name}</h2>
           <div className='avatar-container'>
             <div
@@ -93,11 +80,13 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
 
           <section className={`dashboard-actions ${gridStyle}`}>
             {/* //$ logout btn ------  */}
-            <Logout
-              navigate={navigate}
-              setLogin={setLogin}
-              getLoginData={getLoginData}
-            />
+            {gridStyle === 'closed' && (
+              <Logout
+                navigate={navigate}
+                setLogin={setLogin}
+                getLoginData={getLoginData}
+              />
+            )}
 
             {/* //$ edit profile btn ------  */}
             {!editMode ? (
@@ -117,7 +106,6 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
                   setGridStyle={setGridStyle}
                   handleEditBtn={handleEditBtn}
                 />
-                {/* <button onClick={handleEditBtn}>cancel</button> */}
               </>
             )}
 
@@ -131,31 +119,16 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
             ) : (
               <>
                 <section className='edit-avatar'>
-                  <form onSubmit={uploadAvatar}>
-                    <div className='avatar-input'>
-                      <label htmlFor='avatar' id='avatar-label'>
-                        Select image to use as avatar.
-                      </label>
-                      <input type='file' name='avatar' id='avatar' />
-                    </div>
-                    <div className='buttons'>
-                      <button type='submit' className='submit'>
-                        Upload
-                      </button>
-                      <button
-                        type='button'
-                        className='cancel'
-                        onClick={handleAvatarBtn}>
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
+                  <ImageUpload
+                    handleAvatarBtn={handleAvatarBtn}
+                    setEditAvatar={setEditAvatar}
+                    getProfileData={getProfileData}
+                  />
                 </section>
               </>
             )}
           </section>
         </section>
-
         <MyAppointments />
       </>
     </main>

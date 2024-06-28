@@ -36,8 +36,8 @@ function Register() {
         userRef.current.value = '';
         passwordRef.current.value = '';
         setRegister(true);
-        navigate('/login');
-        // console.log(response.message);
+        navigate('/login', { state: { feedback: response.user_feedback } });
+        console.log(response.message);
       } else if (res.status === 400) {
         console.error(response.message);
       }

@@ -1,4 +1,4 @@
-import { Doctor } from '../doctors/doctor.model.js';
+import { Doctor } from '../users/user.model.js';
 import { createSalt, createHash, createToken } from './auth.service.js';
 import { Review } from '../reviews/reviews.model.js';
 
@@ -33,7 +33,11 @@ export async function register(req, res) {
     });
 
     await newDoctor.save();
-    res.status(201).json({ success: true, message: 'new user added to db' });
+    res.status(201).json({
+      success: true,
+      message: 'new user added to db',
+      user_feedback: 'Account created. Please login to continue.',
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: error });
@@ -108,17 +112,31 @@ export function logout(req, res) {
 
 //$ getUserInfo() ---------------------------------------------------------------
 
-export function getUserinfo(req, res) {
-  const { username, email, exp } = req.payload;
+export async function getUserinfo(req, res) {
+  const { email, exp } = req.payload;
   // console.log('req.payload:', req.payload);
-  res.json({
-    username,
-    email,
-    expiresCET: new Date(exp * 1000).toLocaleString('de-DE', {
-      timeZone: 'Europe/Berlin',
-    }),
-  });
+
+  try {
+    const user = await Doctor.findOne({ email });
+    if (user) {
+      res.json({
+        username: user.name,
+        email: user.email,
+        expiresCET: new Date(exp * 1000).toLocaleString('de-DE', {
+          timeZone: 'Europe/Berlin',
+        }),
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
   // expiresCET nur als info für mich damit ich sehe wann der token abläuft
+
+  // das problem ist ich nutze den username auch für den header und der username hier kommt aus dem cookie der beim login erstellt wird,
+  // hier ist der username noch nicht vorhanden. also entweder muss ich den cookie refreshen oder beim register den namen schon festlegen.
+  // so oder so muss der name aktualisiert werden wenn er geändert wird.
+  // also mach ich doch einen req an die db obwohl ich das dann im dashboard auch mache, ggf noch ändern!
 }
 
 //$ refreshToken() ---------------------------------------------------------------

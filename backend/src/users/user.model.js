@@ -19,7 +19,7 @@ const doctorSchema = new mongoose.Schema({
       if (this.title && this.first_name && this.last_name) {
         return `${this.title} ${this.first_name} ${this.last_name}`;
       } else {
-        return 'new user';
+        return this.email;
       }
     },
   },
@@ -36,6 +36,7 @@ const doctorSchema = new mongoose.Schema({
       },
       { _id: false }
     ),
+    default: {},
   },
 });
 

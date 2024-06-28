@@ -13,7 +13,6 @@ main.landingpage {
   section.covid {
     width: 100%;
 
-
     div {
       a {
         div.img-container {
@@ -38,12 +37,12 @@ main.landingpage {
       div.flex {
         display: flex;
         justify-content: space-between;
-        
+
         div.text {
           display: flex;
           flex-direction: column;
-        }        
-      }      
+        }
+      }
     }
   }
 
@@ -62,26 +61,34 @@ main.landingpage {
       text-align: center;
       gap: 1rem;
 
-      div.specialty-item {
+      a {
         @include size(100%, 100%);
-        display: flex;
-        justify-content: center;
-        padding: 2rem;
-        border-radius: 10px;
-        background: $gradient-fill;
-        a {
-          text-decoration: none;
+        text-decoration: none;
+
+        div.specialty-item {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 2rem;
+          border-radius: 10px;
+          background: $gradient-fill;
+
           div.icon {
             text-align: center;
-            padding-bottom: 2rem
-
+            padding-bottom: 2rem;
+            img {
+              @include size(5rem, 5rem);
+            }
           }
           p.specialty {
-            @include text-style($Roboto400, 1.5rem, $text-fill);
+            @include text-style($Roboto400, 1.4rem, $text-fill);
             padding-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           p.number {
-            @include text-style($Roboto300, 1rem, $input-fill);
+            @include text-style($Roboto300, 1rem, $text-grey);
           }
         }
       }

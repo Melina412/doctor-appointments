@@ -9,7 +9,9 @@ function DoctorItem({ doctor }) {
           <div className='avatar-container'>
             <img src={doctor.avatar} alt='avatar image' />
           </div>
-          <p className='name'>{doctor.name}</p>
+          <p className='name'>
+            {doctor.title} {doctor?.last_name} {doctor.first_name?.slice(0, 1)}{' '}
+          </p>
           <p className='specialty'>{doctor.specialty}</p>
           <p className='rating'>
             ⭐️ <span className='rate'># rating</span> (# reviews)

@@ -1,34 +1,21 @@
-import { useEffect, useState } from 'react';
 import SpecialtyList from '../components/Landingpage/SpecialtyList';
 import '../scss/Landingpage.scss';
 import { Link } from 'react-router-dom';
 
 function Landingpage({ doctors, specialties, setSpecialties }) {
-  useEffect(() => {
-    setSpecialties(doctors?.map((doctor) => doctor.specialty));
-  }, [doctors]);
-  // die specialties müssen dann noch gefiltert werden sobald es eine gibt die mehrmals vorkommt
-
   // console.log('doctors landingpage:', doctors);
-  // console.log({ specialties });
 
   return (
     <>
-      {/* <details>
-        <summary>
-          <div className='icon-container'>
-            <img src='/img/dots-icon.svg' alt='' />
-          </div>
-        </summary>
-        <div class='links'>
-          <a href='/login'>Login</a>
-          <a href='/signup'>Signup</a>
-        </div>
-      </details> */}
       <main className='landingpage'>
         <section className='covid'>
           <div>
-            <Link to='/doctors' title='doctors list'>
+            <Link
+              to='/doctors'
+              title='show Covid-19 specialists'
+              onClick={() =>
+                sessionStorage.setItem('doctorSpecialty', 'Virology')
+              }>
               <div className='img-container'>
                 <img src='/img/covid-no-shadow.svg' alt='covid-19' />
               </div>
@@ -42,7 +29,12 @@ function Landingpage({ doctors, specialties, setSpecialties }) {
                 <h3>STI Problems?</h3>
                 <p>Find suitable specialists here</p>
               </div>
-              <Link to='/doctors' title='doctors list'>
+              <Link
+                to='/doctors'
+                title='show STI specialists'
+                onClick={() => {
+                  sessionStorage.setItem('doctorSpecialty', 'Dermatology');
+                }}>
                 <div className='icon-container'>
                   <img
                     src='/img/forward-arrow-icon.png'
@@ -53,7 +45,11 @@ function Landingpage({ doctors, specialties, setSpecialties }) {
             </div>
           </div>
         </section>
-        <SpecialtyList specialties={specialties} />
+        <SpecialtyList
+          doctors={doctors}
+          specialties={specialties}
+          setSpecialties={setSpecialties}
+        />
       </main>
     </>
   );

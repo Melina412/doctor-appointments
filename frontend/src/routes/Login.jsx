@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 // nach der registrierung soll eine mail mit 6 digit code zur auth des users gesendet werden, erst dann kann man das profil erstellen (nicht fertig)
 
@@ -7,6 +7,10 @@ function Login({ setLogin, getLoginData }) {
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state || {};
+  console.log({ location });
+  console.log({ state });
 
   async function userLogin() {
     const user = {
@@ -58,6 +62,7 @@ function Login({ setLogin, getLoginData }) {
   return (
     <section className='login-register'>
       <h1>Dashboard Login</h1>
+      {state && <p>{state.user_feedback}</p>}
 
       <article>
         <div>

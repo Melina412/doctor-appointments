@@ -51,12 +51,13 @@
 <br/> [❌] convert getHeaderTemplate to jsx
 <br/> [❌] link patients/ & rating to doctors
 <br/> [❌] convert date in emails etc.
-<br/> [❌] update db with new sample data
+<br/> [✅] update db with new sample data
 <br/> [❌] more feedback for user actions
 
 ## planned extra features & tools
 
 <br/> [❌] more tests, also for react
+<br/> [✅] crop/zoom avatar before upload
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position
 <br/> [❌] b version with luxon instead manual generator function
@@ -78,6 +79,8 @@
 
 <!-- todo: data models checken und neue daten erstellen  -->
 
-<!-- sample dataset can be uploaded to mongodb from within directory backend/src/ with the command: -->
+<!-- sample dataset can be uploaded to mongodb from within directory backend/src/ with the command: (need to have mongodb-database-tools installed)-->
 
-<!-- `mongoimport --uri 'mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<db name>?' --collection '<collection name>' --file 'sample-data.json' --jsonArray` -->
+`mongoimport --uri 'mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<db name>?' --collection '<collection name>' --file 'sample-data.json' --jsonArray`
+
+<!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores eos facere nulla numquam aut corrupti odio inventore quis fugit quod exercitationem repudiandae at dolor vero fuga quisquam illum, quam perspiciatis, quia dignissimos. Dolorum ipsam possimus et. Necessitatibus, facere labore unde voluptatem illo, nobis delectus asperiores sapiente vitae explicabo, quia excepturi. -->
