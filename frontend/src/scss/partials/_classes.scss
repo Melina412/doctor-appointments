@@ -93,6 +93,40 @@
   margin-bottom: 2rem;
 }
 
+.input-slider {
+  margin: 0.5rem;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  background-color: $input-fill;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: $blue;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: $blue;
+    cursor: pointer;
+  }
+}
+
 .input-label {
   @include text-style($Roboto400, 1.4rem, $text-grey);
   margin-bottom: 0.5rem;
@@ -118,9 +152,6 @@
   letter-spacing: 0.5px;
   -webkit-text-stroke: 1px $text-stroke;
   margin-bottom: 1.2rem;
-}
-
-.item-active {
 }
 
 .item-shadow {

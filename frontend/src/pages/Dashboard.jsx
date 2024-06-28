@@ -4,8 +4,9 @@ import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
 import Logout from '../routes/Logout';
 import { useNavigate } from 'react-router-dom';
+import ImageUpload from '../components/Dashboard/ImageUpload';
 
-function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
+function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
@@ -37,33 +38,6 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
   useEffect(() => {
     getProfileData();
   }, []);
-
-  //$ uploadAvatar() --------------------------------------------------------
-
-  async function uploadAvatar(e) {
-    e.preventDefault();
-    handleAvatarBtn();
-    const form = new FormData(e.target);
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/user/image`,
-        {
-          method: 'PUT',
-          body: form,
-          credentials: 'include',
-        }
-      );
-
-      if (res.ok) {
-        setEditAvatar(false);
-        getProfileData();
-      } else if (res.status === 404) {
-        console.error(response.message);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const handleAvatarBtn = () => {
     editAvatar ? setEditAvatar(false) : setEditAvatar(true);
@@ -131,31 +105,16 @@ function Dashboard({ login, setLogin, getLoginData, fetchDoctors }) {
             ) : (
               <>
                 <section className='edit-avatar'>
-                  <form onSubmit={uploadAvatar}>
-                    <div className='avatar-input'>
-                      <label htmlFor='avatar' id='avatar-label'>
-                        Select image to use as avatar.
-                      </label>
-                      <input type='file' name='avatar' id='avatar' />
-                    </div>
-                    <div className='buttons'>
-                      <button type='submit' className='submit'>
-                        Upload
-                      </button>
-                      <button
-                        type='button'
-                        className='cancel'
-                        onClick={handleAvatarBtn}>
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
+                  <ImageUpload
+                    handleAvatarBtn={handleAvatarBtn}
+                    setEditAvatar={setEditAvatar}
+                    getProfileData={getProfileData}
+                  />
                 </section>
               </>
             )}
           </section>
         </section>
-
         <MyAppointments />
       </>
     </main>
