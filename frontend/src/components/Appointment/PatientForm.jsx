@@ -26,7 +26,7 @@ function PatientForm({
   const [selectedAge, setSelectedAge] = useState(false);
 
   // console.log(index, date);
-  console.log({ appointmentDate });
+  // console.log({ appointmentDate });
   // console.log({ timeString });
   // console.log({ selectedTime });
 

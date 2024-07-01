@@ -10,6 +10,7 @@ import {
   confirmAppointmentTemplate,
   declineAppointmentTemplate,
 } from '../templates/email.template.js';
+import mongoose from 'mongoose';
 
 // $ getDaysPerMonth() --------------------------------------------------------
 export async function getDaysPerMonth(req, res) {
@@ -54,14 +55,38 @@ export async function getTimeSlots(req, res) {
       for (const day of days) {
         timeSlots[day] = generateTimeSlots(day, visitingHours);
       }
-
       // console.log({ timeSlots });
-      res.json({ timeSlots: timeSlots });
+
+      //# hier auch die appointments mitschicken!
+      try {
+        const doctorObjectId = new mongoose.Types.ObjectId(doctor_id);
+        console.log({ doctorObjectId });
+
+        const appointments = await Appointment.aggregate([
+          { $match: { doctor: doctorObjectId } },
+          {
+            $project: {
+              date: 1,
+              time_slot: 1,
+              confirmed: 1,
+            },
+          },
+        ]);
+        // console.log({ appointments });
+
+        res.json({
+          timeSlots: timeSlots,
+          bookedAppointments: appointments,
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(500).end();
+      }
     }
   } catch (error) {
     console.log(error);
+    res.status(500).end();
   }
-  res.end();
 }
 
 // $ getAppointments() -----------------------------------------------------

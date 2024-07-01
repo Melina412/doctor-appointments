@@ -61,8 +61,8 @@ function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
     gridStyle === 'open' ? setGridStyle('closed') : setGridStyle('open');
   };
 
-  console.log({ profileData });
-  console.log({ gridStyle });
+  // console.log({ profileData });
+  // console.log({ gridStyle });
 
   return (
     <main className='dashboard'>

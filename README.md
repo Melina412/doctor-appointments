@@ -58,7 +58,7 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 <br/> [❌] archive past appointments (also to count patient number)
 <br/> [✅] seperate register & login routes
 <br/> [✅] fix logout
-<br/> [❌] ❗️❗️❗️ delete booked time slots
+<br/> [✅] delete booked time slots
 <br/> [❌] convert getHeaderTemplate to jsx
 <br/> [❌] link patients/ & rating to doctors
 <br/> [❌] convert date in emails etc.

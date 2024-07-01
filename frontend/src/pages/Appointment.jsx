@@ -12,6 +12,7 @@ function Appointment({ doctors }) {
     date: null,
     month: null,
     index: null,
+    year: null,
   });
   const [apptSent, setApptSent] = useState(false);
 

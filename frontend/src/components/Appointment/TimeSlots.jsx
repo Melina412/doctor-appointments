@@ -33,8 +33,6 @@ function TimeSlots({
 
   //# useStates -----------------------------------------------------------------
 
-  // const [selectedDate, setSelectedDate] = useState({ day: null, date: null });
-  // const [selectedTime, setSelectedTime] = useState(null);
   const [calendarDays, setCalendarDays] = useState(null);
   const [timeSlots, setTimeSlots] = useState(null);
   const [selectedYear, setSelectedYear] = useState(defaultYear);
@@ -44,6 +42,7 @@ function TimeSlots({
   });
   const [dailySlots, setDailySlots] = useState([]);
   const [prevMonth, setPrevMonth] = useState(months[defaultMonth]);
+  const [bookedAppointments, setBookedAppointments] = useState([]);
 
   let remainingMonths =
     selectedYear === defaultYear ? months.slice(defaultMonth) : months;
@@ -107,10 +106,11 @@ function TimeSlots({
         }
       );
       const data = await res.json();
-      // console.log('timeSlots', { data });
+      // console.log({ data });
 
       if (res.ok) {
         setTimeSlots(data.timeSlots);
+        setBookedAppointments(data.bookedAppointments);
       }
     }
     getTimeSlots();
@@ -119,7 +119,13 @@ function TimeSlots({
   //$ handleMonthClick -----------------------------------------------------------
 
   const handleDateClick = (day, date, month, index) => {
-    setSelectedDate({ day: day, date: date, month: month, index: index });
+    setSelectedDate({
+      day: day,
+      date: date,
+      month: month,
+      index: index,
+      year: selectedYear,
+    });
   };
 
   const handleTimeClick = (item) => {
@@ -143,6 +149,22 @@ function TimeSlots({
 
   //$ getDailySlots() -----------------------------------------------------------
 
+  // useEffect(() => {
+  //   const getDailySlots = () => {
+  //     const slots = timeSlots
+  //       ? Object.entries(timeSlots).find(
+  //           ([day, hours]) => day === selectedDate.day
+  //         )
+  //       : null;
+  //     console.log({ slots });
+
+  //     if (slots) {
+  //       setDailySlots(slots ? Object.values(slots[1]) : []);
+  //     }
+  //   };
+  //   getDailySlots();
+  // }, [selectedDate]);
+
   useEffect(() => {
     const getDailySlots = () => {
       const slots = timeSlots
@@ -153,11 +175,47 @@ function TimeSlots({
       console.log({ slots });
 
       if (slots) {
-        setDailySlots(slots ? Object.values(slots[1]) : []);
+        let dailySlots = slots ? Object.values(slots[1]) : [];
+
+        const confirmedAppointments = bookedAppointments.filter(
+          (appointment) => appointment.confirmed
+        );
+        //# hier könnte ich ggf. auch die termine die null sind filtern um doppelte buchungen zu verhindern
+
+        //? vlg. mit datum war schwierig wegen uhrzeit des termins
+        const selectedDateString = `${selectedDate.year}-${String(
+          selectedDate.index + 1
+        ).padStart(2, '0')}-${String(selectedDate.date).padStart(2, '0')}`;
+        // console.log({ selectedDateString });
+
+        const appointmentsForSelectedDate = confirmedAppointments.filter(
+          (appointment) => {
+            const appointmentDate = new Date(appointment.date);
+            const appointmentDateString = `${appointmentDate.getFullYear()}-${String(
+              appointmentDate.getMonth() + 1
+            ).padStart(2, '0')}-${String(appointmentDate.getDate()).padStart(
+              2,
+              '0'
+            )}`;
+            // console.log({ appointmentDate });
+            // console.log({ appointmentDateString });
+            return appointmentDateString === selectedDateString;
+          }
+        );
+
+        console.log({ appointmentsForSelectedDate });
+
+        appointmentsForSelectedDate.forEach((appointment) => {
+          dailySlots = dailySlots.filter(
+            (slot) => slot !== appointment.time_slot
+          );
+        });
+
+        setDailySlots(dailySlots);
       }
     };
     getDailySlots();
-  }, [selectedDate]);
+  }, [selectedDate, bookedAppointments, timeSlots]);
 
   //! console logs ==================================================================
 
@@ -174,6 +232,7 @@ function TimeSlots({
   // console.log({ selectedYear });
   // console.log({ remainingMonths });
   // console.log({ defaultYear });
+  // console.log('bookedAppointments:', bookedAppointments);
 
   //todo bei bereits ausgewähltem time slot, wenn der day geändert wird, ist das datum trotzdem valid auch wenn der slot an dem tag nicht existiert. bei klich auf das item muss also time slot noch zurückgesetzt werden!
 
