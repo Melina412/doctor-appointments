@@ -38,9 +38,9 @@ function App() {
       getLoginData();
     }
   }, []);
-  useEffect(() => {
-    getLoginData();
-  }, []);
+  // useEffect(() => {
+  //   getLoginData();
+  // }, []);
 
   useEffect(() => {
     fetchDoctors();
@@ -145,7 +145,7 @@ function App() {
   // console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
-  console.log({ doctors });
+  // console.log({ doctors });
   // console.log({ history });
 
   // console.log(darkModeSettings);
@@ -153,7 +153,7 @@ function App() {
   // console.log('NODE_ENV', process.env.NODE_ENV);
 
   let viteenvs = import.meta.env;
-  console.log(viteenvs);
+  // console.log(viteenvs);
 
   return (
     <>

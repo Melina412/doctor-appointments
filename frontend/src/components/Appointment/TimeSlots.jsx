@@ -114,7 +114,7 @@ function TimeSlots({
       }
     }
     getTimeSlots();
-  }, []);
+  }, [timeSlots === null, doctor_id]);
 
   //$ handleMonthClick -----------------------------------------------------------
 
@@ -148,22 +148,6 @@ function TimeSlots({
   };
 
   //$ getDailySlots() -----------------------------------------------------------
-
-  // useEffect(() => {
-  //   const getDailySlots = () => {
-  //     const slots = timeSlots
-  //       ? Object.entries(timeSlots).find(
-  //           ([day, hours]) => day === selectedDate.day
-  //         )
-  //       : null;
-  //     console.log({ slots });
-
-  //     if (slots) {
-  //       setDailySlots(slots ? Object.values(slots[1]) : []);
-  //     }
-  //   };
-  //   getDailySlots();
-  // }, [selectedDate]);
 
   useEffect(() => {
     const getDailySlots = () => {

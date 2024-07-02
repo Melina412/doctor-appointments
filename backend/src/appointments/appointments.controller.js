@@ -174,7 +174,7 @@ export async function confirmAppointment(req, res) {
   console.log({ id, action });
   try {
     const appointment = await Appointment.findById(id).exec();
-    console.log({ appointment });
+    console.log('appointment found!');
     if (appointment) {
       // der doctor hat die möglichkeiten:
       // 1. accept - confirmed = true; der patient bekommt eine bestätigungsmail
@@ -193,64 +193,69 @@ export async function confirmAppointment(req, res) {
         { $set: { confirmed: updateValue } }
       );
       if (updateResult.modifiedCount > 0) {
-        const updatedAppointment = await Appointment.findById(id).exec();
-        console.log({ updatedAppointment });
-        res
-          .status(201)
-          .json({ success: true, message: 'appointment updated in db' });
-
-        const { confirmed, date, time_slot } = updatedAppointment;
-        const patientName = updatedAppointment.patient.full_name;
-        const patientEmail = updatedAppointment.patient.email;
-        // console.log(confirmed, patientName, patientEmail);
         try {
-          const doctor = await Doctor.findById(appointment.doctor).exec();
-          console.log({ doctor });
-          if (doctor) {
-            const { email, name } = doctor;
+          const updatedAppointment = await Appointment.findById(id).exec();
+          console.log('appointment updated in db! ---', updatedAppointment);
 
-            if (confirmed) {
-              // //# confirmation mail to patient -----------------------------------------
-              sendEmail(
-                confirmAppointmentTemplate(
-                  patientEmail,
-                  patientName,
-                  name,
-                  date,
-                  time_slot
-                )
-              );
+          const { confirmed, date, time_slot } = updatedAppointment;
+          const patientName = updatedAppointment.patient.full_name;
+          const patientEmail = updatedAppointment.patient.email;
+          // console.log(confirmed, patientName, patientEmail);
+          try {
+            const doctor = await Doctor.findById(appointment.doctor).exec();
+            console.log('doctor:', doctor.name);
+            if (doctor) {
+              const { email, name } = doctor;
+
+              if (confirmed) {
+                // //# confirmation mail to patient -----------------------------------------
+                sendEmail(
+                  confirmAppointmentTemplate(
+                    patientEmail,
+                    patientName,
+                    name,
+                    date,
+                    time_slot
+                  )
+                );
+              } else {
+                //# decline mail to patient -----------------------------------------
+                sendEmail(
+                  declineAppointmentTemplate(
+                    patientEmail,
+                    patientName,
+                    email,
+                    name,
+                    date,
+                    time_slot
+                  )
+                );
+              }
+
+              res
+                .status(201)
+                .json({ success: true, message: 'appointment updated in db' });
             } else {
-              //# decline mail to patient -----------------------------------------
-              sendEmail(
-                declineAppointmentTemplate(
-                  patientEmail,
-                  patientName,
-                  email,
-                  name,
-                  date,
-                  time_slot
-                )
-              );
+              res
+                .status(404)
+                .json({ success: false, message: 'doctor not found' });
             }
-          } else {
+          } catch (error) {
+            console.log(error);
             res
-              .status(404)
-              .json({ success: false, message: 'doctor not found' });
+              .status(500)
+              .json({ success: false, message: 'error while sending mail' });
           }
         } catch (error) {
+          console.log(error);
           res
-            .status(500)
-            .json({ success: false, message: 'error while sending mail' });
+            .status(404)
+            .json({ success: false, message: 'appointment not found' });
         }
-      } else {
-        res
-          .status(404)
-          .json({ success: false, message: 'appointment not found' });
       }
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ success: false, message: error.message });
-    console.log({ error });
   }
 }

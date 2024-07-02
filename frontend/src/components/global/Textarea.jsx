@@ -3,7 +3,9 @@ import { useState } from 'react';
 function Textarea({ name, id, cols, rows, ref, maxChars, defaultValue }) {
   const [text, setText] = useState('');
   const [remainingChars, setRemainingChars] = useState(
-    defaultValue.length > 1 ? maxChars - defaultValue.length : maxChars
+    defaultValue && defaultValue.length > 1
+      ? maxChars - defaultValue.length
+      : maxChars
   );
 
   const handleChange = (e) => {
