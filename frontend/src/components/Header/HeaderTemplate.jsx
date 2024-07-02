@@ -12,7 +12,6 @@ function HeaderTemplate({ loginData, userLogout, login }) {
     loginData?.username,
     prevLocation,
     login,
-    Link,
     userLogout
   );
 

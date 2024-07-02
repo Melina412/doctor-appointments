@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import '../../scss/LoginRegister.scss';
 
 // nach der registrierung soll eine mail mit 6 digit code zur auth des users gesendet werden, erst dann kann man das profil erstellen (nicht fertig)
 

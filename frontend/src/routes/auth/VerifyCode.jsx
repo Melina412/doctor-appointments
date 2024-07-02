@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 
-function Verify() {
+function VerifyCode() {
   const params = useParams();
   let path = params.id;
   console.log({ path });
@@ -67,4 +67,4 @@ function Verify() {
   );
 }
 
-export default Verify;
+export default VerifyCode;

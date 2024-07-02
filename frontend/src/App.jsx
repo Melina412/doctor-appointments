@@ -3,19 +3,19 @@ import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 // import { createBrowserHistory } from 'history';
 
-import Landingpage from './pages/Landingpage';
-import Doctors from './pages/Doctors';
-import DoctorDetails from './pages/DoctorDetails';
-import Appointment from './pages/Appointment';
-import Login from './routes/Login';
-import DasboardProtector from './routes/DasboardProtector';
-import Dashboard from './pages/Dashboard';
+import Landingpage from './routes/Landingpage';
+import Doctors from './routes/Doctors';
+import DoctorDetails from './routes/DoctorDetails';
+import Appointment from './routes/Appointment';
+import Login from './routes/auth/Login';
+import DasboardProtector from './routes/auth/DasboardProtector';
+import Dashboard from './routes/Dashboard';
 import HeaderTemplate from './components/Header/HeaderTemplate';
 import Fallback from './components/error/Fallback';
 import Review from './routes/Review';
-import ReviewProtector from './routes/ReviewProtector';
-import Verify from './routes/Verify';
-import Register from './routes/Register';
+import ReviewProtector from './routes/auth/ReviewProtector';
+import VerifyCode from './routes/auth/VerifyCode';
+import Register from './routes/auth/Register';
 import NotFound from './routes/NotFound';
 
 function App() {
@@ -221,7 +221,7 @@ function App() {
             <Route element={<ReviewProtector />}>
               <Route path='/review/:id' element={<Review />} />
             </Route>
-            <Route path='/review/verify/:id' element={<Verify />} />
+            <Route path='/review/verify/:id' element={<VerifyCode />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </BrowserRouter>

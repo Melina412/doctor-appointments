@@ -55,20 +55,20 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 
 [✅] refresh token
 <br/> [✅] doctors should be able to confirm the patient showed up before they're allowed to leave a review/rank (also neccessary for review initializing)
-<br/> [❌] archive past appointments (also to count patient number)
 <br/> [✅] seperate register & login routes
 <br/> [✅] fix logout
 <br/> [✅] delete booked time slots
-<br/> [❌] convert getHeaderTemplate to jsx
-<br/> [❌] link patients/ & rating to doctors
-<br/> [❌] convert date in emails etc.
+<br/> [✅] convert getHeaderTemplate to jsx
+<br/> [✅] convert date in emails etc.
 <br/> [✅] update db with new sample data
+<br/> [❌] link patients/ & rating to doctors
+<br/> [❌] archive past appointments (also to count patient number)
 <br/> [❌] more feedback for user actions
 
 ## planned extra features & tools
 
-<br/> [❌] more tests, also for react
 <br/> [✅] crop/zoom avatar before upload
+<br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position
 <br/> [❌] b version with luxon instead manual generator function

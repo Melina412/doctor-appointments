@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import EditProfile from '../components/Dashboard/EditProfile';
 import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
-import Logout from '../routes/Logout';
+import Logout from './auth/Logout';
 import { useNavigate } from 'react-router-dom';
 import ImageUpload from '../components/Dashboard/ImageUpload';
 

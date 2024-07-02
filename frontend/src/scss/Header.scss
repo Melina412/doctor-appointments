@@ -20,6 +20,13 @@ header {
     align-items: center;
     margin: 3rem 2.5rem 1rem 2.5rem;
 
+    div.left {
+      p {
+        @include text-style($Roboto400, 1.6rem, $text-stroke);
+        padding-left: 2vw;
+      }
+    }
+
     div.right {
       div.home-right {
         display: flex;

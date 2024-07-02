@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import '../scss/Login_Register.scss';
+import '../../scss/LoginRegister.scss';
 
 function Register() {
   const userRef = useRef();

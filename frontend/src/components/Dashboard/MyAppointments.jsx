@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import AppointmentItem from './AppointmentItem';
-
-// dieses feature ist noch nicht fertig
+import _ from 'lodash';
 
 function MyAppointments() {
   const [myAppointments, setMyAppointments] = useState([]);
@@ -88,6 +87,12 @@ function MyAppointments() {
             <div className='item-group'>
               {myAppointments
                 ?.filter((appt) => appt?.confirmed === true)
+                .sort((a, b) => {
+                  if (a.done === b.done) {
+                    return 0;
+                  }
+                  return a.done ? 1 : -1;
+                })
                 .map((appt, index) => (
                   <AppointmentItem
                     key={index}
