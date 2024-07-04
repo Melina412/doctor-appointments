@@ -78,7 +78,7 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
                 max={5}
                 defaultValue={1}
                 step={0.1}
-                onChange={(e) => setZoom(e.target.value)}
+                onChange={(e) => setZoom(Number(e.target.value))}
               />
             </div>
           </>

@@ -66,7 +66,7 @@ export function generateCalendarDays(startDate) {
   return { [startYear]: monthOverview };
 }
 
-export function generateTimeSlots(selectedDay, visitingHours) {
+export function generateTimeSlots(selectedDay, visitingHours, hour12) {
   if (visitingHours[selectedDay]) {
     const timeSlots = [];
     const { open, close } = visitingHours[selectedDay];
@@ -80,7 +80,9 @@ export function generateTimeSlots(selectedDay, visitingHours) {
         const slot = currentTime.toLocaleTimeString([], {
           hour: '2-digit',
           minute: '2-digit',
+          hour12: false,
         });
+        // ich könnte die slots hier mit einem parameter entsprechend im 12/24 h format ausgeben, dann würden sie aber nicht einheitlich in der db gespeichert werden
         timeSlots.push(slot);
         currentTime.setMinutes(currentTime.getMinutes() + 30);
       }

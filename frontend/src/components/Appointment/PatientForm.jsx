@@ -4,6 +4,7 @@ import Textarea from '../global/Textarea';
 function PatientForm({
   selectedDate,
   selectedTime,
+  setSelectedTime,
   doctor,
   apptSent,
   setApptSent,
@@ -13,12 +14,28 @@ function PatientForm({
   const timeString = selectedTime ? selectedTime : '';
 
   let appointmentDate = new Date(2024, index, parseInt(date));
-  const [time, period] = timeString?.split(' ');
-  const [hours, minutes] = time.split(':').map((part) => parseInt(part));
 
-  const convertedHours = period === 'AM' ? hours % 12 : (hours % 12) + 12;
+  const format = JSON.parse(localStorage.getItem('hour12Format'));
+  console.log({ format });
+  function resetTimeFormat() {
+    if (format == true) {
+      const [time, period] = timeString?.split(' ');
+      const [hours, minutes] = time.split(':').map((part) => parseInt(part));
+      const convertedHours = period === 'AM' ? hours % 12 : (hours % 12) + 12;
+      console.log('converted time hh:mm', convertedHours, minutes);
 
-  appointmentDate.setHours(convertedHours, minutes);
+      appointmentDate.setHours(convertedHours, minutes);
+      setSelectedTime(time);
+    } else {
+      appointmentDate.setHours(
+        timeString?.split(':').map((part) => {
+          parseInt(part);
+          console.log(parseInt(part));
+        })
+      );
+    }
+  }
+  resetTimeFormat();
 
   // const [apptSent, setApptSent] = useState(false);
 
@@ -74,6 +91,7 @@ function PatientForm({
           {!apptSent ? (
             <>
               <h2>Patient Details</h2>
+              <p className='notice'>Please fill in your contact information.</p>
               <form onSubmit={requestAppointment}>
                 <label htmlFor='patient-name'>Full Name</label>
                 <input type='text' name='full_name' id='patient-name' />

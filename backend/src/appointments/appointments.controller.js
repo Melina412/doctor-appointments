@@ -37,6 +37,8 @@ export async function getDaysPerMonth(req, res) {
 // $ getTimeSlots() -----------------------------------------------------------
 export async function getTimeSlots(req, res) {
   const doctor_id = req.query.doctor;
+  // const hour12 = req.query.hour12;
+  const hour12 = true;
 
   try {
     const doctor = await Doctor.findById(doctor_id).lean().exec();
@@ -53,7 +55,7 @@ export async function getTimeSlots(req, res) {
 
       let timeSlots = {};
       for (const day of days) {
-        timeSlots[day] = generateTimeSlots(day, visitingHours);
+        timeSlots[day] = generateTimeSlots(day, visitingHours, hour12);
       }
       // console.log({ timeSlots });
 

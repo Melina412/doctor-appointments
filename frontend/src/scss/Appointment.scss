@@ -98,6 +98,26 @@ main.appointment {
 
   // *** time slots *********************************************************
   section.time-slots {
+    div.select-format {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+
+      h2 {
+        margin-bottom: 0;
+      }
+      div.select-focus {
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        select {
+          @include text-style($Roboto500, 1.2rem, $text-grey);
+          letter-spacing: 0.3px;
+          border: none;
+          padding-right: 2rem;
+        }
+      }
+    }
     div.time-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -119,6 +139,9 @@ main.appointment {
 
   // *** patient form *********************************************************
   section.patient-form {
+    p.notice {
+      margin-bottom: 2rem;
+    }
     form {
       display: flex;
       flex-direction: column;

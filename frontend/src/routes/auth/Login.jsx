@@ -63,7 +63,7 @@ function Login({ setLogin, getLoginData }) {
   return (
     <section className='login-register'>
       <h1>Dashboard Login</h1>
-      {state && <p>{state.user_feedback}</p>}
+      {state && <p className='feedback'>{state.feedback}</p>}
 
       <article>
         <div>

@@ -141,8 +141,8 @@ function App() {
 
   //$ console logs -------------------------------------------------------
 
-  // console.log({ login });
-  // console.log({ loginData });
+  console.log({ login });
+  console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
   // console.log({ doctors });

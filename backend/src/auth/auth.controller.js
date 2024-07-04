@@ -36,7 +36,7 @@ export async function register(req, res) {
     res.status(201).json({
       success: true,
       message: 'new user added to db',
-      user_feedback: 'Account created. Please login to continue.',
+      user_feedback: 'Account sccessfully created! Please login to continue.',
     });
   } catch (error) {
     console.error(error);

@@ -22,24 +22,11 @@ function Appointment({ doctors }) {
   // console.log('appointment params ', params);
   return (
     <main className='appointment'>
-      {/* <div className='upper-wrapper'>
-        <div className='flex'>
-          <Link to={`/doctors/details/${params.id}`} title='back'>
-            <div className='icon-container'>
-              <img src='/img/arrow-icon.svg' alt='arrow back icon' />
-            </div>
-          </Link>
-
-          <div className='icon-container'>
-            <img src='' alt='settings icon' />
-          </div>
-        </div>
-      </div> */}
       {!apptSent && (
         <section>
           <p className='notice'>
-            Select an available slot & fill in your details to send a
-            appointment request to {doctor?.name}.
+            Select an available day and time slot to send a appointment request
+            to {doctor?.name}.
           </p>
         </section>
       )}
@@ -59,6 +46,7 @@ function Appointment({ doctors }) {
         doctor={doctor}
         setApptSent={setApptSent}
         apptSent={apptSent}
+        setSelectedTime={setSelectedTime}
       />
     </main>
   );

@@ -61,6 +61,7 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 <br/> [✅] convert getHeaderTemplate to jsx
 <br/> [✅] convert date in emails etc.
 <br/> [✅] update db with new sample data
+<br/> [✅] time slot format selection (12h/24h)
 <br/> [❌] link patients/ & rating to doctors
 <br/> [❌] archive past appointments (also to count patient number)
 <br/> [❌] more feedback for user actions
@@ -68,6 +69,7 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 ## planned extra features & tools
 
 <br/> [✅] crop/zoom avatar before upload
+
 <br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position

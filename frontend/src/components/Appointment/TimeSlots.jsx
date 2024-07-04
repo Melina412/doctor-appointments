@@ -43,6 +43,10 @@ function TimeSlots({
   const [dailySlots, setDailySlots] = useState([]);
   const [prevMonth, setPrevMonth] = useState(months[defaultMonth]);
   const [bookedAppointments, setBookedAppointments] = useState([]);
+  const [hour12Format, setHour12Format] = useState(
+    JSON.parse(localStorage.getItem('hour12Format')) || false
+  );
+  const [selectedItem, setSelectedItem] = useState(selectedTime);
 
   let remainingMonths =
     selectedYear === defaultYear ? months.slice(defaultMonth) : months;
@@ -116,38 +120,19 @@ function TimeSlots({
     getTimeSlots();
   }, [timeSlots === null, doctor_id]);
 
-  //$ handleMonthClick -----------------------------------------------------------
-
-  const handleDateClick = (day, date, month, index) => {
-    setSelectedDate({
-      day: day,
-      date: date,
-      month: month,
-      index: index,
-      year: selectedYear,
-    });
-  };
-
-  const handleTimeClick = (item) => {
-    setSelectedTime(item);
-  };
-
-  //$ handleMonthChange(e) -----------------------------------------------------------
-
-  const handleMonthChange = (e) => {
-    let prev = [...month.name].join('');
-    setPrevMonth(prev);
-    // console.log({ prev });
-    // setMonth(e.target.value);
-    setMonth({ name: e.target.value, index: months.indexOf(e.target.value) });
-
-    if (prevMonth !== month.name) {
-      setSelectedDate({ day: null, date: null, month: null });
-      setDailySlots([]);
-    }
-  };
-
   //$ getDailySlots() -----------------------------------------------------------
+
+  function switchHourFormat(slots, format) {
+    const randomDate = '2000-01-01T';
+    return slots.map((slot) => {
+      const date = new Date(randomDate + slot);
+      return date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: format,
+      });
+    });
+  }
 
   useEffect(() => {
     const getDailySlots = () => {
@@ -195,11 +180,57 @@ function TimeSlots({
           );
         });
 
-        setDailySlots(dailySlots);
+        console.log('dailySlots aus getDailySlots: ----', dailySlots);
+
+        let newSlots = switchHourFormat(dailySlots, hour12Format);
+        console.log('newSlots: ----', newSlots);
+
+        setDailySlots(newSlots);
       }
     };
     getDailySlots();
-  }, [selectedDate, bookedAppointments, timeSlots]);
+  }, [selectedDate, bookedAppointments, timeSlots, hour12Format]);
+
+  //$ Event Handlers -----------------------------------------------------------
+
+  const handleTimeFormat = (e) => {
+    const format = JSON.parse(e.target.value);
+    setHour12Format(format);
+    localStorage.setItem('hour12Format', format);
+
+    const newSlots = switchHourFormat(dailySlots, format);
+    setDailySlots(newSlots);
+    setSelectedTime(null);
+  };
+
+  const handleDateClick = (day, date, month, index) => {
+    setSelectedDate({
+      day: day,
+      date: date,
+      month: month,
+      index: index,
+      year: selectedYear,
+    });
+  };
+
+  const handleTimeClick = (item) => {
+    console.log({ item });
+    setSelectedTime(item);
+    setSelectedItem(item);
+  };
+
+  const handleMonthChange = (e) => {
+    let prev = [...month.name].join('');
+    setPrevMonth(prev);
+    // console.log({ prev });
+    // setMonth(e.target.value);
+    setMonth({ name: e.target.value, index: months.indexOf(e.target.value) });
+
+    if (prevMonth !== month.name) {
+      setSelectedDate({ day: null, date: null, month: null });
+      setDailySlots([]);
+    }
+  };
 
   //! console logs ==================================================================
 
@@ -210,13 +241,14 @@ function TimeSlots({
   // console.log('selectedDate', selectedDate);
   // console.log('selectedTime', selectedTime);
   // console.log('timeSlots:', timeSlots);
-  // console.log('dailySlots:', dailySlots);
+  console.log('++++++++++++++++++++++++++++ dailySlots: ', dailySlots);
   // console.log({ prevMonth });
   // console.log({ defaultMonth });
   // console.log({ selectedYear });
   // console.log({ remainingMonths });
   // console.log({ defaultYear });
   // console.log('bookedAppointments:', bookedAppointments);
+  // console.log({ hour12Format });
 
   //todo bei bereits ausgewähltem time slot, wenn der day geändert wird, ist das datum trotzdem valid auch wenn der slot an dem tag nicht existiert. bei klich auf das item muss also time slot noch zurückgesetzt werden!
 
@@ -249,6 +281,7 @@ function TimeSlots({
               </div>
             </div>
 
+            <h2>Available Days</h2>
             <div className='days-grid'>
               {calendarDays?.days?.map((item, index) => (
                 <div
@@ -272,13 +305,21 @@ function TimeSlots({
           </section>
           {selectedDate.day && (
             <section className='time-slots'>
-              <h2>Available Time</h2>
+              <div className='select-format'>
+                <h2>Available Time</h2>
+                <div className='select-focus'>
+                  <select name='format' id='format' onChange={handleTimeFormat}>
+                    <option value={false}>24h</option>
+                    <option value={true}>12h</option>
+                  </select>
+                </div>
+              </div>
 
               <div className='time-grid'>
                 {dailySlots?.map((item, index) => (
                   <div
                     className={`time-slot-items item ${
-                      selectedTime === item ? 'selected' : ''
+                      selectedItem === item ? 'selected' : ''
                     }`}
                     key={index}
                     onClick={() => handleTimeClick(item)}>
