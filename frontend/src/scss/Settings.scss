@@ -1,0 +1,106 @@
+@import './partials/variables';
+@import './partials/mixins';
+@import './partials/fonts';
+@import './partials/classes';
+
+div.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  div {
+    display: flex;
+
+    &.mode {
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-right: 0.5rem;
+    }
+    &.locale {
+      flex-direction: column;
+
+      div.radios {
+        flex-direction: column;
+
+        p {
+          margin-bottom: 1rem;
+        }
+        div.radio-input {
+          gap: 0.5rem;
+          padding: 0.3rem 0;
+          input {
+            margin-right: 0.5rem;
+          }
+          label {
+            @include text-style($Roboto400, 1.2rem, $text-fill);
+          }
+        }
+      }
+    }
+  }
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 24px;
+
+    /* Hide default HTML checkbox */
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .slider {
+        background-color: $blue;
+      }
+
+      &:checked + .slider:before {
+        -webkit-transform: translateX(18px);
+        -ms-transform: translateX(18px);
+        transform: translateX(18px);
+      }
+
+      &:focus + .slider {
+        //   box-shadow: 0 0 1px $blue;
+        //   outline: 1px auto -webkit-focus-ring-color;
+      }
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 20px;
+        width: 20px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      /* Rounded sliders */
+      &.round {
+        border-radius: 34px;
+      }
+
+      &.round:before {
+        border-radius: 50%;
+      }
+    }
+  }
+}

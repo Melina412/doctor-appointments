@@ -17,6 +17,7 @@ import ReviewProtector from './routes/auth/ReviewProtector';
 import VerifyCode from './routes/auth/VerifyCode';
 import Register from './routes/auth/Register';
 import NotFound from './routes/NotFound';
+import authFetch from './utils/authFetch.js';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -63,14 +64,13 @@ function App() {
   //$ getLoginData -------------------------------------------------------
   async function getLoginData() {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${import.meta.env.VITE_BACKENDURL}/api/auth/userinfo`,
         {
           method: 'GET',
           headers: {
             'content-type': 'application/json',
           },
-          credentials: 'include',
         }
       );
 
@@ -84,10 +84,11 @@ function App() {
       } else {
         // localStorage.setItem('doctor-login', false);
         setLoginData(null);
+        if (res.status === 204) console.log('no user data available');
       }
     } catch (error) {
       setLoginData(null);
-      console.error('token expired', error);
+      console.log('token expired', error);
     }
   }
 
@@ -95,14 +96,13 @@ function App() {
 
   async function userLogout() {
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${import.meta.env.VITE_BACKENDURL}/api/auth/logout`,
         {
           method: 'GET',
           headers: {
             'content-type': 'application/json',
           },
-          credentials: 'include',
         }
       );
 

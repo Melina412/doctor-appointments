@@ -5,6 +5,7 @@ import '../scss/Dashboard.scss';
 import Logout from './auth/Logout';
 import { useNavigate } from 'react-router-dom';
 import ImageUpload from '../components/Dashboard/ImageUpload';
+import authFetch from '../utils/authFetch.js';
 
 function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
   const [editMode, setEditMode] = useState(false);
@@ -19,14 +20,13 @@ function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
   //$ getProfileData() ----------------------------------------------------
 
   async function getProfileData() {
-    const res = await fetch(
+    const res = await authFetch(
       `${import.meta.env.VITE_BACKENDURL}/api/user/profile`,
       {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
         },
-        credentials: 'include',
       }
     );
     const data = await res.json();

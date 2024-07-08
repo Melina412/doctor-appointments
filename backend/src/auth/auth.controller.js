@@ -120,15 +120,20 @@ export async function getUserinfo(req, res) {
     const user = await Doctor.findOne({ email });
     if (user) {
       res.json({
+        success: true,
+        id: user._id,
         username: user.name,
         email: user.email,
         expiresCET: new Date(exp * 1000).toLocaleString('de-DE', {
           timeZone: 'Europe/Berlin',
         }),
       });
+    } else {
+      res.status(404).json({ success: false, message: 'user not found' });
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({ success: false, message: 'server error' });
   }
 
   // expiresCET nur als info für mich damit ich sehe wann der token abläuft

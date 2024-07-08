@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { getSelectedDays } from '../../utils/getSelectedDays';
 import Textarea from '../global/Textarea';
+import authFetch from '../../utils/authFetch.js';
 
 // beim ersten einloggen nach der registrierung soll man direkt zum profile formular navigiert werden (nicht fertig)
 
@@ -53,12 +54,11 @@ function EditProfile({
     handleEditBtn();
     const form = new FormData(e.target);
     try {
-      const res = await fetch(
+      const res = await authFetch(
         `${import.meta.env.VITE_BACKENDURL}/api/user/edit`,
         {
           method: 'PUT',
           body: form,
-          credentials: 'include',
         }
       );
 
@@ -181,11 +181,11 @@ function EditProfile({
           </div>
         </article>
         <div className='buttons'>
-          <button type='submit' className='submit'>
-            Submit
-          </button>
           <button type='button' className='cancel' onClick={handleEditBtn}>
             Cancel
+          </button>
+          <button type='submit' className='submit'>
+            Submit
           </button>
         </div>
       </form>

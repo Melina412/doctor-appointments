@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Settings from '../components/global/Settings';
 
-export const getHeaderTemplate = (username, prevLocation, login) => {
+export const getHeaderTemplate = (user, username, prevLocation, login) => {
   return {
     Home: {
       left: <p>{login ? `Welcome, ${username}` : null}</p>,
@@ -80,7 +81,29 @@ export const getHeaderTemplate = (username, prevLocation, login) => {
         </Link>
       ),
       mid: 'Dashboard',
-      right: <div className='empty' />,
+      right: (
+        <>
+          <div
+            className='icon-container'
+            title='settings'
+            onClick={() =>
+              document.getElementById(`settings-user-${user}`).showModal()
+            }>
+            <img key='dots' src='/img/dots-icon.svg' className='dots' />
+          </div>
+          <dialog id={`settings-user-${user}`} className='modal'>
+            <div className='modal-box'>
+              <Settings />
+              <div className='modal-action'>
+                <form method='dialog'>
+                  {/* if there is a button in form, it will close the modal */}
+                  <button>Save</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+        </>
+      ),
     },
     Login: {
       left: (

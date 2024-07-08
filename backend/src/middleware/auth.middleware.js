@@ -44,3 +44,22 @@ export function checkReviewToken(req, res, next) {
     res.status(401).end();
   }
 }
+
+// respondes with 204 if no user is logged in
+export function checkUserLogin(req, res, next) {
+  const token = req.cookies.a_doctorauth;
+  if (!token) {
+    res.status(204).end();
+  }
+  try {
+    token
+      ? console.log('checkUserLogin: ✅', token.slice(-5))
+      : console.log('checkUserLogin: ❌, no access token');
+    req.payload = verifyToken(token);
+    // console.log('access token payload:', req.payload);
+    next();
+  } catch (error) {
+    console.log('checkUserLogin: ❌', error.message);
+    res.status(401).end();
+  }
+}

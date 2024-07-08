@@ -3,16 +3,26 @@ import '../scss/Appointment.scss';
 import TimeSlots from '../components/Appointment/TimeSlots';
 import PatientForm from '../components/Appointment/PatientForm';
 import { useState } from 'react';
+import months from '../utils/months.js';
 
 function Appointment({ doctors }) {
   const params = useParams();
   const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(selectedTime);
   const [selectedDate, setSelectedDate] = useState({
     day: null,
     date: null,
     month: null,
     index: null,
     year: null,
+  });
+
+  const defaultMonth = new Date().getMonth();
+  const defaultYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(defaultYear);
+  const [month, setMonth] = useState({
+    name: months[defaultMonth],
+    index: months.indexOf(months[defaultMonth]),
   });
   const [apptSent, setApptSent] = useState(false);
 
@@ -37,16 +47,26 @@ function Appointment({ doctors }) {
         setSelectedDate={setSelectedDate}
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
-        setApptSent={setApptSent}
         apptSent={apptSent}
+        setApptSent={setApptSent}
+        month={month}
+        setMonth={setMonth}
+        selectedYear={selectedYear}
+        setSelectedYear={setSelectedYear}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
       />
       <PatientForm
         selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
         selectedTime={selectedTime}
-        doctor={doctor}
-        setApptSent={setApptSent}
-        apptSent={apptSent}
         setSelectedTime={setSelectedTime}
+        doctor={doctor}
+        apptSent={apptSent}
+        setApptSent={setApptSent}
+        setMonth={setMonth}
+        setSelectedYear={setSelectedYear}
+        setSelectedItem={setSelectedItem}
       />
     </main>
   );

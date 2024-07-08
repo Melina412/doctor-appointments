@@ -145,9 +145,9 @@ export async function requestAppointment(req, res) {
         if (result) {
           const { email, name } = doctor;
           console.log({ email, name });
-          //# hier muss ich die mail an den doctor senden! ---------------------------------
-
-          sendEmail(newAppointmentTemplate(email, name, full_name));
+          //! #####################################################################################
+          //! EMAIL SENDEN AKTIVIEREN / DEAKTIVIEREN ##############################################
+          // sendEmail(newAppointmentTemplate(email, name, full_name));
 
           res.status(201).json({
             success: true,
@@ -208,6 +208,9 @@ export async function confirmAppointment(req, res) {
             console.log('doctor:', doctor.name);
             if (doctor) {
               const { email, name } = doctor;
+
+              //! #####################################################################################
+              //! EMAIL SENDEN AKTIVIEREN / DEAKTIVIEREN ##############################################
 
               if (confirmed) {
                 // //# confirmation mail to patient -----------------------------------------

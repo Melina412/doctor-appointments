@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import months from '../../utils/months.js';
 
 function TimeSlots({
   visitingHours,
@@ -8,22 +9,13 @@ function TimeSlots({
   selectedTime,
   setSelectedTime,
   apptSent,
+  month,
+  setMonth,
+  selectedYear,
+  setSelectedYear,
+  selectedItem,
+  setSelectedItem,
 }) {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
   //# constants  ---------------------------------------------------------------
 
   const doctor_id = doctor?._id;
@@ -35,18 +27,18 @@ function TimeSlots({
 
   const [calendarDays, setCalendarDays] = useState(null);
   const [timeSlots, setTimeSlots] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(defaultYear);
-  const [month, setMonth] = useState({
-    name: months[defaultMonth],
-    index: months.indexOf(months[defaultMonth]),
-  });
+  // const [selectedYear, setSelectedYear] = useState(defaultYear);
+  // const [month, setMonth] = useState({
+  //   name: months[defaultMonth],
+  //   index: months.indexOf(months[defaultMonth]),
+  // });
   const [dailySlots, setDailySlots] = useState([]);
   const [prevMonth, setPrevMonth] = useState(months[defaultMonth]);
   const [bookedAppointments, setBookedAppointments] = useState([]);
   const [hour12Format, setHour12Format] = useState(
     JSON.parse(localStorage.getItem('hour12Format')) || false
   );
-  const [selectedItem, setSelectedItem] = useState(selectedTime);
+  // const [selectedItem, setSelectedItem] = useState(selectedTime);
 
   let remainingMonths =
     selectedYear === defaultYear ? months.slice(defaultMonth) : months;
@@ -200,7 +192,7 @@ function TimeSlots({
 
     const newSlots = switchHourFormat(dailySlots, format);
     setDailySlots(newSlots);
-    setSelectedTime(null);
+    // setSelectedTime(null);
   };
 
   const handleDateClick = (day, date, month, index) => {
@@ -234,12 +226,14 @@ function TimeSlots({
 
   //! console logs ==================================================================
 
-  // console.log({ month });
+  console.log({ month });
   // console.log(doctor);
   // console.log({ visitingHours });
   // console.log({ calendarDays });
   // console.log('selectedDate', selectedDate);
-  // console.log('selectedTime', selectedTime);
+  console.log('selectedTime', selectedTime);
+  console.log('selectedItem', selectedItem);
+
   // console.log('timeSlots:', timeSlots);
   console.log('++++++++++++++++++++++++++++ dailySlots: ', dailySlots);
   // console.log({ prevMonth });

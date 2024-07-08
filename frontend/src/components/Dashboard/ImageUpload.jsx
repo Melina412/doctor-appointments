@@ -1,5 +1,6 @@
 import AvatarEditor from 'react-avatar-editor';
 import { useState, useRef } from 'react';
+import authFetch from '../../utils/authFetch.js';
 
 function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
   const [image, setImage] = useState(null);
@@ -21,12 +22,11 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
         console.log(form);
 
         try {
-          const res = await fetch(
+          const res = await authFetch(
             `${import.meta.env.VITE_BACKENDURL}/api/user/image`,
             {
               method: 'PUT',
               body: form,
-              credentials: 'include',
             }
           );
           const response = await res.json();
@@ -85,11 +85,11 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
         )}
       </div>
       <div className='buttons'>
-        <button type='submit' className='submit'>
-          Upload
-        </button>
         <button type='button' className='cancel' onClick={handleAvatarBtn}>
           Cancel
+        </button>
+        <button type='submit' className='submit'>
+          Upload
         </button>
       </div>
     </form>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function Textarea({ name, id, cols, rows, ref, maxChars, defaultValue }) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState(defaultValue || '');
   const [remainingChars, setRemainingChars] = useState(
     defaultValue && defaultValue.length > 1
       ? maxChars - defaultValue.length
@@ -27,7 +27,6 @@ function Textarea({ name, id, cols, rows, ref, maxChars, defaultValue }) {
           ref={ref}
           maxLength={maxChars}
           onChange={handleChange}
-          defaultValue={defaultValue}
           style={{ width: '100%', marginBottom: 0 }}></textarea>
         <p
           className='chars'

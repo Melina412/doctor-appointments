@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AppointmentItem from './AppointmentItem';
 import _ from 'lodash';
+import authFetch from '../../utils/authFetch.js';
 
 function MyAppointments() {
   const [myAppointments, setMyAppointments] = useState([]);
@@ -10,14 +11,13 @@ function MyAppointments() {
   }, []);
 
   async function getMyAppointments() {
-    const res = await fetch(
+    const res = await authFetch(
       `${import.meta.env.VITE_BACKENDURL}/api/appointments`,
       {
         method: 'GET',
         headers: {
           'content-type': 'application/json',
         },
-        credentials: 'include',
       }
     );
     const data = await res.json();
