@@ -6,8 +6,8 @@
 main.dashboard {
   h2 {
     @include text-style($Roboto700, 2rem, $text-fill);
-    -webkit-text-stroke: 1px $text-stroke;
-    text-shadow: 0 0.5rem 1rem $text-grey;
+    // -webkit-text-stroke: 1px $text-stroke;
+    // text-shadow: 0 0.5rem 1rem $text-grey;
     margin-bottom: 2.5rem;
   }
 
@@ -134,10 +134,24 @@ main.dashboard {
             display: flex;
             flex-direction: column;
             label#avatar-label {
-              margin-bottom: 2rem;
+              margin-bottom: 0;
             }
             input {
               margin-top: 2rem;
+
+              &[type='file'] {
+                @extend .input-regular;
+                font-size: 1.2rem;
+
+                &::file-selector-button,
+                &::-webkit-file-upload-button {
+                  @extend .btn-s;
+                  margin: 0;
+                  width: 40%;
+                  white-space-collapse: collapse;
+                  text-wrap-mode: nowrap;
+                }
+              }
             }
 
             canvas {
@@ -341,6 +355,10 @@ main.dashboard {
                   @extend .btn-s;
                   margin-top: 2rem;
                   margin-bottom: 0.5rem;
+
+                  &:focus-visible {
+                    outline: none;
+                  }
                 }
               }
             }
@@ -366,6 +384,10 @@ main.dashboard {
               padding: 0.3rem 2rem;
             }
           }
+
+          // p {
+          //   padding: 0.2rem 0;
+          // }
         }
       }
       p {
@@ -388,7 +410,6 @@ main.dashboard {
       &.confirmed,
       &.declined,
       &.cancelled {
-        p.warning,
         div.patient-info {
           border-bottom-left-radius: 15px;
           border-bottom-right-radius: 15px;

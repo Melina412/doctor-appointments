@@ -178,7 +178,7 @@ function PatientForm({
                       name='gender'
                       id='diverse'
                       value='diverse'
-                      defaultChecked
+                      defaultSelected
                     />
                     Diverse
                   </label>

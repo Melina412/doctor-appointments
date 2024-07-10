@@ -17,7 +17,7 @@ function setOrigin(req, callback) {
     ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
   }
 
-  console.log({ ALLOWED_ORIGIN });
+  // console.log({ ALLOWED_ORIGIN });
   callback(null, { origin: ALLOWED_ORIGIN });
 }
 
@@ -25,7 +25,7 @@ const corsOptions = (req, callback) => {
   if (process.env.NODE_ENV === 'DEV') {
     setOrigin(req, (err, options) => {
       options.credentials = true;
-      console.log({ options });
+      // console.log({ options });
       callback(err, options);
     });
   } else {

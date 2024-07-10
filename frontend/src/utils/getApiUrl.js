@@ -1,6 +1,6 @@
 function getApiUrl() {
   const userAgent = navigator.userAgent;
-  console.log({ userAgent });
+  // console.log({ userAgent });
 
   let API_URL;
   if (/iPhone|iPad|iPod|iOS/i.test(userAgent)) {
@@ -11,7 +11,7 @@ function getApiUrl() {
     API_URL = import.meta.env.VITE_BACKENDURL;
   }
 
-  console.log({ API_URL });
+  // console.log({ API_URL });
   return API_URL;
 }
 

@@ -128,6 +128,11 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
               <p className='date'>{date.toLocaleString(locale, options)}</p>
             </div>
 
+            {/* //* ----- double booking warning *************************************  */}
+            {allAppointments.some(
+              (item) => item.date === appt.date && item._id !== appt._id
+            ) && <p className='warning'>double booking!</p>}
+
             {/* //* ----- patient name & info *************************************  */}
             <div className='patient-info'>
               <p className='patient'>{patient?.full_name}</p>
@@ -168,9 +173,9 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
             </div>
 
             {/* //* ----- double booking warning *************************************  */}
-            {allAppointments.some(
+            {/* {allAppointments.some(
               (item) => item.date === appt.date && item._id !== appt._id
-            ) && <p className='warning'>double booking!</p>}
+            ) && <p className='warning'>double booking!</p>} */}
 
             {/* //* ----- accept / decline request *************************************  */}
             {status === null ? (

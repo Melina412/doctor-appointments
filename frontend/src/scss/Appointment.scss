@@ -140,6 +140,8 @@ main.appointment {
         // background-color: $input-fill;
         // border-radius: 1.5rem;
         // padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+
         select#age {
           @include text-style($Roboto400, 1.6rem, $text-grey);
           width: 100%;

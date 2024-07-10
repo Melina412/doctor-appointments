@@ -41,7 +41,7 @@ function MyAppointments() {
     }));
   };
 
-  // console.log('myAppointments', myAppointments);
+  console.log('myAppointments', myAppointments);
   // console.log({ view });
 
   return (
