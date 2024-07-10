@@ -22,15 +22,237 @@ Disclaimer: This is a dummy app with fake data. None of the doctors are real and
 
 ### Patients
 
-Doctor Appointments is a platform where patients can easily search for doctors and book appointments fast without having to go trough the touble of signing up or creating an account. Just open the app, search for doctor via name or specialty, check free appointments and book them. Leave your email for the doctor to respond to your appointment booking and that's it. After the appointment you'll have a review possibility to share your experience with future patients.
+Doctor Appointments is a platform where patients can easily search for doctors and book appointments fast without having to go trough the touble of signing up or creating an account. Just open the app, search for doctors, check free appointments and book them. Leave your email for the doctor to respond to your appointment booking and that's it. After the appointment you'll have a review possibility to share your experience with future patients.
 
 ### Doctors
 
-Doctors have to sign up for an account where they can fill in their data. Once the account is created, you'll have access to your personal dashboard to view and manage all your past and future appointments. You will be notified when patients request bookings and have the option to accept or decline them.
+Doctors have to sign up for an account where they can fill in their data. Once the account is created, you'll have access to your personal dashboard to view and manage all your past and future appointments. A email notification is send when patients request bookings and there is the option to accept or decline them.
 
 ### Email notice
 
-All mails are send to a mail trap inbox, so if you sign up you will not actually receive emails. Also the app is deployed with a free plan and will spin down with inactivity which means cron jobs will likely not run.
+All mails are send to a mail trap inbox, so if you sign up you will not actually receive emails. Also the app is deployed with a free plan and will spin down with inactivity. This means cron jobs will likely not run. Anyways, it works.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_cron.PNG" width="500px"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6112.PNG" width="200px"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+## Preview
+
+<!--# 1. Tabelle  ---------- -->
+
+Doctors can register and get access to their personal dashboard.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6116.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6117.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6093.PNG"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<!--# 2. Tabelle  ---------- -->
+
+There are options to edit profile data, visiting hours and app preferences.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6095.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6122.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6094.PNG"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<!--# 3. Tabelle  ---------- -->
+
+Avatars can be uploaded with an extra fancy image crop tool and a neatly styled file input element.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6124.GIF" width="400px"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<!--# 4. Tabelle  ---------- -->
+
+In the dashboard doctors can display and manage their appointments. New requests from patients can be accepted or declined. If there's more than one booking for a time slot there will be a warning.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6091.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6092.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6090.PNG"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<!--# 5. Tabelle  ---------- -->
+
+Doctors will receive an email notification if there are new appoitment requests. Patients will also be notified when doctors confirm or decline their appointment requests.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6109.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6110.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6123.PNG"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<!--# 6. Tabelle  ---------- -->
+
+Patients can easily find doctors directly in the home page or search for names & filter spacialties. Each doctor has a detail page with info about visiting hours.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6099.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6100.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6102.PNG"/>
+</td>
+
+</tr>
+
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6101.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6103.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6104.PNG"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<!--# 7. Tabelle  ---------- -->
+
+To book appointments just pick a day and choose from free time slots. The slots can be displayed in 12h or 24h format. Fill in your contact data, send the request and you're done! You will be notified via email when the doctor confirms your appointment.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6105.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6106.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6107.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6108.PNG"/>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<!--# 8. Tabelle  ---------- -->
+
+One day after your appointment patients will receive another email with a review link. To rate the doctor appointment or leave a comment, they will find a link in the mail with a verification code.
+
+<table>
+<tbody>
+<tr>
+
+<td align="center">
+<img src="./github/IMG_6112.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6113.PNG"/>
+</td>
+
+<td align="center">
+<img src="./github/IMG_6115.PNG"/>
+</td>
+
+</tr>
+</tbody>
+</table>
 
 ## Technical Features / Status
 
@@ -73,7 +295,6 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 ## planned extra features & tools
 
 <br/> [✅] crop/zoom avatar before upload
-
 <br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position
