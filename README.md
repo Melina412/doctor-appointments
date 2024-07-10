@@ -204,7 +204,7 @@ Patients can easily find doctors directly in the home page or search for names &
 
 <!--# 7. Tabelle  ---------- -->
 
-To book appointments, patients can just pick a day and choose from free time slots. The slots can be displayed in 12h or 24h format. Fill in the contact data, send the request and it'S done! A notification via email is being sent when the doctor confirms or declines the appointment.
+To book appointments, patients can just pick a day and choose from free time slots. The slots can be displayed in 12h or 24h format. Fill in the contact data, send the request and it's done! A notification via email is going to be sent when the doctor confirms or declines the appointment.
 
 <table>
 <tbody>
@@ -232,7 +232,7 @@ To book appointments, patients can just pick a day and choose from free time slo
 
 <!--# 8. Tabelle  ---------- -->
 
-One day after an appointment patients will receive a chance to review their experience. To rate the doctor appointment or leave a comment, they will find a link in the mail with a verification code.
+One day after an appointment patients will receive a chance to review their experience. To rate the doctor appointment or leave a comment, they will receive another mail with a link and a verification code.
 
 <table>
 <tbody>
