@@ -65,8 +65,8 @@ export async function login(req, res) {
     //# cookie -----------------------------------------------------------
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
-      // secure: true, //! secure cookies gehen in safari nur mit https, also nicht mit localhost!
-      // sameSite: 'None',
+      secure: true, //! secure cookies gehen in safari nur mit https, also nicht mit localhost!
+      sameSite: 'None',
     });
 
     //# cookie -----------------------------------------------------------
@@ -166,8 +166,8 @@ export async function refreshToken(req, res) {
     //# cookie -----------------------------------------------------------
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
-      // secure: true,
-      // sameSite: 'None',
+      secure: true,
+      sameSite: 'None',
     });
 
     res.json({
@@ -201,8 +201,8 @@ export async function verifyReviewCode(req, res) {
       //# cookie -----------------------------------------------------------
       res.cookie('rev_doctorauth', reviewToken, {
         httpOnly: true,
-        // secure: true,
-        // sameSite: 'None',
+        secure: true,
+        sameSite: 'None',
       });
       res.json({
         message: 'verification successful',
