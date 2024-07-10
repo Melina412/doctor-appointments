@@ -12,10 +12,10 @@ function getApiUrl() {
       API_URL = import.meta.env.VITE_LOCALHOST_URL;
     }
   } else {
-    API_URL = import.meta.env.VITE_LOCALHOST_URL;
+    API_URL = import.meta.env.VITE_PROD_URL;
   }
 
-  // console.log({ API_URL });
+  console.log({ API_URL });
   return API_URL;
 }
 
