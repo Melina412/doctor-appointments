@@ -32,7 +32,11 @@ const appointmentSchema = new mongoose.Schema({
       maxLength: 500,
     },
   }),
-  done: Boolean || null,
+  done: {
+    type: Boolean || null,
+    // default false oder null?? warum wollte ich auch null ?
+  },
+  // archive oder so
 });
 
 export const Appointment = mongoose.model('appointment', appointmentSchema);

@@ -1,17 +1,10 @@
 @import './partials/variables';
 @import './partials/mixins';
 @import './partials/fonts';
+@import './partials/classes';
 
 header {
   margin-bottom: 2rem;
-  div.demo-header {
-    nav {
-      display: flex;
-      gap: 2rem;
-    }
-    border-bottom: 1px solid black;
-    padding-bottom: 1rem;
-  }
 
   div.header-flex {
     @include text-style($Roboto400, 1.8rem, $text-stroke);
@@ -20,7 +13,24 @@ header {
     align-items: center;
     margin: 3rem 2.5rem 1rem 2.5rem;
 
+    div.left {
+      p {
+        @include text-style($Roboto400, 1.6rem, $text-stroke);
+        padding-left: 2vw;
+      }
+    }
+
     div.right {
+      div.icon-container {
+        @include size(4rem, 4rem);
+        // background-color: red;
+
+        img.dots {
+          @include size(100%, 100%);
+          padding: 1rem 0;
+        }
+      }
+
       div.home-right {
         display: flex;
         align-items: center;
@@ -52,16 +62,6 @@ header {
             &::before {
               display: none;
             }
-
-            div.icon-container {
-              @include size(4rem, 4rem);
-              // background-color: red;
-
-              img.dots {
-                @include size(100%, 100%);
-                padding: 1rem 0;
-              }
-            }
           }
 
           &[open] div.links {
@@ -82,15 +82,35 @@ header {
             }
           }
         }
-        // div {
-        //   @include size(4rem, 4rem);
-        //   // background-color: red;
+      }
+      dialog.modal {
+        width: 80vw;
+        margin: auto;
+        padding: 2rem;
+        border-radius: 20px;
 
-        //   img.dots {
-        //     @include size(100%, 100%);
-        //     padding: 1rem 0;
-        //   }
-        // }
+        div.modal-box {
+          h2 {
+            @include text-style($Roboto500, 1.8rem, $text-fill);
+            -webkit-text-stroke: unset;
+            text-shadow: none;
+            letter-spacing: 0.5px;
+          }
+
+          p {
+            @include text-style($Roboto400, 1.4rem, $text-fill);
+
+            span {
+              @include text-style($Roboto500, 1.4rem, $text-fill);
+            }
+          }
+
+          button {
+            @extend .btn-s;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+          }
+        }
       }
 
       div.empty {

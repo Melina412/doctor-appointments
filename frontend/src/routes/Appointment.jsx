@@ -3,15 +3,26 @@ import '../scss/Appointment.scss';
 import TimeSlots from '../components/Appointment/TimeSlots';
 import PatientForm from '../components/Appointment/PatientForm';
 import { useState } from 'react';
+import months from '../utils/months.js';
 
 function Appointment({ doctors }) {
   const params = useParams();
   const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(selectedTime);
   const [selectedDate, setSelectedDate] = useState({
     day: null,
     date: null,
     month: null,
     index: null,
+    year: null,
+  });
+
+  const defaultMonth = new Date().getMonth();
+  const defaultYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(defaultYear);
+  const [month, setMonth] = useState({
+    name: months[defaultMonth],
+    index: months.indexOf(months[defaultMonth]),
   });
   const [apptSent, setApptSent] = useState(false);
 
@@ -21,24 +32,11 @@ function Appointment({ doctors }) {
   // console.log('appointment params ', params);
   return (
     <main className='appointment'>
-      {/* <div className='upper-wrapper'>
-        <div className='flex'>
-          <Link to={`/doctors/details/${params.id}`} title='back'>
-            <div className='icon-container'>
-              <img src='/img/arrow-icon.svg' alt='arrow back icon' />
-            </div>
-          </Link>
-
-          <div className='icon-container'>
-            <img src='' alt='settings icon' />
-          </div>
-        </div>
-      </div> */}
       {!apptSent && (
         <section>
           <p className='notice'>
-            Select an available slot & fill in your details to send a
-            appointment request to {doctor?.name}.
+            Select an available day and time slot to send a appointment request
+            to {doctor?.name}.
           </p>
         </section>
       )}
@@ -49,15 +47,26 @@ function Appointment({ doctors }) {
         setSelectedDate={setSelectedDate}
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
-        setApptSent={setApptSent}
         apptSent={apptSent}
+        setApptSent={setApptSent}
+        month={month}
+        setMonth={setMonth}
+        selectedYear={selectedYear}
+        setSelectedYear={setSelectedYear}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
       />
       <PatientForm
         selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
         selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
         doctor={doctor}
-        setApptSent={setApptSent}
         apptSent={apptSent}
+        setApptSent={setApptSent}
+        setMonth={setMonth}
+        setSelectedYear={setSelectedYear}
+        setSelectedItem={setSelectedItem}
       />
     </main>
   );

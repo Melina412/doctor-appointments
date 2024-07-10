@@ -47,7 +47,7 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 <br/> [✅] patients who visited a doctor will get an email with a link to rank their experience the day after an appointment
 <br/> [✅] deployment
 <br/> [✅] style (almost done) ⤵︎
-<br/> [❌] media queries tablet & bigger screens
+<br/> [✅] half assed media queries
 <br/> [❌] dark mode
 <br/> [❌] convert svg icons to jsx for dark mode theme
 
@@ -55,20 +55,26 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 
 [✅] refresh token
 <br/> [✅] doctors should be able to confirm the patient showed up before they're allowed to leave a review/rank (also neccessary for review initializing)
-<br/> [❌] archive past appointments (also to count patient number)
 <br/> [✅] seperate register & login routes
 <br/> [✅] fix logout
-<br/> [❌] ❗️❗️❗️ delete booked time slots
-<br/> [❌] convert getHeaderTemplate to jsx
-<br/> [❌] link patients/ & rating to doctors
-<br/> [❌] convert date in emails etc.
+<br/> [✅] delete booked time slots
+<br/> [✅] ❗️check booked time slots logic for new time format
+<br/> [✅] convert getHeaderTemplate to jsx
+<br/> [✅] convert date in emails etc.
 <br/> [✅] update db with new sample data
+<br/> [✅] time slot format selection (12h/24h)
+<br/> [✅] automatic token refresh on all authorized request routes (authFetch)
+<br/> [✅] global state setting without having to use context (setGlobalState)
+<br/> [✅] dynamic api url to test in iOS without manually setting the url
+<br/> [❌] link patients/ & rating to doctors
+<br/> [❌] archive past appointments (also to count patient number)
 <br/> [❌] more feedback for user actions
 
 ## planned extra features & tools
 
-<br/> [❌] more tests, also for react
 <br/> [✅] crop/zoom avatar before upload
+
+<br/> [❌] more tests, also for react
 <br/> [❌] autocomplete search with debounce
 <br/> [❌] use navigate to remember scroll position
 <br/> [❌] b version with luxon instead manual generator function

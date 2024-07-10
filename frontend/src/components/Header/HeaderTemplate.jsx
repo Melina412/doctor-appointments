@@ -9,11 +9,10 @@ function HeaderTemplate({ loginData, userLogout, login }) {
   const [prevLocation, setPrevLocation] = useState('/');
 
   const headerItems = getHeaderTemplate(
+    loginData?.id,
     loginData?.username,
     prevLocation,
-    login,
-    Link,
-    userLogout
+    login
   );
 
   // console.log('location-pathname: --', location.pathname);

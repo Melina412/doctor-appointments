@@ -1,16 +1,16 @@
+import getApiUrl from '../../utils/getApiUrl';
+
 function Logout({ setLogin, getLoginData, navigate }) {
+  const API_URL = getApiUrl();
   async function userLogout() {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/logout`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-          },
-          credentials: 'include',
-        }
-      );
+      const res = await fetch(`${API_URL}/api/auth/logout`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+        credentials: 'include',
+      });
 
       const response = await res.json();
       // console.log(response);

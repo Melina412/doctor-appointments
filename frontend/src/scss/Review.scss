@@ -1,3 +1,45 @@
 @import './partials/variables';
 @import './partials/mixins';
 @import './partials/fonts';
+@import './partials/classes';
+
+section.review {
+  h1 {
+    @include text-style($Roboto700, 2rem, $text-fill);
+    letter-spacing: 0.5px;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    @include text-style($Roboto500, 1.8rem, $text-fill);
+    letter-spacing: 0.5px;
+    margin: 2rem 0 1rem 0;
+  }
+  form {
+    margin: 2rem;
+
+    p {
+      @include text-style($Roboto400, 1.2rem, $text-grey);
+    }
+
+    div.rating-input {
+      div.radio-container {
+        @extend .radio-regular;
+
+        label {
+          @include text-style($Roboto400, 1.4rem, $text-grey);
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    div.textarea {
+      textarea {
+        @extend .input-regular;
+      }
+    }
+
+    button {
+      @extend .btn-full;
+    }
+  }
+}

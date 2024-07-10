@@ -3,44 +3,38 @@ import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 // import { createBrowserHistory } from 'history';
 
-import Landingpage from './pages/Landingpage';
-import Doctors from './pages/Doctors';
-import DoctorDetails from './pages/DoctorDetails';
-import Appointment from './pages/Appointment';
-import Login from './routes/Login';
-import DasboardProtector from './routes/DasboardProtector';
-import Dashboard from './pages/Dashboard';
+import Landingpage from './routes/Landingpage';
+import Doctors from './routes/Doctors';
+import DoctorDetails from './routes/DoctorDetails';
+import Appointment from './routes/Appointment';
+import Login from './routes/auth/Login';
+import DasboardProtector from './routes/auth/DasboardProtector';
+import Dashboard from './routes/Dashboard';
 import HeaderTemplate from './components/Header/HeaderTemplate';
 import Fallback from './components/error/Fallback';
 import Review from './routes/Review';
-import ReviewProtector from './routes/ReviewProtector';
-import Verify from './routes/Verify';
-import Register from './routes/Register';
+import ReviewProtector from './routes/auth/ReviewProtector';
+import VerifyCode from './routes/auth/VerifyCode';
+import Register from './routes/auth/Register';
 import NotFound from './routes/NotFound';
+import authFetch from './utils/authFetch.js';
+import getApiUrl from './utils/getApiUrl.js';
 
 function App() {
+  const API_URL = getApiUrl();
   const [login, setLogin] = useState(false);
   const [loginData, setLoginData] = useState(null);
-  // const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch??? -> hoffentlich nicht ^^
   const [doctors, setDoctors] = useState([]);
   const [specialties, setSpecialties] = useState([]);
-
-  // const history = createBrowserHistory();
-
-  // let localLogin = localStorage.getItem('doctor-login');
-
-  // useEffect(() => {
-  //   setLocalStorageLogin(localLogin);
-  // }, []);
 
   useEffect(() => {
     if (loginData === null) {
       getLoginData();
     }
   }, []);
-  useEffect(() => {
-    getLoginData();
-  }, []);
+  // useEffect(() => {
+  //   getLoginData();
+  // }, []);
 
   useEffect(() => {
     fetchDoctors();
@@ -50,7 +44,7 @@ function App() {
 
   async function fetchDoctors() {
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
+      const res = await fetch(`${API_URL}/api/doctors`);
       if (res.ok) {
         const data = await res.json();
         setDoctors(data);
@@ -63,16 +57,12 @@ function App() {
   //$ getLoginData -------------------------------------------------------
   async function getLoginData() {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/userinfo`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-          },
-          credentials: 'include',
-        }
-      );
+      const res = await authFetch(`${API_URL}/api/auth/userinfo`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
 
       const response = await res.json();
       // console.log('response getLoginData:', response);
@@ -84,10 +74,11 @@ function App() {
       } else {
         // localStorage.setItem('doctor-login', false);
         setLoginData(null);
+        if (res.status === 204) console.log('no user data available');
       }
     } catch (error) {
       setLoginData(null);
-      console.error('token expired', error);
+      console.log('token expired', error);
     }
   }
 
@@ -95,16 +86,12 @@ function App() {
 
   async function userLogout() {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/logout`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-          },
-          credentials: 'include',
-        }
-      );
+      const res = await authFetch(`${API_URL}/api/auth/logout`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
 
       const response = await res.json();
       // console.log(response);
@@ -141,16 +128,16 @@ function App() {
 
   //$ console logs -------------------------------------------------------
 
-  // console.log({ login });
-  // console.log({ loginData });
+  console.log({ login });
+  console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
-  console.log({ doctors });
+  // console.log({ doctors });
   // console.log({ history });
 
   // console.log(darkModeSettings);
   // console.log('dark mode activated:', darkModeSettings.matches);
-  console.log(process.env.NODE_ENV);
+  // console.log('NODE_ENV', process.env.NODE_ENV);
 
   let viteenvs = import.meta.env;
   console.log(viteenvs);
@@ -221,7 +208,7 @@ function App() {
             <Route element={<ReviewProtector />}>
               <Route path='/review/:id' element={<Review />} />
             </Route>
-            <Route path='/review/verify/:id' element={<Verify />} />
+            <Route path='/review/verify/:id' element={<VerifyCode />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </BrowserRouter>

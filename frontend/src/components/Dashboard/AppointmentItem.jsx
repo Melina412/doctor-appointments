@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
 import PatientForm from '../Appointment/PatientForm';
+import authFetch from '../../utils/authFetch.js';
+import { dateOptions as options } from '../../utils/options.js';
+import { useGlobalState } from '../../utils/useGlobalState.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
+  const API_URL = getApiUrl();
   // console.log({ appt });
   let date = new Date(appt?.date);
   let status = appt?.confirmed;
   let patient = appt?.patient;
   let id = appt?._id;
   let now = new Date();
-
-  const options = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  };
 
   //todo: im appt model muss vermerkt werden dass der termin done ist, damit beim nächsten laden der state nicht wieder false ist
   let doneStatus = appt?.done;
@@ -26,19 +23,20 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
 
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
+  const [locale, setLocale] = useGlobalState(
+    'locale',
+    localStorage.getItem('locale') || 'de-DE'
+  );
   async function updateAppointmentStatus() {
     console.log('action an server:', action);
     if (action !== null) {
-      const res = await fetch(
-        `${
-          import.meta.env.VITE_BACKENDURL
-        }/api/appointments/confirm?id=${id}&action=${action}`,
+      const res = await authFetch(
+        `${API_URL}/api/appointments/confirm?id=${id}&action=${action}`,
         {
           method: 'PUT',
           headers: {
             'content-type': 'application/json',
           },
-          credentials: 'include',
         }
       );
       const response = await res.json();
@@ -63,17 +61,13 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
   }
 
   async function setAppointmentDone() {
-    const res = await fetch(
-      `${import.meta.env.VITE_BACKENDURL}/api/review/enable`,
-      {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(appt),
-        credentials: 'include',
-      }
-    );
+    const res = await authFetch(`${API_URL}/api/review/enable`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(appt),
+    });
     const response = await res.json();
 
     if (res.ok) {
@@ -100,6 +94,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
   // console.log({ doneStatus });
   // console.log({ feedback });
   // console.log({ feedbackMessage });
+  // console.log({ locale });
 
   return (
     <>
@@ -130,8 +125,13 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
                 {status == false && '❎ Declined'}
                 {status == null && '📥 New Request'}
               </p>
-              <p className='date'>{date.toLocaleString('en-US', options)}</p>
+              <p className='date'>{date.toLocaleString(locale, options)}</p>
             </div>
+
+            {/* //* ----- double booking warning *************************************  */}
+            {allAppointments.some(
+              (item) => item.date === appt.date && item._id !== appt._id
+            ) && <p className='warning'>double booking!</p>}
 
             {/* //* ----- patient name & info *************************************  */}
             <div className='patient-info'>
@@ -173,9 +173,9 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
             </div>
 
             {/* //* ----- double booking warning *************************************  */}
-            {allAppointments.some(
+            {/* {allAppointments.some(
               (item) => item.date === appt.date && item._id !== appt._id
-            ) && <p className='warning'>double booking!</p>}
+            ) && <p className='warning'>double booking!</p>} */}
 
             {/* //* ----- accept / decline request *************************************  */}
             {status === null ? (

@@ -1,7 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import getApiUrl from '../../utils/getApiUrl';
 
-function Verify() {
+function VerifyCode() {
+  const API_URL = getApiUrl();
   const params = useParams();
   let path = params.id;
   console.log({ path });
@@ -15,17 +17,14 @@ function Verify() {
 
   async function verifyCode() {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/verify-code`,
-        {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ codeInput, path }),
-        }
-      );
+      const res = await fetch(`${API_URL}/api/auth/verify-code`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ codeInput, path }),
+      });
       const response = await res.json();
       if (res.ok) {
         console.log(response.message);
@@ -67,4 +66,4 @@ function Verify() {
   );
 }
 
-export default Verify;
+export default VerifyCode;

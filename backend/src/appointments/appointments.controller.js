@@ -10,6 +10,7 @@ import {
   confirmAppointmentTemplate,
   declineAppointmentTemplate,
 } from '../templates/email.template.js';
+import mongoose from 'mongoose';
 
 // $ getDaysPerMonth() --------------------------------------------------------
 export async function getDaysPerMonth(req, res) {
@@ -36,6 +37,8 @@ export async function getDaysPerMonth(req, res) {
 // $ getTimeSlots() -----------------------------------------------------------
 export async function getTimeSlots(req, res) {
   const doctor_id = req.query.doctor;
+  // const hour12 = req.query.hour12;
+  const hour12 = true;
 
   try {
     const doctor = await Doctor.findById(doctor_id).lean().exec();
@@ -52,16 +55,40 @@ export async function getTimeSlots(req, res) {
 
       let timeSlots = {};
       for (const day of days) {
-        timeSlots[day] = generateTimeSlots(day, visitingHours);
+        timeSlots[day] = generateTimeSlots(day, visitingHours, hour12);
       }
-
       // console.log({ timeSlots });
-      res.json({ timeSlots: timeSlots });
+
+      //# hier auch die appointments mitschicken!
+      try {
+        const doctorObjectId = new mongoose.Types.ObjectId(doctor_id);
+        console.log({ doctorObjectId });
+
+        const appointments = await Appointment.aggregate([
+          { $match: { doctor: doctorObjectId } },
+          {
+            $project: {
+              date: 1,
+              time_slot: 1,
+              confirmed: 1,
+            },
+          },
+        ]);
+        // console.log({ appointments });
+
+        res.json({
+          timeSlots: timeSlots,
+          bookedAppointments: appointments,
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(500).end();
+      }
     }
   } catch (error) {
     console.log(error);
+    res.status(500).end();
   }
-  res.end();
 }
 
 // $ getAppointments() -----------------------------------------------------
@@ -118,9 +145,9 @@ export async function requestAppointment(req, res) {
         if (result) {
           const { email, name } = doctor;
           console.log({ email, name });
-          //# hier muss ich die mail an den doctor senden! ---------------------------------
-
-          sendEmail(newAppointmentTemplate(email, name, full_name));
+          //! #####################################################################################
+          //! EMAIL SENDEN AKTIVIEREN / DEAKTIVIEREN ##############################################
+          // sendEmail(newAppointmentTemplate(email, name, full_name));
 
           res.status(201).json({
             success: true,
@@ -149,7 +176,7 @@ export async function confirmAppointment(req, res) {
   console.log({ id, action });
   try {
     const appointment = await Appointment.findById(id).exec();
-    console.log({ appointment });
+    console.log('appointment found!');
     if (appointment) {
       // der doctor hat die möglichkeiten:
       // 1. accept - confirmed = true; der patient bekommt eine bestätigungsmail
@@ -168,64 +195,72 @@ export async function confirmAppointment(req, res) {
         { $set: { confirmed: updateValue } }
       );
       if (updateResult.modifiedCount > 0) {
-        const updatedAppointment = await Appointment.findById(id).exec();
-        console.log({ updatedAppointment });
-        res
-          .status(201)
-          .json({ success: true, message: 'appointment updated in db' });
-
-        const { confirmed, date, time_slot } = updatedAppointment;
-        const patientName = updatedAppointment.patient.full_name;
-        const patientEmail = updatedAppointment.patient.email;
-        // console.log(confirmed, patientName, patientEmail);
         try {
-          const doctor = await Doctor.findById(appointment.doctor).exec();
-          console.log({ doctor });
-          if (doctor) {
-            const { email, name } = doctor;
+          const updatedAppointment = await Appointment.findById(id).exec();
+          console.log('appointment updated in db! ---', updatedAppointment);
 
-            if (confirmed) {
-              // //# confirmation mail to patient -----------------------------------------
-              sendEmail(
-                confirmAppointmentTemplate(
-                  patientEmail,
-                  patientName,
-                  name,
-                  date,
-                  time_slot
-                )
-              );
+          const { confirmed, date, time_slot } = updatedAppointment;
+          const patientName = updatedAppointment.patient.full_name;
+          const patientEmail = updatedAppointment.patient.email;
+          // console.log(confirmed, patientName, patientEmail);
+          try {
+            const doctor = await Doctor.findById(appointment.doctor).exec();
+            console.log('doctor:', doctor.name);
+            if (doctor) {
+              const { email, name } = doctor;
+
+              //! #####################################################################################
+              //! EMAIL SENDEN AKTIVIEREN / DEAKTIVIEREN ##############################################
+
+              // if (confirmed) {
+              //   // //# confirmation mail to patient -----------------------------------------
+              //   sendEmail(
+              //     confirmAppointmentTemplate(
+              //       patientEmail,
+              //       patientName,
+              //       name,
+              //       date,
+              //       time_slot
+              //     )
+              //   );
+              // } else {
+              //   //# decline mail to patient -----------------------------------------
+              //   sendEmail(
+              //     declineAppointmentTemplate(
+              //       patientEmail,
+              //       patientName,
+              //       email,
+              //       name,
+              //       date,
+              //       time_slot
+              //     )
+              //   );
+              // }
+
+              res
+                .status(201)
+                .json({ success: true, message: 'appointment updated in db' });
             } else {
-              //# decline mail to patient -----------------------------------------
-              sendEmail(
-                declineAppointmentTemplate(
-                  patientEmail,
-                  patientName,
-                  email,
-                  name,
-                  date,
-                  time_slot
-                )
-              );
+              res
+                .status(404)
+                .json({ success: false, message: 'doctor not found' });
             }
-          } else {
+          } catch (error) {
+            console.log(error);
             res
-              .status(404)
-              .json({ success: false, message: 'doctor not found' });
+              .status(500)
+              .json({ success: false, message: 'error while sending mail' });
           }
         } catch (error) {
+          console.log(error);
           res
-            .status(500)
-            .json({ success: false, message: 'error while sending mail' });
+            .status(404)
+            .json({ success: false, message: 'appointment not found' });
         }
-      } else {
-        res
-          .status(404)
-          .json({ success: false, message: 'appointment not found' });
       }
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ success: false, message: error.message });
-    console.log({ error });
   }
 }

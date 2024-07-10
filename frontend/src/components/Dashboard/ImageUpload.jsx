@@ -1,7 +1,10 @@
 import AvatarEditor from 'react-avatar-editor';
 import { useState, useRef } from 'react';
+import authFetch from '../../utils/authFetch.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
+  const API_URL = getApiUrl();
   const [image, setImage] = useState(null);
   const [zoom, setZoom] = useState(1);
   const editorRef = useRef(null);
@@ -21,14 +24,10 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
         console.log(form);
 
         try {
-          const res = await fetch(
-            `${import.meta.env.VITE_BACKENDURL}/api/user/image`,
-            {
-              method: 'PUT',
-              body: form,
-              credentials: 'include',
-            }
-          );
+          const res = await authFetch(`${API_URL}/api/user/image`, {
+            method: 'PUT',
+            body: form,
+          });
           const response = await res.json();
 
           if (res.ok) {
@@ -78,18 +77,18 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
                 max={5}
                 defaultValue={1}
                 step={0.1}
-                onChange={(e) => setZoom(e.target.value)}
+                onChange={(e) => setZoom(Number(e.target.value))}
               />
             </div>
           </>
         )}
       </div>
       <div className='buttons'>
-        <button type='submit' className='submit'>
-          Upload
-        </button>
         <button type='button' className='cancel' onClick={handleAvatarBtn}>
           Cancel
+        </button>
+        <button type='submit' className='submit'>
+          Upload
         </button>
       </div>
     </form>

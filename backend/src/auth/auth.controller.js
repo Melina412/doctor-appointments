@@ -36,7 +36,7 @@ export async function register(req, res) {
     res.status(201).json({
       success: true,
       message: 'new user added to db',
-      user_feedback: 'Account created. Please login to continue.',
+      user_feedback: 'Account sccessfully created! Please login to continue.',
     });
   } catch (error) {
     console.error(error);
@@ -62,16 +62,18 @@ export async function login(req, res) {
     const accessToken = createToken('access', payload);
     const refreshToken = createToken('refresh', payload);
 
+    //# cookie -----------------------------------------------------------
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
       secure: true, //! secure cookies gehen in safari nur mit https, also nicht mit localhost!
       sameSite: 'None',
     });
 
+    //# cookie -----------------------------------------------------------
     res.cookie('r_doctorauth', refreshToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'None',
+      // secure: true,
+      // sameSite: 'None',
     });
 
     res.json({
@@ -120,15 +122,20 @@ export async function getUserinfo(req, res) {
     const user = await Doctor.findOne({ email });
     if (user) {
       res.json({
+        success: true,
+        id: user._id,
         username: user.name,
         email: user.email,
         expiresCET: new Date(exp * 1000).toLocaleString('de-DE', {
           timeZone: 'Europe/Berlin',
         }),
       });
+    } else {
+      res.status(404).json({ success: false, message: 'user not found' });
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({ success: false, message: 'server error' });
   }
 
   // expiresCET nur als info für mich damit ich sehe wann der token abläuft
@@ -156,6 +163,7 @@ export async function refreshToken(req, res) {
     const payload = { user: user._id, username: user.name, email: user.email };
     const accessToken = createToken('access', payload);
 
+    //# cookie -----------------------------------------------------------
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
       secure: true,
@@ -190,6 +198,7 @@ export async function verifyReviewCode(req, res) {
       const payload = { review: review._id };
       const reviewToken = createToken('review', payload);
 
+      //# cookie -----------------------------------------------------------
       res.cookie('rev_doctorauth', reviewToken, {
         httpOnly: true,
         secure: true,

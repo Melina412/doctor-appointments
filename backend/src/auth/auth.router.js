@@ -12,6 +12,7 @@ import {
   checkToken,
   checkRefreshToken,
   checkReviewToken,
+  checkUserLogin,
 } from '../middleware/auth.middleware.js';
 
 export const router = new express.Router();
@@ -21,6 +22,6 @@ router.post('/register', register);
 router.get('/check', checkToken, check);
 router.get('/check/review', checkReviewToken, check);
 router.get('/logout', logout);
-router.get('/userinfo', checkToken, getUserinfo);
+router.get('/userinfo', checkUserLogin, getUserinfo);
 router.get('/refresh', checkRefreshToken, refreshToken);
 router.post('/verify-code', verifyReviewCode);

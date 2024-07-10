@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import '../scss/Login_Register.scss';
+import '../../scss/LoginRegister.scss';
+import getApiUrl from '../../utils/getApiUrl';
 
 function Register() {
+  const API_URL = getApiUrl();
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
@@ -18,16 +20,13 @@ function Register() {
     // console.log({ newUser });
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/register`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(newUser),
-        }
-      );
+      const res = await fetch(`${API_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
 
       const response = await res.json();
       // console.log(response);

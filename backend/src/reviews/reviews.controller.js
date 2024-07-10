@@ -57,7 +57,14 @@ export async function enableReview(req, res) {
         cronTime,
         function () {
           sendEmail(
-            reviewDoctorTemplate(email, full_name, doctorName, date, code, link)
+            reviewDoctorTemplate(
+              email,
+              full_name,
+              doctorName,
+              appointmentDate,
+              code,
+              link
+            )
           );
           console.log('cron job successfully executed!');
         },

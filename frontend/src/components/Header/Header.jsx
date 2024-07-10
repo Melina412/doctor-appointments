@@ -1,23 +1,11 @@
-import { Link, NavLink, useLocation, useParams } from 'react-router-dom';
 import '../../scss/Header.scss';
 
-function Header({
-  route,
-  left,
-  mid,
-  right,
-  loginData,
-  userLogout,
-  login,
-  Link,
-}) {
+function Header({ route, left, mid, right, userLogout }) {
   const handleLogout = () => {
     userLogout();
   };
   // console.log({ route });
-  // console.log('username', loginData?.username);
 
-  // login/logout soll am ende über ein icon möglich sein
   return (
     <>
       {route !== 'Doctors' && (

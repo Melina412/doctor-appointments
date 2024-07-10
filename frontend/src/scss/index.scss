@@ -47,3 +47,77 @@ section {
 // @media (prefers-color-scheme: dark) {
 // ...
 // }
+
+//$ small tablets
+@media screen and (min-width: 576px) {
+  main.doctors {
+    section.doctors-list {
+      grid-template-columns: repeat(3, 31%);
+      gap: 2rem 4%;
+    }
+  }
+  main.appointment {
+    section.calendar-days {
+      div.days-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+    section.time-slots {
+      div.time-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+  }
+  main.dashboard {
+    section.profile section.dashboard-actions section.edit-profile,
+    section.profile section.dashboard-actions section.edit-avatar,
+    section.my-appointments div.section-grid {
+      max-width: 576px;
+      margin: 0 auto;
+    }
+  }
+}
+
+// $ large tablets & laptops
+@media screen and (min-width: 820px) {
+  div#root {
+    max-width: 992px;
+    margin: 0 auto;
+  }
+  main.landingpage {
+    section.specialty-list {
+      div.list {
+        grid-template-columns: repeat(4, 24%);
+      }
+    }
+  }
+  main.doctors {
+    section.doctors-list {
+      grid-template-columns: repeat(4, 21%);
+      gap: 2rem 3%;
+    }
+  }
+  main.appointment {
+    section.calendar-days {
+      div.days-grid {
+        grid-template-columns: repeat(7, 1fr);
+      }
+    }
+    section.time-slots {
+      div.time-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+  }
+  main.dashboard {
+    section.my-appointments {
+      div.section-grid {
+        max-width: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6rem;
+        margin: 0 2rem;
+      }
+    }
+  }
+}

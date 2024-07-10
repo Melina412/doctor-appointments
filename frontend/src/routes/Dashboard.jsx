@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import EditProfile from '../components/Dashboard/EditProfile';
 import MyAppointments from '../components/Dashboard/MyAppointments';
 import '../scss/Dashboard.scss';
-import Logout from '../routes/Logout';
+import Logout from './auth/Logout';
 import { useNavigate } from 'react-router-dom';
 import ImageUpload from '../components/Dashboard/ImageUpload';
+import authFetch from '../utils/authFetch.js';
+import getApiUrl from '../utils/getApiUrl.js';
 
 function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
+  const API_URL = getApiUrl();
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
@@ -19,16 +22,12 @@ function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
   //$ getProfileData() ----------------------------------------------------
 
   async function getProfileData() {
-    const res = await fetch(
-      `${import.meta.env.VITE_BACKENDURL}/api/user/profile`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        credentials: 'include',
-      }
-    );
+    const res = await authFetch(`${API_URL}/api/user/profile`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
     const data = await res.json();
     // console.log('response getProfileData:', data);
 
@@ -61,8 +60,8 @@ function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
     gridStyle === 'open' ? setGridStyle('closed') : setGridStyle('open');
   };
 
-  console.log({ profileData });
-  console.log({ gridStyle });
+  // console.log({ profileData });
+  // console.log({ gridStyle });
 
   return (
     <main className='dashboard'>

@@ -18,35 +18,16 @@ main.appointment {
     // padding: 2rem 0;
     border: 1px solid $border;
     border-radius: 15px;
+    transition: border 0.3s ease-in;
+    cursor: default;
+
+    &:hover {
+      border: 1px solid $blue;
+    }
   }
 
   div.select-focus {
-    outline: none;
-    appearance: none;
-
-    &:focus-within {
-      outline: 2px auto -webkit-focus-ring-color;
-    }
-
-    select {
-      background-color: transparent;
-      border: none;
-      outline: none;
-
-      appearance: none; // entfernt den hässlichen hintergrund in safari aber leider auch den dropdown pfeil. muss für alle browser eingestellt werden:
-      -webkit-appearance: none; // chrome & safari
-      -moz-appearance: none; // firefox
-      &::-ms-expand {
-        display: none; // microsoft
-      }
-
-      // neuen dropdown pfeil als bg
-      background: url('/img/dropdown.svg') no-repeat 100% 50%;
-
-      &:focus {
-        outline: none;
-      }
-    }
+    @extend .select-focus-area;
   }
 
   // *** calendar days *********************************************************
@@ -72,12 +53,7 @@ main.appointment {
       gap: 1rem;
 
       div.calendar-items {
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
         padding: 2rem 0;
-        // border: 1px solid $border;
-        // border-radius: 20px;
 
         p.date {
           @include text-style($Roboto500, 2.4rem, $text-grey);
@@ -98,6 +74,26 @@ main.appointment {
 
   // *** time slots *********************************************************
   section.time-slots {
+    div.select-format {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+
+      h2 {
+        margin-bottom: 0;
+      }
+      div.select-focus {
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        select {
+          @include text-style($Roboto500, 1.2rem, $text-grey);
+          letter-spacing: 0.3px;
+          border: none;
+          padding-right: 2rem;
+        }
+      }
+    }
     div.time-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -119,6 +115,9 @@ main.appointment {
 
   // *** patient form *********************************************************
   section.patient-form {
+    p.notice {
+      margin-bottom: 2rem;
+    }
     form {
       display: flex;
       flex-direction: column;
@@ -141,6 +140,8 @@ main.appointment {
         // background-color: $input-fill;
         // border-radius: 1.5rem;
         // padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+
         select#age {
           @include text-style($Roboto400, 1.6rem, $text-grey);
           width: 100%;
@@ -153,25 +154,6 @@ main.appointment {
 
       div.radio-container {
         @extend .radio-regular;
-        // display: flex;
-        // gap: 1rem;
-        // margin-bottom: 2rem;
-        // input {
-        //   display: none;
-        // }
-        // label {
-        //   display: inline-block;
-        //   padding: 1rem 0;
-        //   width: 10rem;
-        //   text-align: center;
-        //   border: 1px solid $border;
-        //   border-radius: 15px;
-
-        //   &.selected {
-        //     background-color: $blue;
-        //     color: white;
-        //   }
-        // }
       }
 
       textarea {

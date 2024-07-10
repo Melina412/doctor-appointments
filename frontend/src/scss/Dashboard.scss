@@ -6,8 +6,8 @@
 main.dashboard {
   h2 {
     @include text-style($Roboto700, 2rem, $text-fill);
-    -webkit-text-stroke: 1px $text-stroke;
-    text-shadow: 0 0.5rem 1rem $text-grey;
+    // -webkit-text-stroke: 1px $text-stroke;
+    // text-shadow: 0 0.5rem 1rem $text-grey;
     margin-bottom: 2.5rem;
   }
 
@@ -16,28 +16,6 @@ main.dashboard {
     // margin-bottom: 2rem;
     padding-right: 2rem;
   }
-
-  // button {
-  //   @extend .btn-s;
-
-  //   &.submit {
-  //     background-color: $success;
-  //     // color: $text-stroke;
-  //   }
-
-  //   &.cancel {
-  //     background-color: $orange;
-  //     // color: $text-stroke;
-  //   }
-  // }
-
-  // button.hide {
-  //   display: none;
-  // }
-
-  // button.logout {
-  //   margin-bottom: 5rem;
-  // }
 
   // * profile ********************************************************
 
@@ -62,10 +40,6 @@ main.dashboard {
     button.hide {
       display: none;
     }
-
-    // button.logout {
-    //   margin-bottom: 5rem;
-    // }
 
     div.avatar-container {
       @include size(10rem, 10rem);
@@ -160,10 +134,35 @@ main.dashboard {
             display: flex;
             flex-direction: column;
             label#avatar-label {
-              margin-bottom: 2rem;
+              margin-bottom: 0;
             }
-            input {
+            input#avatar {
+              // position: relative;
               margin-top: 2rem;
+
+              &[type='file'] {
+                @extend .input-regular;
+                font-size: 1.2rem;
+                min-width: 35rem;
+
+                &::file-selector-button,
+                ::-webkit-file-upload-button {
+                  @extend .btn-s;
+                  display: inline-block; // dann ist der filename in der gleichen reihe wie der button
+                  margin: 0;
+                  margin-inline-end: 2rem;
+                  width: 40%;
+                  white-space-collapse: collapse;
+                  text-wrap-mode: nowrap;
+                  padding-right: 1rem;
+                  // position: absolute;
+                }
+
+                span {
+                  position: absolute;
+                  // padding-left: 20rem;
+                }
+              }
             }
 
             canvas {
@@ -237,7 +236,7 @@ main.dashboard {
     .requests,
     .confirmed,
     .declined,
-    .canceled {
+    .cancelled {
       padding: 0;
     }
 
@@ -367,6 +366,10 @@ main.dashboard {
                   @extend .btn-s;
                   margin-top: 2rem;
                   margin-bottom: 0.5rem;
+
+                  &:focus-visible {
+                    outline: none;
+                  }
                 }
               }
             }
@@ -393,35 +396,38 @@ main.dashboard {
             }
           }
 
-          p {
-            padding: 0.2rem 0;
+          // p {
+          //   padding: 0.2rem 0;
+          // }
+        }
+      }
+      p {
+        padding: 0.2rem 0;
 
-            &.warning {
-              @include text-style($Roboto400, 1rem, $text-stroke);
-              letter-spacing: 0.5px;
-              background-color: $warning;
-              border-bottom-left-radius: 15px;
-              border-bottom-right-radius: 15px;
-              padding: 0.5rem 1rem;
-            }
-
-            &.feedback {
-              @include text-style($Roboto400, 1.2rem, $success);
-              padding: 3rem 0;
-              text-align: center;
-            }
-          }
-
-          &.done {
-            background-color: $done-bg;
-          }
+        &.warning {
+          @include text-style($Roboto400, 1rem, $text-stroke);
+          letter-spacing: 0.5px;
+          background-color: $warning;
+          padding: 0.5rem 1rem;
         }
 
-        p.feedback {
+        &.feedback {
           @include text-style($Roboto400, 1.2rem, $success);
           padding: 3rem 0;
           text-align: center;
         }
+      }
+      // in diesen sections befindet sich das feld am unteren ende des items
+      &.confirmed,
+      &.declined,
+      &.cancelled {
+        div.patient-info {
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+        }
+      }
+      &.done {
+        background-color: $done-bg;
       }
     }
   }

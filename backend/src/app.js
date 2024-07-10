@@ -15,6 +15,7 @@ import { router as reviewRouter } from './reviews/reviews.router.js';
 export const app = express();
 
 app.use(cors(corsOptions));
+// app.use(cors({ credentials: true }));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cookieParser());
