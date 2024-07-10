@@ -48,102 +48,104 @@ function MyAppointments() {
     <>
       <section className='my-appointments'>
         <h2>My Appointments</h2>
-        <section className='requests'>
-          <div className='sub-headline'>
-            <button
-              className={`toggle-btn ${view?.requests ? 'view' : 'hidden'}`}
-              onClick={() => toggleView('requests')}
-              title='toggle view'>
-              <h3>Incoming Requests</h3>
-            </button>
-          </div>
-          {view?.requests && (
-            <div className='item-group' id='requests'>
-              {myAppointments
-                ?.filter((appt) => appt?.confirmed === null)
-                .map((appt, index) => (
-                  <AppointmentItem
-                    key={index}
-                    appt={appt}
-                    allAppointments={myAppointments}
-                    getMyAppointments={getMyAppointments}
-                  />
-                ))}
+        <div className='section-grid'>
+          <section className='requests'>
+            <div className='sub-headline'>
+              <button
+                className={`toggle-btn ${view?.requests ? 'view' : 'hidden'}`}
+                onClick={() => toggleView('requests')}
+                title='toggle view'>
+                <h3>Incoming Requests</h3>
+              </button>
             </div>
-          )}
-        </section>
+            {view?.requests && (
+              <div className='item-group' id='requests'>
+                {myAppointments
+                  ?.filter((appt) => appt?.confirmed === null)
+                  .map((appt, index) => (
+                    <AppointmentItem
+                      key={index}
+                      appt={appt}
+                      allAppointments={myAppointments}
+                      getMyAppointments={getMyAppointments}
+                    />
+                  ))}
+              </div>
+            )}
+          </section>
 
-        <section className='confirmed'>
-          <div className='sub-headline'>
-            <button
-              className={`toggle-btn ${view?.confirmed ? 'view' : 'hidden'}`}
-              onClick={() => toggleView('confirmed')}
-              title='toggle view'>
-              <h3>Confirmed Appointments</h3>
-            </button>
-          </div>
-          {view?.confirmed && (
-            <div className='item-group' id='confirmed'>
-              {myAppointments
-                ?.filter((appt) => appt?.confirmed === true)
-                .sort((a, b) => {
-                  if (a.done === b.done) {
-                    return 0;
-                  }
-                  return a.done ? 1 : -1;
-                })
-                .map((appt, index) => (
-                  <AppointmentItem
-                    key={index}
-                    appt={appt}
-                    allAppointments={myAppointments}
-                    getMyAppointments={getMyAppointments}
-                  />
-                ))}
+          <section className='confirmed'>
+            <div className='sub-headline'>
+              <button
+                className={`toggle-btn ${view?.confirmed ? 'view' : 'hidden'}`}
+                onClick={() => toggleView('confirmed')}
+                title='toggle view'>
+                <h3>Confirmed Appointments</h3>
+              </button>
             </div>
-          )}
-        </section>
+            {view?.confirmed && (
+              <div className='item-group' id='confirmed'>
+                {myAppointments
+                  ?.filter((appt) => appt?.confirmed === true)
+                  .sort((a, b) => {
+                    if (a.done === b.done) {
+                      return 0;
+                    }
+                    return a.done ? 1 : -1;
+                  })
+                  .map((appt, index) => (
+                    <AppointmentItem
+                      key={index}
+                      appt={appt}
+                      allAppointments={myAppointments}
+                      getMyAppointments={getMyAppointments}
+                    />
+                  ))}
+              </div>
+            )}
+          </section>
 
-        <section className='declined'>
-          <div className='sub-headline'>
-            <button
-              className={`toggle-btn ${view?.declined ? 'view' : 'hidden'}`}
-              onClick={() => toggleView('declined')}
-              title='toggle view'>
-              <h3>Declined Appointments</h3>
-            </button>
-          </div>
-          {view?.declined && (
-            <div className='item-group' id='declined'>
-              {myAppointments
-                ?.filter((appt) => appt?.confirmed === false)
-                .map((appt, index) => (
-                  <AppointmentItem
-                    key={index}
-                    appt={appt}
-                    allAppointments={myAppointments}
-                    getMyAppointments={getMyAppointments}
-                  />
-                ))}
+          <section className='declined'>
+            <div className='sub-headline'>
+              <button
+                className={`toggle-btn ${view?.declined ? 'view' : 'hidden'}`}
+                onClick={() => toggleView('declined')}
+                title='toggle view'>
+                <h3>Declined Appointments</h3>
+              </button>
             </div>
-          )}
-        </section>
+            {view?.declined && (
+              <div className='item-group' id='declined'>
+                {myAppointments
+                  ?.filter((appt) => appt?.confirmed === false)
+                  .map((appt, index) => (
+                    <AppointmentItem
+                      key={index}
+                      appt={appt}
+                      allAppointments={myAppointments}
+                      getMyAppointments={getMyAppointments}
+                    />
+                  ))}
+              </div>
+            )}
+          </section>
 
-        <section className='cancelled'>
-          <div className='sub-headline'>
-            <button
-              className={`toggle-btn ${view?.cancelled ? 'view' : 'hidden'}`}
-              onClick={() => toggleView('cancelled')}
-              title='toggle view'>
-              <h3>Cancelled Appointments</h3>
-            </button>
-          </div>
-          {view?.cancelled && (
-            <div className='item-group' id='cancelled'>
-              <div>-- no items --</div>
+          <section className='cancelled'>
+            <div className='sub-headline'>
+              <button
+                className={`toggle-btn ${view?.cancelled ? 'view' : 'hidden'}`}
+                onClick={() => toggleView('cancelled')}
+                title='toggle view'>
+                <h3>Cancelled Appointments</h3>
+              </button>
             </div>
-          )}
-        </section>
+            {view?.cancelled && (
+              <div className='item-group' id='cancelled'>
+                <div>-- no items --</div>
+              </div>
+            )}
+          </section>
+        </div>
       </section>
     </>
   );

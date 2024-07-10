@@ -47,7 +47,7 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 <br/> [✅] patients who visited a doctor will get an email with a link to rank their experience the day after an appointment
 <br/> [✅] deployment
 <br/> [✅] style (almost done) ⤵︎
-<br/> [❌] media queries tablet & bigger screens
+<br/> [✅] half assed media queries
 <br/> [❌] dark mode
 <br/> [❌] convert svg icons to jsx for dark mode theme
 

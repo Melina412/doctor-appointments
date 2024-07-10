@@ -12,7 +12,7 @@ main.doctors {
 
   section.doctors-search {
     div.searchbar {
-      width: 90vw;
+      width: 100%;
       div.input-flex {
         @include size(100%, 4rem);
         background-color: $input-fill;
@@ -100,7 +100,8 @@ main.doctors {
   section.doctors-list {
     display: grid;
     grid-template-columns: repeat(2, 47%);
-    gap: 2rem;
+    justify-content: center;
+    gap: 2rem 6%;
     overflow: hidden;
     padding: 2rem;
 

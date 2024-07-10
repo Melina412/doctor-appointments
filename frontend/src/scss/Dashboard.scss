@@ -136,20 +136,31 @@ main.dashboard {
             label#avatar-label {
               margin-bottom: 0;
             }
-            input {
+            input#avatar {
+              // position: relative;
               margin-top: 2rem;
 
               &[type='file'] {
                 @extend .input-regular;
                 font-size: 1.2rem;
+                min-width: 35rem;
 
                 &::file-selector-button,
-                &::-webkit-file-upload-button {
+                ::-webkit-file-upload-button {
                   @extend .btn-s;
+                  display: inline-block; // dann ist der filename in der gleichen reihe wie der button
                   margin: 0;
+                  margin-inline-end: 2rem;
                   width: 40%;
                   white-space-collapse: collapse;
                   text-wrap-mode: nowrap;
+                  padding-right: 1rem;
+                  // position: absolute;
+                }
+
+                span {
+                  position: absolute;
+                  // padding-left: 20rem;
                 }
               }
             }
