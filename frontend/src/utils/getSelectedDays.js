@@ -1,6 +1,4 @@
-// im utils ordner sollen noch weitere funktionen ausgelagert werden um die komponenten übersichtlicher zun machen (nicht fertig)
-
-export function getSelectedDays(profileData) {
+function getSelectedDays(profileData) {
   console.log('getSelectedDays wurde aufgerufen');
   return {
     Monday: {
@@ -47,3 +45,5 @@ export function getSelectedDays(profileData) {
     },
   };
 }
+
+export default getSelectedDays;

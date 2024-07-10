@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { getSelectedDays } from '../../utils/getSelectedDays';
+import getSelectedDays from '../../utils/getSelectedDays';
 import Textarea from '../global/Textarea';
 import authFetch from '../../utils/authFetch.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 // beim ersten einloggen nach der registrierung soll man direkt zum profile formular navigiert werden (nicht fertig)
 
@@ -14,6 +15,7 @@ function EditProfile({
   setGridStyle,
   handleEditBtn,
 }) {
+  const API_URL = getApiUrl();
   const [selectedDays, setSelectedDays] = useState(
     profileData ? getSelectedDays(profileData) : null
   );
@@ -54,13 +56,10 @@ function EditProfile({
     handleEditBtn();
     const form = new FormData(e.target);
     try {
-      const res = await authFetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/user/edit`,
-        {
-          method: 'PUT',
-          body: form,
-        }
-      );
+      const res = await authFetch(`${API_URL}/api/user/edit`, {
+        method: 'PUT',
+        body: form,
+      });
 
       const response = await res.json();
 

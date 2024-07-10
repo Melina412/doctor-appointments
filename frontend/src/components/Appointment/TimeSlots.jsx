@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import months from '../../utils/months.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function TimeSlots({
   visitingHours,
@@ -18,6 +19,7 @@ function TimeSlots({
 }) {
   //# constants  ---------------------------------------------------------------
 
+  const API_URL = getApiUrl();
   const doctor_id = doctor?._id;
   const defaultMonth = new Date().getMonth();
   const defaultYear = new Date().getFullYear();
@@ -47,11 +49,7 @@ function TimeSlots({
 
   async function getCalendarDays() {
     const res = await fetch(
-      `${
-        import.meta.env.VITE_BACKENDURL
-      }/api/appointments/days?year=${selectedYear}&month=${month.name}&index=${
-        month.index
-      }`,
+      `${API_URL}/api/appointments/days?year=${selectedYear}&month=${month.name}&index=${month.index}`,
       {
         method: 'GET',
         headers: {
@@ -91,9 +89,7 @@ function TimeSlots({
   useEffect(() => {
     async function getTimeSlots() {
       const res = await fetch(
-        `${
-          import.meta.env.VITE_BACKENDURL
-        }/api/appointments/timeslots?doctor=${doctor_id}`,
+        `${API_URL}/api/appointments/timeslots?doctor=${doctor_id}`,
         {
           method: 'GET',
           headers: {

@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import AppointmentItem from './AppointmentItem';
 import _ from 'lodash';
 import authFetch from '../../utils/authFetch.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function MyAppointments() {
+  const API_URL = getApiUrl();
   const [myAppointments, setMyAppointments] = useState([]);
 
   useEffect(() => {
@@ -11,15 +13,12 @@ function MyAppointments() {
   }, []);
 
   async function getMyAppointments() {
-    const res = await authFetch(
-      `${import.meta.env.VITE_BACKENDURL}/api/appointments`,
-      {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-        },
-      }
-    );
+    const res = await authFetch(`${API_URL}/api/appointments`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
     const data = await res.json();
     // console.log('my appointments', { data });d
 
@@ -59,7 +58,7 @@ function MyAppointments() {
             </button>
           </div>
           {view?.requests && (
-            <div className='item-group'>
+            <div className='item-group' id='requests'>
               {myAppointments
                 ?.filter((appt) => appt?.confirmed === null)
                 .map((appt, index) => (
@@ -84,7 +83,7 @@ function MyAppointments() {
             </button>
           </div>
           {view?.confirmed && (
-            <div className='item-group'>
+            <div className='item-group' id='confirmed'>
               {myAppointments
                 ?.filter((appt) => appt?.confirmed === true)
                 .sort((a, b) => {
@@ -115,7 +114,7 @@ function MyAppointments() {
             </button>
           </div>
           {view?.declined && (
-            <div className='item-group'>
+            <div className='item-group' id='declined'>
               {myAppointments
                 ?.filter((appt) => appt?.confirmed === false)
                 .map((appt, index) => (
@@ -130,17 +129,17 @@ function MyAppointments() {
           )}
         </section>
 
-        <section className='canceled'>
+        <section className='cancelled'>
           <div className='sub-headline'>
             <button
               className={`toggle-btn ${view?.cancelled ? 'view' : 'hidden'}`}
               onClick={() => toggleView('cancelled')}
               title='toggle view'>
-              <h3>Canceled Appointments</h3>
+              <h3>Cancelled Appointments</h3>
             </button>
           </div>
           {view?.cancelled && (
-            <div className='item-group'>
+            <div className='item-group' id='cancelled'>
               <div>-- no items --</div>
             </div>
           )}

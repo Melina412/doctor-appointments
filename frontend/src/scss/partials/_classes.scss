@@ -160,6 +160,12 @@
   outline: none;
   appearance: none;
 
+  transition: outline 0.3s ease-in;
+
+  &:hover {
+    outline: 1px solid $blue;
+  }
+
   &:focus-within {
     outline: 2px auto -webkit-focus-ring-color;
   }

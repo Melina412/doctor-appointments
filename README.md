@@ -58,12 +58,14 @@ All mails are send to a mail trap inbox, so if you sign up you will not actually
 <br/> [✅] seperate register & login routes
 <br/> [✅] fix logout
 <br/> [✅] delete booked time slots
+<br/> [✅] ❗️check booked time slots logic for new time format
 <br/> [✅] convert getHeaderTemplate to jsx
 <br/> [✅] convert date in emails etc.
 <br/> [✅] update db with new sample data
 <br/> [✅] time slot format selection (12h/24h)
 <br/> [✅] automatic token refresh on all authorized request routes (authFetch)
 <br/> [✅] global state setting without having to use context (setGlobalState)
+<br/> [✅] dynamic api url to test in iOS without manually setting the url
 <br/> [❌] link patients/ & rating to doctors
 <br/> [❌] archive past appointments (also to count patient number)
 <br/> [❌] more feedback for user actions

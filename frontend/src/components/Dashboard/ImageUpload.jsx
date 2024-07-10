@@ -1,8 +1,10 @@
 import AvatarEditor from 'react-avatar-editor';
 import { useState, useRef } from 'react';
 import authFetch from '../../utils/authFetch.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
+  const API_URL = getApiUrl();
   const [image, setImage] = useState(null);
   const [zoom, setZoom] = useState(1);
   const editorRef = useRef(null);
@@ -22,13 +24,10 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
         console.log(form);
 
         try {
-          const res = await authFetch(
-            `${import.meta.env.VITE_BACKENDURL}/api/user/image`,
-            {
-              method: 'PUT',
-              body: form,
-            }
-          );
+          const res = await authFetch(`${API_URL}/api/user/image`, {
+            method: 'PUT',
+            body: form,
+          });
           const response = await res.json();
 
           if (res.ok) {

@@ -1,24 +1,23 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import getApiUrl from '../utils/getApiUrl';
 
 function Review() {
+  const API_URL = getApiUrl();
   const [rating, setRating] = useState(0);
   const [submit, setSubmit] = useState(false);
   const commentRef = useRef();
   const navigate = useNavigate();
 
   async function addReview() {
-    const res = await fetch(
-      `${import.meta.env.VITE_BACKENDURL}/api/review/add`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ rating, comment: commentRef.current.value }),
-      }
-    );
+    const res = await fetch(`${API_URL}/api/review/add`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rating, comment: commentRef.current.value }),
+    });
     const response = await res.json();
     if (res.ok) {
       console.log(response.message);

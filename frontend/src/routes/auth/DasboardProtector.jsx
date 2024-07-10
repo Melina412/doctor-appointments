@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-// import { LoginContext } from './context/LoginContext';
+import getApiUrl from '../../utils/getApiUrl';
 
 function DashboardProtector({ setLogin }) {
+  const API_URL = getApiUrl();
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -15,12 +16,9 @@ function DashboardProtector({ setLogin }) {
   async function refreshToken() {
     console.log('attempting to refresh token...');
 
-    const response = await fetch(
-      import.meta.env.VITE_BACKENDURL + '/api/auth/refresh',
-      {
-        credentials: 'include',
-      }
-    );
+    const response = await fetch(`${API_URL}/api/auth/refresh`, {
+      credentials: 'include',
+    });
     if (response.ok) {
       console.log('✅ token refreshed successfully!');
       setAuthorized(true);
@@ -36,12 +34,9 @@ function DashboardProtector({ setLogin }) {
   useEffect(() => {
     async function checkToken() {
       try {
-        const response = await fetch(
-          import.meta.env.VITE_BACKENDURL + '/api/auth/check',
-          {
-            credentials: 'include',
-          }
-        );
+        const response = await fetch(`${API_URL}/api/auth/check`, {
+          credentials: 'include',
+        });
 
         if (!response.ok) {
           // falls check einen neg res bekommt, wird refresh direkt versucht

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import '../../scss/LoginRegister.scss';
+import getApiUrl from '../../utils/getApiUrl';
 
 // nach der registrierung soll eine mail mit 6 digit code zur auth des users gesendet werden, erst dann kann man das profil erstellen (nicht fertig)
 
 function Login({ setLogin, getLoginData }) {
+  const API_URL = getApiUrl();
   const userRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
@@ -22,17 +24,14 @@ function Login({ setLogin, getLoginData }) {
     // console.log({ user });
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/login`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(user),
-          credentials: 'include',
-        }
-      );
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(user),
+        credentials: 'include',
+      });
 
       const response = await res.json();
       // console.log(response);

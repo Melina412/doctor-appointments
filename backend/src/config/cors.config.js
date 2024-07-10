@@ -1,30 +1,36 @@
 import 'dotenv/config';
 
-// um die app auf dem lokalen server in ios safari direkt auf dem iphone zu testen, muss ich die adresse über die ip aufrufen. das würde man dann so konfigurieren.
-// !ABER
-// dazu müsste ich auch die URL aller fetches ändern und das war mir nervig. also ka ob das hier dann überhaupt nötig ist letztendlich
+// um die app auf dem lokalen server in ios safari direkt auf dem iphone zu testen, muss ich die adresse über die ip aufrufen.
+// damit es auf dem iphone geht muss in der vite env auch die ip stehen und nicht localhost.
 
-const ALLOWED_ORIGIN = [
-  process.env.LOCALHOST_ORIGIN,
-  process.env.LOCAL_IP_ORIGIN,
-];
+// die funktion prüft
+function setOrigin(req, callback) {
+  const userAgent = req.headers['user-agent'];
+  // console.log({ userAgent });
 
-// origin kann nur string oder function sein, keine liste
+  let ALLOWED_ORIGIN;
+  if (/iPhone|iPad|iPod|iOS/i.test(userAgent)) {
+    ALLOWED_ORIGIN = process.env.LOCAL_IP_ORIGIN;
+  } else if (/Chrome/i.test(userAgent)) {
+    ALLOWED_ORIGIN = process.env.LOCALHOST_ORIGIN;
+  } else {
+    ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
+  }
 
-const origin =
-  process.env.NODE_ENV === 'production'
-    ? process.env.ALLOWED_ORIGIN
-    : function (origin, callback) {
-        if (ALLOWED_ORIGIN.indexOf(origin) !== -1 || !origin) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      };
+  console.log({ ALLOWED_ORIGIN });
+  callback(null, { origin: ALLOWED_ORIGIN });
+}
 
-const corsOptions = {
-  credentials: true,
-  origin: origin,
+const corsOptions = (req, callback) => {
+  if (process.env.NODE_ENV === 'DEV') {
+    setOrigin(req, (err, options) => {
+      options.credentials = true;
+      console.log({ options });
+      callback(err, options);
+    });
+  } else {
+    callback(null, { origin: process.env.ALLOWED_ORIGIN, credentials: true });
+  }
 };
 
 export default corsOptions;

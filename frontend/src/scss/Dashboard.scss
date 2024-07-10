@@ -17,28 +17,6 @@ main.dashboard {
     padding-right: 2rem;
   }
 
-  // button {
-  //   @extend .btn-s;
-
-  //   &.submit {
-  //     background-color: $success;
-  //     // color: $text-stroke;
-  //   }
-
-  //   &.cancel {
-  //     background-color: $orange;
-  //     // color: $text-stroke;
-  //   }
-  // }
-
-  // button.hide {
-  //   display: none;
-  // }
-
-  // button.logout {
-  //   margin-bottom: 5rem;
-  // }
-
   // * profile ********************************************************
 
   section.profile {
@@ -62,10 +40,6 @@ main.dashboard {
     button.hide {
       display: none;
     }
-
-    // button.logout {
-    //   margin-bottom: 5rem;
-    // }
 
     div.avatar-container {
       @include size(10rem, 10rem);
@@ -237,7 +211,7 @@ main.dashboard {
     .requests,
     .confirmed,
     .declined,
-    .canceled {
+    .cancelled {
       padding: 0;
     }
 
@@ -392,36 +366,36 @@ main.dashboard {
               padding: 0.3rem 2rem;
             }
           }
+        }
+      }
+      p {
+        padding: 0.2rem 0;
 
-          p {
-            padding: 0.2rem 0;
-
-            &.warning {
-              @include text-style($Roboto400, 1rem, $text-stroke);
-              letter-spacing: 0.5px;
-              background-color: $warning;
-              border-bottom-left-radius: 15px;
-              border-bottom-right-radius: 15px;
-              padding: 0.5rem 1rem;
-            }
-
-            &.feedback {
-              @include text-style($Roboto400, 1.2rem, $success);
-              padding: 3rem 0;
-              text-align: center;
-            }
-          }
-
-          &.done {
-            background-color: $done-bg;
-          }
+        &.warning {
+          @include text-style($Roboto400, 1rem, $text-stroke);
+          letter-spacing: 0.5px;
+          background-color: $warning;
+          padding: 0.5rem 1rem;
         }
 
-        p.feedback {
+        &.feedback {
           @include text-style($Roboto400, 1.2rem, $success);
           padding: 3rem 0;
           text-align: center;
         }
+      }
+      // in diesen sections befindet sich das feld am unteren ende des items
+      &.confirmed,
+      &.declined,
+      &.cancelled {
+        p.warning,
+        div.patient-info {
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+        }
+      }
+      &.done {
+        background-color: $done-bg;
       }
     }
   }

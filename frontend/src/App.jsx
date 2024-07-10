@@ -18,21 +18,14 @@ import VerifyCode from './routes/auth/VerifyCode';
 import Register from './routes/auth/Register';
 import NotFound from './routes/NotFound';
 import authFetch from './utils/authFetch.js';
+import getApiUrl from './utils/getApiUrl.js';
 
 function App() {
+  const API_URL = getApiUrl();
   const [login, setLogin] = useState(false);
   const [loginData, setLoginData] = useState(null);
-  // const [localStorageLogin, setLocalStorageLogin] = useState(false); //! brauche ich das noch??? -> hoffentlich nicht ^^
   const [doctors, setDoctors] = useState([]);
   const [specialties, setSpecialties] = useState([]);
-
-  // const history = createBrowserHistory();
-
-  // let localLogin = localStorage.getItem('doctor-login');
-
-  // useEffect(() => {
-  //   setLocalStorageLogin(localLogin);
-  // }, []);
 
   useEffect(() => {
     if (loginData === null) {
@@ -51,7 +44,7 @@ function App() {
 
   async function fetchDoctors() {
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKENDURL}/api/doctors`);
+      const res = await fetch(`${API_URL}/api/doctors`);
       if (res.ok) {
         const data = await res.json();
         setDoctors(data);
@@ -64,15 +57,12 @@ function App() {
   //$ getLoginData -------------------------------------------------------
   async function getLoginData() {
     try {
-      const res = await authFetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/userinfo`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
-      );
+      const res = await authFetch(`${API_URL}/api/auth/userinfo`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
 
       const response = await res.json();
       // console.log('response getLoginData:', response);
@@ -96,15 +86,12 @@ function App() {
 
   async function userLogout() {
     try {
-      const res = await authFetch(
-        `${import.meta.env.VITE_BACKENDURL}/api/auth/logout`,
-        {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
-      );
+      const res = await authFetch(`${API_URL}/api/auth/logout`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
 
       const response = await res.json();
       // console.log(response);
@@ -153,7 +140,7 @@ function App() {
   // console.log('NODE_ENV', process.env.NODE_ENV);
 
   let viteenvs = import.meta.env;
-  // console.log(viteenvs);
+  console.log(viteenvs);
 
   return (
     <>

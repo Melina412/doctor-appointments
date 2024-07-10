@@ -13,6 +13,8 @@ const options = {
   timeZoneName: 'short',
 };
 
+//todo: save locale & other preferences in db for users and then use this value
+
 export const newAppointmentTemplate = (email, doctorname, patientname) => {
   return {
     from: '"doc appointments admin" <admin@doctorappointments.com>',

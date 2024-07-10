@@ -62,12 +62,14 @@ export async function login(req, res) {
     const accessToken = createToken('access', payload);
     const refreshToken = createToken('refresh', payload);
 
+    //# cookie -----------------------------------------------------------
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
       secure: true, //! secure cookies gehen in safari nur mit https, also nicht mit localhost!
       sameSite: 'None',
     });
 
+    //# cookie -----------------------------------------------------------
     res.cookie('r_doctorauth', refreshToken, {
       httpOnly: true,
       secure: true,
@@ -161,6 +163,7 @@ export async function refreshToken(req, res) {
     const payload = { user: user._id, username: user.name, email: user.email };
     const accessToken = createToken('access', payload);
 
+    //# cookie -----------------------------------------------------------
     res.cookie('a_doctorauth', accessToken, {
       httpOnly: true,
       secure: true,
@@ -195,6 +198,7 @@ export async function verifyReviewCode(req, res) {
       const payload = { review: review._id };
       const reviewToken = createToken('review', payload);
 
+      //# cookie -----------------------------------------------------------
       res.cookie('rev_doctorauth', reviewToken, {
         httpOnly: true,
         secure: true,

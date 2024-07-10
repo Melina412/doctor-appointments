@@ -1,23 +1,20 @@
 import { Navigate, Outlet, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function ReviewProtector() {
+  const API_URL = getApiUrl();
   const [verified, setVerified] = useState(false);
   const [loading, setLoading] = useState(true);
   const params = useParams();
   console.log('id:', params.id);
-  //   const location = useLocation();
-  //   console.log({ location });
 
   useEffect(() => {
     async function checkToken() {
       try {
-        const response = await fetch(
-          import.meta.env.VITE_BACKENDURL + '/api/auth/check/review',
-          {
-            credentials: 'include',
-          }
-        );
+        const response = await fetch(`${API_URL}/api/auth/check/review`, {
+          credentials: 'include',
+        });
         if (response.ok) {
           setVerified(true);
         }

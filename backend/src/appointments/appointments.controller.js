@@ -212,30 +212,30 @@ export async function confirmAppointment(req, res) {
               //! #####################################################################################
               //! EMAIL SENDEN AKTIVIEREN / DEAKTIVIEREN ##############################################
 
-              if (confirmed) {
-                // //# confirmation mail to patient -----------------------------------------
-                sendEmail(
-                  confirmAppointmentTemplate(
-                    patientEmail,
-                    patientName,
-                    name,
-                    date,
-                    time_slot
-                  )
-                );
-              } else {
-                //# decline mail to patient -----------------------------------------
-                sendEmail(
-                  declineAppointmentTemplate(
-                    patientEmail,
-                    patientName,
-                    email,
-                    name,
-                    date,
-                    time_slot
-                  )
-                );
-              }
+              // if (confirmed) {
+              //   // //# confirmation mail to patient -----------------------------------------
+              //   sendEmail(
+              //     confirmAppointmentTemplate(
+              //       patientEmail,
+              //       patientName,
+              //       name,
+              //       date,
+              //       time_slot
+              //     )
+              //   );
+              // } else {
+              //   //# decline mail to patient -----------------------------------------
+              //   sendEmail(
+              //     declineAppointmentTemplate(
+              //       patientEmail,
+              //       patientName,
+              //       email,
+              //       name,
+              //       date,
+              //       time_slot
+              //     )
+              //   );
+              // }
 
               res
                 .status(201)

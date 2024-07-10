@@ -3,8 +3,10 @@ import PatientForm from '../Appointment/PatientForm';
 import authFetch from '../../utils/authFetch.js';
 import { dateOptions as options } from '../../utils/options.js';
 import { useGlobalState } from '../../utils/useGlobalState.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
+  const API_URL = getApiUrl();
   // console.log({ appt });
   let date = new Date(appt?.date);
   let status = appt?.confirmed;
@@ -29,9 +31,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
     console.log('action an server:', action);
     if (action !== null) {
       const res = await authFetch(
-        `${
-          import.meta.env.VITE_BACKENDURL
-        }/api/appointments/confirm?id=${id}&action=${action}`,
+        `${API_URL}/api/appointments/confirm?id=${id}&action=${action}`,
         {
           method: 'PUT',
           headers: {
@@ -61,16 +61,13 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
   }
 
   async function setAppointmentDone() {
-    const res = await authFetch(
-      `${import.meta.env.VITE_BACKENDURL}/api/review/enable`,
-      {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(appt),
-      }
-    );
+    const res = await authFetch(`${API_URL}/api/review/enable`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(appt),
+    });
     const response = await res.json();
 
     if (res.ok) {

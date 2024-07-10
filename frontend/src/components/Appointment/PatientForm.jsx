@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Textarea from '../global/Textarea';
 import months from '../../utils/months.js';
+import getApiUrl from '../../utils/getApiUrl.js';
 
 function PatientForm({
   selectedDate,
@@ -14,6 +15,7 @@ function PatientForm({
   setSelectedDate,
   setSelectedItem,
 }) {
+  const API_URL = getApiUrl();
   const index = selectedDate?.index;
   const date = selectedDate?.date;
   const timeString = selectedTime ? selectedTime : '';
@@ -99,13 +101,10 @@ function PatientForm({
       // }
 
       try {
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKENDURL}/api/appointments/request`,
-          {
-            method: 'POST',
-            body: form,
-          }
-        );
+        const res = await fetch(`${API_URL}/api/appointments/request`, {
+          method: 'POST',
+          body: form,
+        });
         if (res.ok) {
           setApptSent(true);
           // console.log('termin request wurde an den server geschickt');
@@ -179,6 +178,7 @@ function PatientForm({
                       name='gender'
                       id='diverse'
                       value='diverse'
+                      defaultChecked
                     />
                     Diverse
                   </label>
