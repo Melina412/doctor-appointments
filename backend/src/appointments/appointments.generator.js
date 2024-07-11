@@ -1,10 +1,8 @@
 export function generateCalendarDays(startDate) {
   const startYear = startDate.getFullYear();
   const startMonth = startDate.getMonth();
-  const startDay = startDate.getDate();
   const today = new Date();
 
-  // console.log({ startDay });
   // console.log({ startMonth }); // index!
   // console.log({ today });
   // console.log({ startDate });

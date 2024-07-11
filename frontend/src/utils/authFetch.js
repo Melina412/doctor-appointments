@@ -5,7 +5,7 @@ async function authFetch(url, options = {}) {
   });
 
   if (response.status === 401) {
-    console.log('access token check failed, trying to refresh...');
+    // console.log('access token check failed, trying to refresh...');
     const refresh = await fetch(
       import.meta.env.VITE_BACKENDURL + '/api/auth/refresh',
       {
@@ -14,13 +14,13 @@ async function authFetch(url, options = {}) {
     );
 
     if (refresh.ok) {
-      console.log('token refreshed successfully, retrying original request...');
+      // console.log('token refreshed successfully, retrying original request...');
       return fetch(url, {
         ...options,
         credentials: 'include',
       });
     } else {
-      console.log('❌ refresh failed:', refresh.statusText);
+      // console.log('❌ refresh failed:', refresh.statusText);
       return response; // original response error
     }
   }

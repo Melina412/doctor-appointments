@@ -1,8 +1,8 @@
 function Fallback({ error, resetErrorBoundary }) {
   return (
-    <div role='alert'>
+    <div className='error-boundary' role='alert'>
       <p>Something went wrong:</p>
-      <pre style={{ color: 'red' }}>{error.message}</pre>
+      <pre>{error.message}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>
       <p>or</p>
 
@@ -12,3 +12,5 @@ function Fallback({ error, resetErrorBoundary }) {
 }
 
 export default Fallback;
+
+// funktioniert nicht mit <Link> von react-router-dom

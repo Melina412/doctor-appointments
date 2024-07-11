@@ -18,12 +18,12 @@ function PatientForm({
   const API_URL = getApiUrl();
   const index = selectedDate?.index;
   const date = selectedDate?.date;
+  const year = selectedDate?.year;
   const timeString = selectedTime ? selectedTime : '';
 
-  let appointmentDate = new Date(2024, index, parseInt(date));
+  let appointmentDate = new Date(year, index, parseInt(date));
 
   const format = JSON.parse(localStorage.getItem('hour12Format'));
-  console.log({ format });
 
   const defaultMonth = new Date().getMonth();
   const defaultYear = new Date().getFullYear();
@@ -33,61 +33,43 @@ function PatientForm({
       const [time, period] = timeString?.split(' ');
       const [hours, minutes] = time.split(':').map((part) => parseInt(part));
       const convertedHours = period === 'AM' ? hours % 12 : (hours % 12) + 12;
-      console.log('converted time hh:mm', convertedHours, minutes);
-      console.log(
-        { time },
-        { period },
-        { hours },
-        { minutes },
-        { convertedHours }
-      );
+
+      // console.log('converted time hh:mm', convertedHours, minutes);
+      // console.log({ time }, { period }, { hours }, { minutes }, { convertedHours });
 
       appointmentDate.setHours(convertedHours, minutes);
       setSelectedTime(time);
     } else {
-      console.log('hours wurden nicht konvertiert');
+      // console.log('hours wurden nicht konvertiert');
       const [hours, minutes] = timeString
         ?.split(':')
         .map((part) => parseInt(part));
       appointmentDate.setHours(hours, minutes);
       let newhours = appointmentDate.getHours();
       let newminutes = appointmentDate.getMinutes();
-      console.log(
-        { appointmentDate },
-        { timeString },
-        { newhours },
-        { newminutes }
-      );
+      // console.log({ appointmentDate }, { timeString }, { newhours }, { newminutes });
     }
-
+    // console.log('converted appointmentDate: ', { appointmentDate });
     return appointmentDate;
   }
-
-  // useEffect(() => {
-  //   resetTimeFormat();
-  //   let returnValue = resetTimeFormat();
-  //   console.log({ returnValue });
-  // }, [selectedTime, selectedDate]);
 
   let fictionaryDate = new Date(2024, index, parseInt(date));
   fictionaryDate.setHours(14, 30);
   // console.log({ fictionaryDate });
 
-  // const [apptSent, setApptSent] = useState(false);
-
   const [selectedGender, setSelectedGender] = useState('diverse');
   const [selectedAge, setSelectedAge] = useState(false);
 
   // console.log({ index }, { date });
-
   // console.log({ timeString });
   // console.log({ selectedTime });
-  // console.log({ appointmentDate }); // das ist jetzt hier nicht mehr aktuell weil die reset funktion erst beim req an den server aufgerufen wird
+  // console.log('appointmentDate before conversion: ', { appointmentDate }); // das ist jetzt hier nicht mehr aktuell weil die reset funktion erst beim req an den server aufgerufen wird
+  // console.log({ format });
 
   async function requestAppointment(e) {
     e.preventDefault();
     let convertedDate = resetTimeFormat();
-    console.log('date an server:', { convertedDate });
+    // console.log('date an server:', { convertedDate });
 
     if (timeString !== '' && convertedDate !== 'Invalid Date') {
       const form = new FormData(e.target);
@@ -178,7 +160,7 @@ function PatientForm({
                       name='gender'
                       id='diverse'
                       value='diverse'
-                      defaultSelected
+                      defaultChecked
                     />
                     Diverse
                   </label>

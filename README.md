@@ -288,6 +288,7 @@ One day after an appointment patients will receive a chance to review their expe
 <br/> [✅] automatic token refresh on all authorized request routes (authFetch)
 <br/> [✅] global state setting without having to use context (setGlobalState)
 <br/> [✅] dynamic api url to test in iOS without manually setting the url
+<br/> [✅] DELETE CONSOLE LOGS 👾
 <br/> [❌] link patients/ & rating to doctors
 <br/> [❌] archive past appointments (also to count patient number)
 <br/> [❌] more feedback for user actions

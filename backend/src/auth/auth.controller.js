@@ -48,11 +48,11 @@ export async function register(req, res) {
 
 export async function login(req, res) {
   const { email } = req.body;
-  console.log({ email });
+  // console.log({ email });
 
   try {
     const user = await Doctor.findOne({ email });
-    console.log({ user });
+    // console.log({ user });
     if (!user) return res.status(401).json({ message: 'login failed' }).end();
 
     if (user.password !== createHash(req.body.password, user.salt))
@@ -72,8 +72,8 @@ export async function login(req, res) {
     //# cookie -----------------------------------------------------------
     res.cookie('r_doctorauth', refreshToken, {
       httpOnly: true,
-      // secure: true,
-      // sameSite: 'None',
+      secure: true,
+      sameSite: 'None',
     });
 
     res.json({
@@ -150,13 +150,13 @@ export async function getUserinfo(req, res) {
 
 export async function refreshToken(req, res) {
   const { email } = req.payload;
-  console.log({ email }, 'refresh token payload');
+  // console.log({ email }, 'refresh token payload');
 
   try {
     const user = await Doctor.findOne({ email });
     // console.log({ user });
     if (!user) {
-      console.log('user not found during refresh');
+      // console.log('user not found during refresh');
       return res.status(401).json({ message: 'user not found' }).end();
     }
 

@@ -6,7 +6,7 @@ function VerifyCode() {
   const API_URL = getApiUrl();
   const params = useParams();
   let path = params.id;
-  console.log({ path });
+  // console.log({ path });
 
   const codeRef = useRef(null);
   let codeInput = '';
@@ -27,7 +27,7 @@ function VerifyCode() {
       });
       const response = await res.json();
       if (res.ok) {
-        console.log(response.message);
+        // console.log(response.message);
         navigate(`/review/${path}`);
       } else {
         console.error(response.message);
@@ -41,7 +41,7 @@ function VerifyCode() {
   const handleSubmit = (e) => {
     e.preventDefault();
     codeInput = codeRef.current.value;
-    console.log({ codeInput });
+    // console.log({ codeInput });
     codeRef.current.value = '';
 
     verifyCode();

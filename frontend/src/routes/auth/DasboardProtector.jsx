@@ -2,28 +2,27 @@ import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import getApiUrl from '../../utils/getApiUrl';
 
-function DashboardProtector({ setLogin }) {
+function DashboardProtector() {
   const API_URL = getApiUrl();
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // const { loginData, setLoginData } = useContext(LoginContext);
   // console.log({ authorized });
   // console.log({ loading });
 
   //$ refreshToken() ---------------------------------------------------
 
   async function refreshToken() {
-    console.log('attempting to refresh token...');
+    // console.log('attempting to refresh token...');
 
     const response = await fetch(`${API_URL}/api/auth/refresh`, {
       credentials: 'include',
     });
     if (response.ok) {
-      console.log('✅ token refreshed successfully!');
+      // console.log('✅ token refreshed successfully!');
       setAuthorized(true);
     } else {
-      console.log('❌ refresh failed:', response.statusText);
+      // console.log('❌ refresh failed:', response.statusText);
       setAuthorized(false);
     }
     setLoading(false);
@@ -40,7 +39,7 @@ function DashboardProtector({ setLogin }) {
 
         if (!response.ok) {
           // falls check einen neg res bekommt, wird refresh direkt versucht
-          console.log('access token check failed, trying to refresh...');
+          // console.log('access token check failed, trying to refresh...');
           await refreshToken();
         } else {
           // wenn es einen pos res gibt, wird das das expDate verglichen.
@@ -51,11 +50,11 @@ function DashboardProtector({ setLogin }) {
           // console.log(now);
           // console.log(expDate);
           if (exp && expDate < now) {
-            console.log('access token expired, refreshing...');
+            // console.log('access token expired, refreshing...');
             setLoading(true);
             await refreshToken();
           } else {
-            console.log('access token is valid');
+            // console.log('access token is valid');
             setAuthorized(true);
           }
         }
@@ -71,7 +70,6 @@ function DashboardProtector({ setLogin }) {
   // -----------------------------------------------------------------------
 
   if (!authorized && !loading) {
-    // localStorage.setItem('doctor-login', false);
     return <Navigate to={'/login'} />;
   }
   if (loading) {
@@ -83,7 +81,7 @@ function DashboardProtector({ setLogin }) {
       </main>
     );
   }
-  // if (authorized && !loading) return <Outlet />;
+
   return <Outlet />;
 }
 

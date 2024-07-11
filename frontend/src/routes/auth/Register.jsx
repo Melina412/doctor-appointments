@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../scss/LoginRegister.scss';
 import getApiUrl from '../../utils/getApiUrl';
@@ -16,7 +16,6 @@ function Register() {
       email: userRef.current.value,
       password: passwordRef.current.value,
     };
-
     // console.log({ newUser });
 
     try {
@@ -36,7 +35,7 @@ function Register() {
         passwordRef.current.value = '';
         setRegister(true);
         navigate('/login', { state: { feedback: response.user_feedback } });
-        console.log(response.message);
+        // console.log(response.message);
       } else if (res.status === 400) {
         console.error(response.message);
       }

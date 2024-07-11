@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getApiUrl from '../utils/getApiUrl';
 import '../scss/Review.scss';
@@ -22,19 +22,19 @@ function Review() {
     });
     const response = await res.json();
     if (res.ok) {
-      console.log(response.message);
+      // console.log(response.message);
       setTimeout(() => {
-        console.log('redirecting to home...');
+        // console.log('redirecting to home...');
         navigate('/');
       }, 5000);
     }
   }
 
   const handleRating = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setRating(Number(e.target.value));
   };
-  console.log({ rating });
+  // console.log({ rating });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,9 +89,7 @@ function Review() {
                 />
               </div>
             </div>
-            <button type='submit' onSubmit={() => console.log('submit ok')}>
-              Submit
-            </button>
+            <button type='submit'>Submit</button>
           </form>
         </section>
       ) : (

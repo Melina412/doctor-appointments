@@ -1,5 +1,5 @@
 function getSelectedDays(profileData) {
-  console.log('getSelectedDays wurde aufgerufen');
+  // console.log('getSelectedDays wurde aufgerufen');
   return {
     Monday: {
       checked: profileData?.visiting_hours?.Mon ? true : false,

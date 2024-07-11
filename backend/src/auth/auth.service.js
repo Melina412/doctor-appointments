@@ -14,7 +14,7 @@ export function verifyToken(token) {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
-    console.log('verifyToken failed:', error.message);
+    // console.log('verifyToken failed:', error.message);
     throw error;
   }
 }
@@ -37,13 +37,13 @@ export function createSecret(digits) {
   // diese funktion kann auch für den review link benutzt werden!
   // eig. ist create hash auch schon das gleiche
 
-  console.log({ secret });
+  // console.log({ secret });
   return secret;
 }
 
 export function createNumericalCode(digits) {
   const bytes = randomBytes(Math.ceil(digits / 2));
   const code = parseInt(bytes.toString('hex'), 16).toString().slice(0, digits);
-  console.log({ code });
+  // console.log({ code });
   return code;
 }

@@ -1,5 +1,4 @@
 import express from 'express';
-// import { checkToken } from '../middleware/auth.middleware.js';
 import { enableReview, addReview } from './reviews.controller.js';
 import { checkReviewToken, checkToken } from '../middleware/auth.middleware.js';
 

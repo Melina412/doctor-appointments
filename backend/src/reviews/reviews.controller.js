@@ -8,16 +8,16 @@ import { createNumericalCode, createSecret } from '../auth/auth.service.js';
 import 'dotenv/config';
 
 export async function enableReview(req, res) {
-  console.log('req.body:', req.body);
+  // console.log('req.body:', req.body);
   const { date, patient, _id } = req.body;
   const { email, full_name } = patient;
 
-  console.log({ date, patient, _id }, { email, full_name });
-  console.log('req.body.patient._id', req.body.patient._id);
+  // console.log({ date, patient, _id }, { email, full_name });
+  // console.log('req.body.patient._id', req.body.patient._id);
   try {
     const doctor = await Doctor.findById(req.body.doctor).exec();
     if (doctor) {
-      console.log('doctor:', doctor.name);
+      // console.log('doctor:', doctor.name);
       const doctorName = doctor.name;
 
       //# code generieren
@@ -32,10 +32,10 @@ export async function enableReview(req, res) {
       const emailDate = new Date(
         appointmentDate.getTime() + 24 * 60 * 60 * 1000
       );
-      console.log({ appointmentDate });
-      console.log({ emailDate });
       const now = Date();
-      console.log({ now });
+      // console.log({ appointmentDate });
+      // console.log({ emailDate });
+      // console.log({ now });
 
       //# cron job schedulen
 
@@ -48,9 +48,9 @@ export async function enableReview(req, res) {
       // );
       //   scheduleCronJob(cronTime, action);
 
-      console.log({ cronTime });
+      // console.log({ cronTime });
       const dt = sendAt(cronTime);
-      console.log(`cron job scheduled time: ${dt.toISO()}`);
+      // console.log(`cron job scheduled time: ${dt.toISO()}`);
       // die cronTime gibt einfach die Zeit an wie man sie eingibt unabhängig von zeitzone/offset. welche zeitzone man meint muss man dann im cron job angeben
 
       const job = new CronJob(
@@ -66,13 +66,13 @@ export async function enableReview(req, res) {
               link
             )
           );
-          console.log('cron job successfully executed!');
+          // console.log('cron job successfully executed!');
         },
         null,
         true,
         'GMT'
       );
-      console.log('is job running? ', job.running);
+      // console.log('is job running? ', job.running);
 
       //# termin in der db auf done setzen
       if (_id) {
@@ -128,8 +128,8 @@ export async function enableReview(req, res) {
 export async function addReview(req, res) {
   const { rating, comment } = req.body;
   const reviewId = req.payload.review;
-  console.log('req.body:', req.body);
-  console.log('req.payload:', req.payload);
+  // console.log('req.body:', req.body);
+  // console.log('req.payload:', req.payload);
 
   const query = {
     rating: rating,
@@ -153,7 +153,7 @@ export async function addReview(req, res) {
     );
     if (updateResult.modifiedCount > 0) {
       const updatedRewiew = await Review.findById(reviewId).exec();
-      console.log({ updatedRewiew });
+      // console.log({ updatedRewiew });
 
       res.clearCookie('rev_doctorauth');
       res.json({
@@ -161,7 +161,7 @@ export async function addReview(req, res) {
         message: 'review added to db',
       });
     } else {
-      console.log('review update failed');
+      console.error('review update failed');
     }
   } catch (error) {
     console.log(error);

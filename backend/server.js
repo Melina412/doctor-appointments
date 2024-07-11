@@ -6,8 +6,8 @@ import { connect } from './src/config/storage.config.js';
 //   res.json({ message: `express server auf port ${process.env.PORT} ✅` });
 // });
 
-const nodeenv = process.env.NODE_ENV;
-console.log({ nodeenv });
+const NODE_ENV = process.env.NODE_ENV;
+console.log({ NODE_ENV });
 
 const FRONTEND_INDEX = new URL('../frontend/dist/index.html', import.meta.url)
   .pathname;

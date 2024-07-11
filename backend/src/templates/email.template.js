@@ -69,12 +69,12 @@ export const declineAppointmentTemplate = (
   date,
   timeslot
 ) => {
-  console.log(
-    'confirmAppointmentTemplate date:',
-    date,
-    'with locales:',
-    date.toLocaleDateString(locales, options)
-  );
+  // console.log(
+  //   'confirmAppointmentTemplate date:',
+  //   date,
+  //   'with locales:',
+  //   date.toLocaleDateString(locales, options)
+  // );
   return {
     from: '"doc appointments admin" <admin@doctorappointments.com>',
     to: patientemail,

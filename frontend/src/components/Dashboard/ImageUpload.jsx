@@ -12,16 +12,18 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
-  async function uploadAvatar() {
+  async function uploadAvatar(e) {
+    e.preventDefault();
+
     handleAvatarBtn();
     const form = new FormData();
-    console.log(form.current);
+    // console.log(form.current);
 
     if (editorRef.current) {
       const canvas = editorRef.current.getImage();
       canvas.toBlob(async (blob) => {
         form.append('avatar', blob, 'avatar.png');
-        console.log(form);
+        // console.log(form);
 
         try {
           const res = await authFetch(`${API_URL}/api/user/image`, {
@@ -33,7 +35,7 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
           if (res.ok) {
             setEditAvatar(false);
             getProfileData();
-            console.log(response.message);
+            // console.log(response.message);
           } else if (res.status === 404) {
             console.error(response.message);
           }
@@ -55,6 +57,7 @@ function ImageUpload({ getProfileData, setEditAvatar, handleAvatarBtn }) {
           onChange={handleImageChange}
           name='avatar'
           id='avatar'
+          accept='image/*'
         />
 
         {image && (

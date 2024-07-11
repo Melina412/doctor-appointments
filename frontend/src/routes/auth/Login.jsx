@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import '../../scss/LoginRegister.scss';
 import getApiUrl from '../../utils/getApiUrl';
@@ -12,15 +12,14 @@ function Login({ setLogin, getLoginData }) {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state || {};
-  console.log({ location });
-  console.log({ state });
+  // console.log({ location });
+  // console.log({ state });
 
   async function userLogin() {
     const user = {
       email: userRef.current.value,
       password: passwordRef.current.value,
     };
-
     // console.log({ user });
 
     try {
