@@ -1,3 +1,5 @@
+@import './partials/variables';
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -25,17 +27,39 @@ body {
   }
   scrollbar-width: none;
   -ms-overflow-style: none;
-  //! Einstellungen nur für viewport, später ggf. löschen!
-  // width: 430px; // iPhone 15 MAX
-  // width: 390px; // iPhone 12, 13, 14
-  // border: 1px solid gray;
-  // margin: 0 auto;
+  // irgendwie wird die jetzt trotzdem wieder angezeigt?!
 }
 
 section {
   margin-bottom: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+div.error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 20vh;
+  p,
+  a {
+    font-size: 1.2rem;
+  }
+  pre {
+    color: $error;
+    font-size: 1.8rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+div.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 20vh;
 }
 
 /* darkmode system preference css option (wenn man das mit js macht brauche ich das nicht mehr??) */
@@ -47,6 +71,8 @@ section {
 // @media (prefers-color-scheme: dark) {
 // ...
 // }
+
+//***** media queries *****//
 
 //$ small tablets
 @media screen and (min-width: 576px) {
@@ -75,6 +101,17 @@ section {
       max-width: 576px;
       margin: 0 auto;
     }
+    section.my-appointments
+      section
+      div.item-group
+      div.appt-item
+      div.patient-info
+      dialog.modal {
+      max-width: 65rem;
+    }
+  }
+  header div.header-flex div.right dialog.modal {
+    max-width: 50rem;
   }
 }
 

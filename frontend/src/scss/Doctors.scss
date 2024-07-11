@@ -3,76 +3,77 @@
 @import './partials/fonts';
 @import './partials/classes';
 
-main.doctors {
-  header#doctors {
-    img {
-      cursor: pointer;
-    }
+header#doctors {
+  img {
+    cursor: pointer;
   }
+}
 
-  section.doctors-search {
-    div.searchbar {
-      width: 100%;
-      div.input-flex {
-        @include size(100%, 4rem);
-        background-color: $input-fill;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        border-radius: 5px;
-        outline: none;
+section.doctors-search {
+  div.searchbar {
+    width: 100%;
+    div.input-flex {
+      @include size(100%, 4rem);
+      background-color: $input-fill;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-radius: 5px;
+      outline: none;
 
-        &:focus-within {
-          outline: 2px auto -webkit-focus-ring-color;
-        }
-
-        div.search-icon {
-          padding: 0.3rem;
-        }
-        div.search-input {
-          padding: 0.5rem 0.3rem;
-          width: 90%;
-
-          input {
-            @include text-style($Roboto300, 1.5rem, $text-fill);
-            @include size(100%, 100%);
-            border: none;
-            background-color: transparent;
-            outline: none;
-
-            &:focus {
-              outline: none; // geht auch schon wenn es nur oben steht ??
-            }
-
-            &::placeholder {
-              @include text-style($Roboto100i, 1.5rem, $text-grey);
-            }
-          }
-        }
-        padding: 0 1rem;
+      &:focus-within {
+        outline: 2px auto -webkit-focus-ring-color;
       }
 
-      div.suggestions-list {
-        button.suggestion {
-          display: block;
-          cursor: pointer;
-          background-color: transparent;
+      div.search-icon {
+        padding: 0.3rem;
+      }
+      div.search-input {
+        padding: 0.5rem 0.3rem;
+        width: 90%;
+
+        input {
+          @include text-style($Roboto300, 1.5rem, $text-fill);
+          @include size(100%, 100%);
           border: none;
-          border-radius: 10px;
-          padding: 0.2rem 0.5rem;
-          transition: all;
+          background-color: transparent;
+          outline: none;
 
-          &:hover {
-            background-color: $blue;
-            color: white;
-            transition: background-color 0.5s ease-in-out;
-            transform: scale(1.2);
+          &:focus {
+            outline: none; // geht auch schon wenn es nur oben steht ??
           }
+
+          &::placeholder {
+            @include text-style($Roboto100i, 1.5rem, $text-grey);
+          }
+        }
+      }
+      padding: 0 1rem;
+    }
+
+    div.suggestions-list {
+      button.suggestion {
+        display: block;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        border-radius: 10px;
+        padding: 0.2rem 0.5rem;
+        transition: all;
+
+        &:hover {
+          background-color: $blue;
+          color: white;
+          transition: background-color 0.5s ease-in-out;
+          transform: scale(1.2);
         }
       }
     }
   }
+}
 
+// * main page ********************************************
+main.doctors {
   div.home-filter {
     @include text-style($Roboto300, 1.2rem, $text-grey);
     letter-spacing: 0.5px;

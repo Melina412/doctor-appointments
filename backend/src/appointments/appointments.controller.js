@@ -18,10 +18,10 @@ export async function getDaysPerMonth(req, res) {
   const monthIndex = req.query.index;
   const year = req.query.year;
 
-  console.log({ monthIndex }, { year });
+  // console.log({ monthIndex }, { year });
 
   const requestDate = new Date(year, monthIndex);
-  console.log({ requestDate });
+  // console.log({ requestDate });
 
   const monthOverview = generateCalendarDays(requestDate);
   // console.log({ monthOverview });
@@ -37,8 +37,10 @@ export async function getDaysPerMonth(req, res) {
 // $ getTimeSlots() -----------------------------------------------------------
 export async function getTimeSlots(req, res) {
   const doctor_id = req.query.doctor;
+
+  // das hab ich wieder entfernt, die slots sollen alle im 24h format generiert und gespeichert werden
   // const hour12 = req.query.hour12;
-  const hour12 = true;
+  const hour12 = false;
 
   try {
     const doctor = await Doctor.findById(doctor_id).lean().exec();
@@ -62,7 +64,7 @@ export async function getTimeSlots(req, res) {
       //# hier auch die appointments mitschicken!
       try {
         const doctorObjectId = new mongoose.Types.ObjectId(doctor_id);
-        console.log({ doctorObjectId });
+        // console.log({ doctorObjectId });
 
         const appointments = await Appointment.aggregate([
           { $match: { doctor: doctorObjectId } },
@@ -107,7 +109,7 @@ export async function getAppointments(req, res) {
 
 // $ requestAppointment() -----------------------------------------------------
 export async function requestAppointment(req, res) {
-  console.log('req body:', req.body);
+  // console.log('req body:', req.body);
 
   const {
     full_name,
@@ -144,10 +146,10 @@ export async function requestAppointment(req, res) {
         const result = await appointment.save();
         if (result) {
           const { email, name } = doctor;
-          console.log({ email, name });
+          // console.log({ email, name });
           //! #####################################################################################
           //! EMAIL SENDEN AKTIVIEREN / DEAKTIVIEREN ##############################################
-          // sendEmail(newAppointmentTemplate(email, name, full_name));
+          sendEmail(newAppointmentTemplate(email, name, full_name));
 
           res.status(201).json({
             success: true,
@@ -173,10 +175,10 @@ export async function requestAppointment(req, res) {
 // $ confirmAppointment() -----------------------------------------------------
 export async function confirmAppointment(req, res) {
   const { id, action } = req.query;
-  console.log({ id, action });
+  // console.log({ id, action });
   try {
     const appointment = await Appointment.findById(id).exec();
-    console.log('appointment found!');
+    // console.log('appointment found!');
     if (appointment) {
       // der doctor hat die möglichkeiten:
       // 1. accept - confirmed = true; der patient bekommt eine bestätigungsmail
@@ -188,7 +190,7 @@ export async function confirmAppointment(req, res) {
       } else if (action === 'decline') {
         updateValue = false;
       }
-      console.log({ updateValue });
+      // console.log({ updateValue });
 
       const updateResult = await Appointment.updateOne(
         { _id: id },
@@ -197,7 +199,7 @@ export async function confirmAppointment(req, res) {
       if (updateResult.modifiedCount > 0) {
         try {
           const updatedAppointment = await Appointment.findById(id).exec();
-          console.log('appointment updated in db! ---', updatedAppointment);
+          // console.log('appointment updated in db! ---', updatedAppointment);
 
           const { confirmed, date, time_slot } = updatedAppointment;
           const patientName = updatedAppointment.patient.full_name;
@@ -205,37 +207,37 @@ export async function confirmAppointment(req, res) {
           // console.log(confirmed, patientName, patientEmail);
           try {
             const doctor = await Doctor.findById(appointment.doctor).exec();
-            console.log('doctor:', doctor.name);
+            // console.log('doctor:', doctor.name);
             if (doctor) {
               const { email, name } = doctor;
 
               //! #####################################################################################
               //! EMAIL SENDEN AKTIVIEREN / DEAKTIVIEREN ##############################################
 
-              // if (confirmed) {
-              //   // //# confirmation mail to patient -----------------------------------------
-              //   sendEmail(
-              //     confirmAppointmentTemplate(
-              //       patientEmail,
-              //       patientName,
-              //       name,
-              //       date,
-              //       time_slot
-              //     )
-              //   );
-              // } else {
-              //   //# decline mail to patient -----------------------------------------
-              //   sendEmail(
-              //     declineAppointmentTemplate(
-              //       patientEmail,
-              //       patientName,
-              //       email,
-              //       name,
-              //       date,
-              //       time_slot
-              //     )
-              //   );
-              // }
+              if (confirmed) {
+                // //# confirmation mail to patient -----------------------------------------
+                sendEmail(
+                  confirmAppointmentTemplate(
+                    patientEmail,
+                    patientName,
+                    name,
+                    date,
+                    time_slot
+                  )
+                );
+              } else {
+                //# decline mail to patient -----------------------------------------
+                sendEmail(
+                  declineAppointmentTemplate(
+                    patientEmail,
+                    patientName,
+                    email,
+                    name,
+                    date,
+                    time_slot
+                  )
+                );
+              }
 
               res
                 .status(201)

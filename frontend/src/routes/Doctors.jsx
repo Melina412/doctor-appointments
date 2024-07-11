@@ -3,7 +3,7 @@ import DoctorsList from '../components/Doctors/DoctorsList';
 import DoctorsSearch from '../components/Doctors/DoctorsSearch';
 import '../scss/Doctors.scss';
 
-function Doctors({ doctors, setDoctors, specialties }) {
+function Doctors({ doctors, specialties }) {
   const [filteredOutput, setFilteredOutput] = useState(doctors);
   const [value, updateValue] = useState(true);
   const homeSpecialty = sessionStorage.getItem('doctorSpecialty');
@@ -31,25 +31,27 @@ function Doctors({ doctors, setDoctors, specialties }) {
   // console.log({ value });
 
   return (
-    <main className='doctors'>
+    <>
       <DoctorsSearch
         doctors={doctors}
         specialties={specialties}
         setFilteredOutput={setFilteredOutput}
         filteredOutput={filteredOutput}
       />
-      {homeSpecialty !== 'all' && homeSpecialty !== null && (
-        <>
-          <div className='home-filter'>
-            <button onClick={handleClick}>✕</button>
-            <p>
-              filter: <span>{homeSpecialty}</span>
-            </p>
-          </div>
-        </>
-      )}
-      <DoctorsList doctors={filteredOutput} />
-    </main>
+      <main className='doctors'>
+        {homeSpecialty !== 'all' && homeSpecialty !== null && (
+          <>
+            <div className='home-filter'>
+              <button onClick={handleClick}>✕</button>
+              <p>
+                filter: <span>{homeSpecialty}</span>
+              </p>
+            </div>
+          </>
+        )}
+        <DoctorsList doctors={filteredOutput} />
+      </main>
+    </>
   );
 }
 

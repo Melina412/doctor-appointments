@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-// import { createBrowserHistory } from 'history';
 
 import Landingpage from './routes/Landingpage';
 import Doctors from './routes/Doctors';
@@ -70,15 +69,13 @@ function App() {
       if (res.ok) {
         setLogin(true);
         setLoginData(response);
-        // setLocalStorageLogin(true);
       } else {
-        // localStorage.setItem('doctor-login', false);
         setLoginData(null);
-        if (res.status === 204) console.log('no user data available');
+        // if (res.status === 204) console.log('no user data available');
       }
     } catch (error) {
       setLoginData(null);
-      console.log('token expired', error);
+      // console.log('token expired', error);
     }
   }
 
@@ -97,13 +94,9 @@ function App() {
       // console.log(response);
 
       if (res.ok) {
-        // localStorage.setItem('doctor-login', false);
-        // localLogin = localStorage.getItem('doctor-login');
-        // setLocalStorageLogin(localLogin);
         setLogin(false);
         getLoginData();
-
-        console.log(response.message);
+        // console.log(response.message);
       } else if (res.status === 401) {
         console.error(response.message);
       }
@@ -115,7 +108,7 @@ function App() {
   //$ dark mode settings -------------------------------------------------
 
   // handling dark mode via user os settings with window object
-  // das wurde noch nich implementiert weil der style noch komplett fehlt
+  //todo: style für dark mode fehlt noch
   if (
     window.matchMedia &&
     window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -128,8 +121,8 @@ function App() {
 
   //$ console logs -------------------------------------------------------
 
-  console.log({ login });
-  console.log({ loginData });
+  // console.log({ login });
+  // console.log({ loginData });
   // console.log({ localLogin });
   // console.log({ localStorageLogin });
   // console.log({ doctors });
@@ -140,7 +133,7 @@ function App() {
   // console.log('NODE_ENV', process.env.NODE_ENV);
 
   let viteenvs = import.meta.env;
-  console.log(viteenvs);
+  // console.log(viteenvs);
 
   return (
     <>

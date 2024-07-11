@@ -9,18 +9,14 @@ function SpecialtyList({ doctors, specialties, setSpecialties }) {
     // .flatMap((str) => str.split(' ')); // wäre sinnvoll wenn die strings aus mehr als einem wort bestehen
 
     const uniqueSpecialties = _.uniq(allSpecialties);
-    // uniqueSpecialties.forEach((specialty) => {
-    //   if (specialty === undefined || null) {
-    //     uniqueSpecialties.delete(specialty);
-    //   }
-    // });
+
     setSpecialties(uniqueSpecialties);
-    console.log({ uniqueSpecialties });
     setNumbers(_.countBy(allSpecialties));
-    console.log({ numbers });
+    // console.log({ uniqueSpecialties });
+    // console.log({ numbers });
   }, [doctors]);
 
-  console.log({ specialties });
+  // console.log({ specialties });
   return (
     <section className='specialty-list'>
       <h2>Specialty 😷</h2>

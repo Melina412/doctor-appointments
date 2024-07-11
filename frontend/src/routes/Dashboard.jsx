@@ -14,9 +14,6 @@ function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
   const [profileData, setProfileData] = useState(null);
   const [editAvatar, setEditAvatar] = useState(false);
   const [gridStyle, setGridStyle] = useState('closed');
-  // const [newUser, setNewUser] = useState(profileData?.name ? false : true);
-  // console.log({ newUser });
-
   const navigate = useNavigate();
 
   //$ getProfileData() ----------------------------------------------------
@@ -40,6 +37,10 @@ function Dashboard({ setLogin, getLoginData, fetchDoctors }) {
   useEffect(() => {
     getProfileData();
   }, []);
+
+  //? das war wegen dem falsch angezeigten username auf der landingpage nach register, aber hab noch keine lösung gefunden
+  // const [newUser, setNewUser] = useState(profileData?.name ? false : true);
+  // console.log({ newUser });
 
   // useEffect(() => {
   //   if (newUser) {

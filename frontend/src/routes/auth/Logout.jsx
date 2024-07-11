@@ -16,13 +16,10 @@ function Logout({ setLogin, getLoginData, navigate }) {
       // console.log(response);
 
       if (res.ok) {
-        // localStorage.setItem('doctor-login', false);
-        // localLogin = localStorage.getItem('doctor-login');
-        // setLocalStorageLogin(localLogin);
         setLogin(false);
         getLoginData();
         navigate('/');
-        console.log(response.message);
+        // console.log(response.message);
       } else if (res.status === 401) {
         console.error(response.message);
       }

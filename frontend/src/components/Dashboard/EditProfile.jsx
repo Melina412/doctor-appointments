@@ -19,13 +19,11 @@ function EditProfile({
   const [selectedDays, setSelectedDays] = useState(
     profileData ? getSelectedDays(profileData) : null
   );
-  // console.log({ selectedDays });
 
   // visiting hours default values
   const [defaultHours, setDefaultHours] = useState({
     visiting_hours: profileData?.visiting_hours,
   });
-  //   console.log({ defaultHours });
 
   useEffect(() => {
     const updateDefaultHours = () => {
@@ -64,7 +62,7 @@ function EditProfile({
       const response = await res.json();
 
       if (res.ok) {
-        console.log(response.message);
+        // console.log(response.message);
         setEditMode(false);
         await getProfileData();
         getLoginData();
@@ -76,6 +74,9 @@ function EditProfile({
       console.log(error);
     }
   }
+
+  // console.log({ selectedDays });
+  //   console.log({ defaultHours });
 
   return (
     <section className='edit-profile'>

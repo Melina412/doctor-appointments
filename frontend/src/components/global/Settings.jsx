@@ -1,5 +1,4 @@
 import '../../scss/Settings.scss';
-import { useState } from 'react';
 import { dateOptions as options } from '../../utils/options.js';
 import { useGlobalState } from '../../utils/useGlobalState.js';
 
@@ -16,7 +15,7 @@ function Settings() {
     setLocale(e.target.value);
     localStorage.setItem('locale', e.target.value);
   };
-  console.log({ locale });
+  // console.log({ locale });
 
   return (
     <>

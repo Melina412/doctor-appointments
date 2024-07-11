@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '../scss/Appointment.scss';
 import TimeSlots from '../components/Appointment/TimeSlots';
 import PatientForm from '../components/Appointment/PatientForm';

@@ -7,7 +7,6 @@ import getApiUrl from '../../utils/getApiUrl.js';
 
 function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
   const API_URL = getApiUrl();
-  // console.log({ appt });
   let date = new Date(appt?.date);
   let status = appt?.confirmed;
   let patient = appt?.patient;
@@ -28,7 +27,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
     localStorage.getItem('locale') || 'de-DE'
   );
   async function updateAppointmentStatus() {
-    console.log('action an server:', action);
+    // console.log('action an server:', action);
     if (action !== null) {
       const res = await authFetch(
         `${API_URL}/api/appointments/confirm?id=${id}&action=${action}`,
@@ -42,7 +41,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
       const response = await res.json();
 
       if (res.ok) {
-        console.log(response.message);
+        // console.log(response.message);
 
         setFeedbackMessage(response.message);
         setFeedback(true);
@@ -71,7 +70,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
     const response = await res.json();
 
     if (res.ok) {
-      console.log(response.message);
+      // console.log(response.message);
 
       setFeedbackMessage(response.message);
       setFeedback(true);
@@ -90,6 +89,7 @@ function AppointmentItem({ appt, allAppointments, getMyAppointments }) {
     setDone(true);
   };
 
+  // console.log({ appt });
   // console.log({ action });
   // console.log({ doneStatus });
   // console.log({ feedback });

@@ -1,6 +1,6 @@
 function getApiUrl() {
   const userAgent = navigator.userAgent;
-  console.log({ userAgent });
+  // console.log({ userAgent });
 
   let API_URL;
   if (import.meta.env.MODE === 'development') {
@@ -15,7 +15,7 @@ function getApiUrl() {
     API_URL = import.meta.env.VITE_PROD_URL;
   }
 
-  console.log({ API_URL });
+  // console.log({ API_URL });
   return API_URL;
 }
 

@@ -12,6 +12,6 @@ const transport = nodemailer.createTransport({
 
 export async function sendEmail(template = { from, to, subject, text, html }) {
   const result = await transport.sendMail(template);
-  console.log({ result });
+  // console.log({ result });
   return result;
 }

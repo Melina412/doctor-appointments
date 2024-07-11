@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useParams, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import getApiUrl from '../../utils/getApiUrl.js';
 
@@ -7,7 +7,7 @@ function ReviewProtector() {
   const [verified, setVerified] = useState(false);
   const [loading, setLoading] = useState(true);
   const params = useParams();
-  console.log('id:', params.id);
+  // console.log('id:', params.id);
 
   useEffect(() => {
     async function checkToken() {
@@ -20,7 +20,6 @@ function ReviewProtector() {
         }
       } catch (error) {
         console.log('error in checkToken', error);
-        // setVerified(false);
       }
       setLoading(false);
     }
