@@ -41,9 +41,7 @@ function PatientForm({
       setSelectedTime(time);
     } else {
       // console.log('hours wurden nicht konvertiert');
-      const [hours, minutes] = timeString
-        ?.split(':')
-        .map((part) => parseInt(part));
+      const [hours, minutes] = timeString?.split(':').map((part) => parseInt(part));
       appointmentDate.setHours(hours, minutes);
       let newhours = appointmentDate.getHours();
       let newminutes = appointmentDate.getMinutes();
@@ -151,9 +149,7 @@ function PatientForm({
 
                 <legend htmlFor='gender'>Gender</legend>
                 <div className='radio-container'>
-                  <label
-                    className={selectedGender === 'diverse' ? 'selected' : ''}
-                    htmlFor='diverse'>
+                  <label className={selectedGender === 'diverse' ? 'selected' : ''} htmlFor='diverse'>
                     <input
                       onChange={(e) => setSelectedGender(e.target.value)}
                       type='radio'
@@ -164,9 +160,7 @@ function PatientForm({
                     />
                     Diverse
                   </label>
-                  <label
-                    className={selectedGender === 'female' ? 'selected' : ''}
-                    htmlFor='female'>
+                  <label className={selectedGender === 'female' ? 'selected' : ''} htmlFor='female'>
                     <input
                       onChange={(e) => setSelectedGender(e.target.value)}
                       type='radio'
@@ -176,9 +170,7 @@ function PatientForm({
                     />
                     Female
                   </label>
-                  <label
-                    className={selectedGender === 'male' ? 'selected' : ''}
-                    htmlFor='male'>
+                  <label className={selectedGender === 'male' ? 'selected' : ''} htmlFor='male'>
                     <input
                       onChange={(e) => setSelectedGender(e.target.value)}
                       type='radio'
@@ -194,13 +186,7 @@ function PatientForm({
                 <input type='email' name='email' id='email' />
 
                 <label htmlFor='problem'>Describe your problem</label>
-                <Textarea
-                  name='problem'
-                  id='problem'
-                  cols='20'
-                  rows='5'
-                  maxChars={200}
-                />
+                <Textarea name='problem' id='problem' cols='20' rows='5' maxChars={200} />
 
                 <button className='set' type='submit'>
                   Set Appointment
